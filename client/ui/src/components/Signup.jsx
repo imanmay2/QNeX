@@ -1,13 +1,92 @@
 import './css/signup.css';
-import { TiArrowLeftThick } from "react-icons/ti";
+import InputAdornment from '@mui/material/InputAdornment';
+import TextField from '@mui/material/TextField';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import * as React from 'react';
+import Button from '@mui/material/Button';
 
-function Signup(){
-    return(
-        <>
-        <div>
+
+import IconButton from '@mui/material/IconButton';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import FormControl from '@mui/material/FormControl';
+
+
+function Signup() {
+    const [showPassword, setShowPassword] = React.useState(false);
+
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+    const handleMouseDownPassword = (event) => {
+        event.preventDefault();
+    };
+
+    const handleMouseUpPassword = (event) => {
+        event.preventDefault();
+    };
+    return (
+        <div className='signup_div'>
+            <p className='montserrat_font leftMargin small'><font className="small">Already member?</font> <a href="#">Login</a></p>
+            <br />
+            <h2 className='montserrat_font'>Sign Up</h2>
+             <br />
+
+
+
+            {/* NAME */}
+            <TextField
+                id="input-with-icon-textfield"
+                label="Name" fullWidth
+                slotProps={{
+                    input: {
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                <AccountCircle />
+                            </InputAdornment>
+                        ),
+                    },
+                }}
+                variant="standard"
+            /> <br /> <br /> <br />
+
+
+            {/* EMAIL */}
+            <TextField id="standard-basic" label="Email" variant="standard" fullWidth />
+
+            <br /><br /> <br /> <br />
+
+            {/* PASSWORD */}
+            <FormControl sx={{ width: '61ch' }} variant="outlined">
+                <InputLabel htmlFor="outlined-adornment-password" className='width'>Password</InputLabel>
+                <OutlinedInput
+                    id="outlined-adornment-password"
+                    type={showPassword ? 'text' : 'password'}
+                    endAdornment={
+                        <InputAdornment position="end">
+                            <IconButton
+                                aria-label={
+                                    showPassword ? 'hide the password' : 'display the password'
+                                }
+                                onClick={handleClickShowPassword}
+                                onMouseDown={handleMouseDownPassword}
+                                onMouseUp={handleMouseUpPassword}
+                                edge="end"
+                            >
+                                {showPassword ? <VisibilityOff /> : <Visibility />}
+                            </IconButton>
+                        </InputAdornment>
+                    }
+                    label="Password"
+                /></FormControl> <br /> <br />
+
+            <center><Button variant="contained" className='colorBtn'>SignUp</Button> <br /> <br />
+            <p className="para montserrat_font small">Secure your Communication with QNeX</p></center>
         </div>
-        </>
+        
+        
     )
 }
 
-export {Signup};
+export { Signup };

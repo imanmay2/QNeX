@@ -1,0 +1,22 @@
+.signup_div{
+    border-right: 1px solid rgba(4, 71, 65, 0.191);
+    width:83%;
+    padding:3rem;
+    height:83%;
+}
+
+.leftMargin{
+    margin-left: 52vh;
+}
+
+.small{
+    font-size:x-small;
+}
+
+.para{
+    opacity: 0.3;
+}
+
+a{
+    text-decoration: none;
+}
