@@ -5,6 +5,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import * as React from 'react';
 import Button from '@mui/material/Button';
 
+import { FaArrowRight } from "react-icons/fa6";
 
 import IconButton from '@mui/material/IconButton';
 import OutlinedInput from '@mui/material/OutlinedInput';
@@ -81,11 +82,9 @@ function Signup() {
                     label="Password"
                 /></FormControl> <br /> <br />
 
-            <center><Button variant="contained" className='colorBtn'>SignUp</Button> <br /> <br />
+            <center><Button variant="contained" className='colorBtn'>SignUp &nbsp; <FaArrowRight/></Button> <br /> <br />
             <p className="para montserrat_font small">Secure your Communication with QNeX</p></center>
         </div>
-        
-        
     )
 }
 
