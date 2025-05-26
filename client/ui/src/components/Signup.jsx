@@ -6,7 +6,7 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import { useState } from 'react';
 import { FaArrowRight } from "react-icons/fa6";
-
+import axios from "axios";
 import IconButton from '@mui/material/IconButton';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
@@ -45,14 +45,20 @@ function Signup() {
         });
     }
 
-    let handleSubmit=(event)=>{
+    let handleSubmit=async (event)=>{
         event.preventDefault();
+        try{
+            const response=await axios.post("http://localhost:8080/saveUser",data);
+            console.log("Success",response.data);
+        } catch(err){
+            console.error(err);
+        }
         console.log(data);
-        setData({
-            Name:'',
-            Email:'',
-            Password:''
-        });
+        // setData({
+        //     Name:'',
+        //     Email:'',
+        //     Password:''
+        // });
     }
 
 
@@ -66,7 +72,6 @@ function Signup() {
 
 
             {/* NAME */}
-            
             <TextField
                 id="input-with-icon-textfield"
                 name="Name" onChange={handleInputChange} value={data.Name}
