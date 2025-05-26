@@ -1,0 +1,15 @@
+R_container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+.brand{
+    margin-top: 8em;
+    margin-left:5em;
+    color: rgb(10, 177, 102);
+    text-align: center;
+    text-decoration: underline;
+}
+

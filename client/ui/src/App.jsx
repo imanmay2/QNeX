@@ -2,6 +2,10 @@ import { useState } from 'react'
 import './App.css'
 import { useEffect } from 'react';
 import { Signup } from './components/signup';
+import { Right_Container } from './components/Right_Container';
+import { Login } from './components/Login';
+
+
 
 function App() {
   const [msg, setMsg] = useState("");
@@ -10,14 +14,13 @@ function App() {
     let response=await data.json();
     setMsg(response.message);
   }
-  
   return (
     <>
     <div>
-      <Signup/>
+      <Login/>
       </div>
-      <div className='rightContainer'>
-        
+      <div>
+        <Right_Container/>
       </div>
     </>
   )
