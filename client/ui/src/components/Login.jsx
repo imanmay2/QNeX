@@ -5,7 +5,7 @@ import TextField from '@mui/material/TextField';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import * as React from 'react';
 import Button from '@mui/material/Button';
-
+import { useState } from 'react';
 import { FaArrowRight } from "react-icons/fa6";
 
 import IconButton from '@mui/material/IconButton';
@@ -27,18 +27,39 @@ function Login(){
             event.preventDefault();
         };
 
+        let [data,setData]=useState({
+            Username:"",
+            Password:""
+        });
+
+        let handleInputChange=(event)=>{
+            setData((currData)=>{
+                return {...currData,[event.target.name]:event.target.value}
+            })
+        }
+
+        let handleSubmit=(event)=>{
+            event.preventDefault();
+            console.log(data);
+            setData({
+                Username:"",
+                Password:""
+            });
+        }
+
     return (
         <>
         <div className="login_div">
-            <p className='montserrat_font leftMargin small'><font className="small">New to QNeX?</font><nav> <Link to="/">SignUp</Link></nav></p>
+            <p className='montserrat_font leftMargin small'><font className="small">New to QNeX?</font><Link to="/">SignUp</Link></p>
             <br />
             <h2 className='montserrat_font'>Login</h2>
              <br /> <br />
 
+
               {/* UserName */}
              <TextField
                 id="input-with-icon-textfield"
-                label="UserName" fullWidth
+                label="UserName" name='Username' value={data.Username} onChange={handleInputChange} fullWidth
                 slotProps={{
                     input: {
                         startAdornment: (
@@ -51,14 +72,12 @@ function Login(){
                 variant="standard"
             /> <br /> <br /> <br /> <br />
 
-             {/* EMAIL
-                         <TextField id="standard-basic" label="Email" variant="standard" fullWidth /> 
-                         <br /><br /><br /> */}
+             
 
                          <FormControl sx={{ width: '30rem' }} variant="outlined">
                 <InputLabel htmlFor="outlined-adornment-password" className='width'>Password</InputLabel>
                 <OutlinedInput
-                    id="outlined-adornment-password"
+                    id="outlined-adornment-password" name='Password' value={data.Password} onChange={handleInputChange}
                     type={showPassword ? 'text' : 'password'}
                     endAdornment={
                         <InputAdornment position="end">
@@ -78,7 +97,7 @@ function Login(){
                     label="Password"
                 /></FormControl> <br /> <br /> <br />
 
-            <center><Button variant="contained" className='colorBtn'>Login &nbsp; <FaArrowRight/></Button> <br /> <br />
+            <center><Button variant="contained" onClick={handleSubmit}>Login &nbsp; <FaArrowRight/></Button> <br /> <br />
             <p className="para montserrat_font small"> Secure your Communication with QNeX <br /><br />
             Welcome Back to QNeX!
             </p></center>

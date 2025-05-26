@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import * as React from 'react';
 import Button from '@mui/material/Button';
-
+import { useState } from 'react';
 import { FaArrowRight } from "react-icons/fa6";
 
 import IconButton from '@mui/material/IconButton';
@@ -27,9 +27,38 @@ function Signup() {
     const handleMouseUpPassword = (event) => {
         event.preventDefault();
     };
+
+
+    //handle change.
+    let [data,setData]=useState({
+        Name:"",
+        Email:"",
+        Password:""
+    });
+
+    let handleInputChange=(event)=>{
+        let fieldName=event.target.name;
+        let fieldValue=event.target.value;
+        setData((currData)=>{
+            currData[fieldName]=fieldValue;
+            return {...currData};
+        });
+    }
+
+    let handleSubmit=(event)=>{
+        event.preventDefault();
+        console.log(data);
+        setData({
+            Name:'',
+            Email:'',
+            Password:''
+        });
+    }
+
+
     return (
         <div className='signup_div'>
-            <p className='montserrat_font leftMargin small'><font className="small">Already member?</font> <nav> <Link to="/login">Login</Link></nav></p>
+            <p className='montserrat_font leftMargin small'><font className="small">Already member?</font>  <Link to="/login">Login</Link></p>
             <br />
             <h2 className='montserrat_font'>Sign Up</h2>
              <br />
@@ -37,8 +66,10 @@ function Signup() {
 
 
             {/* NAME */}
+            
             <TextField
                 id="input-with-icon-textfield"
+                name="Name" onChange={handleInputChange} value={data.Name}
                 label="Name" fullWidth
                 slotProps={{
                     input: {
@@ -54,14 +85,14 @@ function Signup() {
 
 
             {/* EMAIL */}
-            <TextField id="standard-basic" label="Email" variant="standard" fullWidth />
+            <TextField name="Email" value={data.Email} id="standard-basic" label="Email" variant="standard" onChange={handleInputChange} fullWidth />
 
             <br /><br /> <br /> <br />
 
             {/* PASSWORD */}
             <FormControl sx={{ width: '30rem' }} variant="outlined">
                 <InputLabel htmlFor="outlined-adornment-password" className='width'>Password</InputLabel>
-                <OutlinedInput
+                <OutlinedInput name="Password" value={data.Password} onChange={handleInputChange}
                     id="outlined-adornment-password"
                     type={showPassword ? 'text' : 'password'}
                     endAdornment={
@@ -82,7 +113,7 @@ function Signup() {
                     label="Password"
                 /></FormControl> <br /> <br />
 
-            <center><Button variant="contained" className='colorBtn'>SignUp &nbsp; <FaArrowRight/></Button> <br /> <br />
+            <center><Button variant="contained" onClick={handleSubmit}>SignUp &nbsp; <FaArrowRight/></Button> <br /> <br />
             <p className="para montserrat_font small">Secure your Communication with QNeX</p></center>
         </div>
     )
