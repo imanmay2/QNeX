@@ -31,7 +31,7 @@ function Signup() {
         <div className='signup_div'>
             <p className='montserrat_font leftMargin small'><font className="small">Already member?</font> <nav> <Link to="/login">Login</Link></nav></p>
             <br />
-            <h2>Sign Up</h2>
+            <h2 className='montserrat_font'>Sign Up</h2>
              <br />
 
 
@@ -59,7 +59,7 @@ function Signup() {
             <br /><br /> <br /> <br />
 
             {/* PASSWORD */}
-            <FormControl sx={{ width: '61ch' }} variant="outlined">
+            <FormControl sx={{ width: '30rem' }} variant="outlined">
                 <InputLabel htmlFor="outlined-adornment-password" className='width'>Password</InputLabel>
                 <OutlinedInput
                     id="outlined-adornment-password"

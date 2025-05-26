@@ -32,7 +32,7 @@ function Login(){
     return (
         <>
         <div className="login_div">
-            <p className='montserrat_font leftMargin small'><font className="small">New to QNeX?</font><nav> <Link to="/">signup</Link></nav></p>
+            <p className='montserrat_font leftMargin small'><font className="small">New to QNeX?</font><nav> <Link to="/">SignUp</Link></nav></p>
             <br />
             <h2 className='montserrat_font'>Login</h2>
              <br /> <br />
@@ -57,7 +57,7 @@ function Login(){
                          <TextField id="standard-basic" label="Email" variant="standard" fullWidth /> 
                          <br /><br /><br /> */}
 
-                         <FormControl sx={{ width: '44ch' }} variant="outlined">
+                         <FormControl sx={{ width: '30rem' }} variant="outlined">
                 <InputLabel htmlFor="outlined-adornment-password" className='width'>Password</InputLabel>
                 <OutlinedInput
                     id="outlined-adornment-password"
