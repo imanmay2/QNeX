@@ -1,10 +1,15 @@
 #root{
-    background-color: rgb(234, 231, 231);
-    border-radius: 16px;
+    background-image: linear-gradient(to right,rgb(99, 165, 246),rgb(107, 250, 186));
+}
+
+.root1{
     height:80vh;
     width:140vh;
     margin:auto;
-    margin-top:6vh;
+    margin-top:10vh;
+    background-color: aliceblue;
     display:flex;
     flex-direction: row;
+    
+    border-radius: 16px;
 }

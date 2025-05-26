@@ -18,24 +18,24 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <>
+      element: <div className='root1'>
         <div>
           <Signup />
         </div>
         <div>
           <Right_Container />
-        </div></>
+        </div></div>
     },
 
     {
       path: "/login",
-      element: <>
+      element: <div className='root1'>
         <div>
           <Login />
         </div>
         <div>
           <Right_Container />
-        </div></>
+        </div></div>
     }
   ])
 
