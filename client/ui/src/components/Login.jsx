@@ -44,13 +44,14 @@ function Login(){
             try{
                 const response=await axios.post("http://localhost:8080/loginUser",data);
                 console.log(" Suceess "+response.data);
-                setData({
-                Username:"",
-                Password:""
-            });
+                
             } catch(err){
                 console.error(err);
             }
+            setData({
+                Username:"",
+                Password:""
+            });
         }
 
     return (
