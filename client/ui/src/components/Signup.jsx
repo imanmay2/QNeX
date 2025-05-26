@@ -31,7 +31,7 @@ function Signup() {
         <div className='signup_div'>
             <p className='montserrat_font leftMargin small'><font className="small">Already member?</font> <a href="#">Login</a></p>
             <br />
-            <h2 className='montserrat_font'>Sign Up</h2>
+            <h2>Sign Up</h2>
              <br />
 
 
