@@ -80,7 +80,7 @@ function Login(){
                     label="Password"
                 /></FormControl> <br /> <br /> <br />
 
-            <center><Button variant="contained" className='colorBtn'>SignUp &nbsp; <FaArrowRight/></Button> <br /> <br />
+            <center><Button variant="contained" className='colorBtn'>Login &nbsp; <FaArrowRight/></Button> <br /> <br />
             <p className="para montserrat_font small"> Secure your Communication with QNeX <br /><br />
             Welcome Back to QNeX!
             </p></center>
