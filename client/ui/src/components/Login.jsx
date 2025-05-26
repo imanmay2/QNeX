@@ -19,16 +19,14 @@ import {Link} from 'react-router-dom';
 
 function Login(){
     const [showPassword, setShowPassword] = React.useState(false);
-    
         const handleClickShowPassword = () => setShowPassword((show) => !show);
-    
         const handleMouseDownPassword = (event) => {
             event.preventDefault();
         };
-    
         const handleMouseUpPassword = (event) => {
             event.preventDefault();
         };
+
     return (
         <>
         <div className="login_div">
@@ -84,7 +82,6 @@ function Login(){
             <p className="para montserrat_font small"> Secure your Communication with QNeX <br /><br />
             Welcome Back to QNeX!
             </p></center>
-             
         </div>
         </>
     )
