@@ -41,10 +41,24 @@ app.get("/data",(req,res)=>{
 });
 
 
-app.post("/saveUser",(req,res)=>{
+app.post("/saveUser",async(req,res)=>{
     // let {Name,Email,Password}=req.body;
     // console.log("Name of the User: "+Name);
-    console.log(req.body);
+   const {Name,Email,Password}=req.body;
+    try{
+         console.log(req.body);
+         const user1=new User({
+            name:Name,
+            email:Email,
+            password:Password
+         });
+         await user1.save();
+         console.log("User Signed Up!!");
+         res.status(200).json({ message: "User saved successfully" });
+    } catch(err){
+        console.log(err);
+        res.status(500).json({message:"Error in pushing the data. "});
+    }
 });
 
 
