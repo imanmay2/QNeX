@@ -13,7 +13,7 @@ import InputLabel from '@mui/material/InputLabel';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import FormControl from '@mui/material/FormControl';
-
+import {Link} from 'react-router-dom';
 
 function Signup() {
     const [showPassword, setShowPassword] = React.useState(false);
@@ -29,7 +29,7 @@ function Signup() {
     };
     return (
         <div className='signup_div'>
-            <p className='montserrat_font leftMargin small'><font className="small">Already member?</font> <a href="#">Login</a></p>
+            <p className='montserrat_font leftMargin small'><font className="small">Already member?</font> <nav> <Link to="/login">Login</Link></nav></p>
             <br />
             <h2>Sign Up</h2>
              <br />

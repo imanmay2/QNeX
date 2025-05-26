@@ -14,6 +14,8 @@ import InputLabel from '@mui/material/InputLabel';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import FormControl from '@mui/material/FormControl';
+import {Link} from 'react-router-dom';
+
 
 function Login(){
     const [showPassword, setShowPassword] = React.useState(false);
@@ -30,7 +32,7 @@ function Login(){
     return (
         <>
         <div className="login_div">
-            <p className='montserrat_font leftMargin small'><font className="small">New to QNeX?</font> <a href="#">SignUp</a></p>
+            <p className='montserrat_font leftMargin small'><font className="small">New to QNeX?</font><nav> <Link to="/">signup</Link></nav></p>
             <br />
             <h2 className='montserrat_font'>Login</h2>
              <br /> <br />
@@ -84,7 +86,6 @@ function Login(){
             </p></center>
              
         </div>
-
         </>
     )
 }
