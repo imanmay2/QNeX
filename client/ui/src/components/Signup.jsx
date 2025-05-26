@@ -50,15 +50,15 @@ function Signup() {
         try{
             const response=await axios.post("http://localhost:8080/saveUser",data);
             console.log("Success",response.data);
+            setData({
+            Name:'',
+            Email:'',
+            Password:''
+        });
         } catch(err){
             console.error(err);
         }
-        console.log(data);
-        // setData({
-        //     Name:'',
-        //     Email:'',
-        //     Password:''
-        // });
+        
     }
 
 

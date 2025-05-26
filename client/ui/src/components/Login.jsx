@@ -7,6 +7,7 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import { useState } from 'react';
 import { FaArrowRight } from "react-icons/fa6";
+import axios from 'axios';
 
 import IconButton from '@mui/material/IconButton';
 import OutlinedInput from '@mui/material/OutlinedInput';
@@ -38,13 +39,18 @@ function Login(){
             })
         }
 
-        let handleSubmit=(event)=>{
+        let handleSubmit_=async(event)=>{
             event.preventDefault();
-            console.log(data);
-            setData({
+            try{
+                const response=await axios.post("http://localhost:8080/loginUser",data);
+                console.log(" Suceess "+response.data);
+                setData({
                 Username:"",
                 Password:""
             });
+            } catch(err){
+                console.error(err);
+            }
         }
 
     return (
@@ -97,7 +103,7 @@ function Login(){
                     label="Password"
                 /></FormControl> <br /> <br /> <br />
 
-            <center><Button variant="contained" onClick={handleSubmit}>Login &nbsp; <FaArrowRight/></Button> <br /> <br />
+            <center><Button variant="contained" onClick={handleSubmit_}>Login &nbsp; <FaArrowRight/></Button> <br /> <br />
             <p className="para montserrat_font small"> Secure your Communication with QNeX <br /><br />
             Welcome Back to QNeX!
             </p></center>

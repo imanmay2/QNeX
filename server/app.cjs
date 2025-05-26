@@ -47,3 +47,7 @@ app.post("/saveUser",(req,res)=>{
     console.log(req.body);
 });
 
+
+app.post("/loginUser",(req,res)=>{
+    console.log(req.body);
+});
