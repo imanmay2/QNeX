@@ -15,8 +15,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import FormControl from '@mui/material/FormControl';
 import { Link } from 'react-router-dom';
 import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
-
+import Alert from '@mui/material/Alert';
 
 function Signup() {
     const [showPassword, setShowPassword] = React.useState(false);
@@ -143,9 +142,9 @@ function Signup() {
 
 
             <Snackbar anchorOrigin={{ vertical:"bottom", horizontal:"center" }} open={flashOpen} autoHideDuration={4000} onClose={handleFlashClose}>
-                <MuiAlert onClose={handleFlashClose} severity="error" sx={{ width: '100%' }}>
+                <Alert onClose={handleFlashClose} variant='filled' severity="error" sx={{ width: '100%' }}>
                     {flashMsg}
-                </MuiAlert>
+                </Alert>
             </Snackbar>
         </div>
     )
