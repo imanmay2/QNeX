@@ -62,7 +62,7 @@ function Signup() {
         try {
             const response = await axios.post("http://localhost:8080/saveUser", data);
             console.log(response.data);
-            if (!response.data.flag) {
+            if (!response.data.flag) {    // we need a valid response from the API.
                 setFlashMsg("Invalid Email. Please enter a valid email address.");
                 setFlashOpen(true);
                 return;
@@ -142,7 +142,7 @@ function Signup() {
                 <p className="para montserrat_font small">Secure your Communication with QNeX</p></center>
 
 
-            <Snackbar open={flashOpen} autoHideDuration={4000} onClose={handleFlashClose}>
+            <Snackbar anchorOrigin={{ vertical:"bottom", horizontal:"center" }} open={flashOpen} autoHideDuration={4000} onClose={handleFlashClose}>
                 <MuiAlert onClose={handleFlashClose} severity="error" sx={{ width: '100%' }}>
                     {flashMsg}
                 </MuiAlert>

@@ -45,16 +45,14 @@ app.get("/data",(req,res)=>{
 
 
 app.post("/saveUser",async(req,res)=>{
-    let hashPass="";
    const {Name,Email,Password}=req.body;
-     hashPass=await bcrypt.hash(Password, saltRounds);
-
     try{
          console.log(req.body);
-
+         let hashPass="";
          let emailValidation=checkEmailValidation(Email);
          console.log(emailValidation);
          if(emailValidation==true){
+            hashPass=await bcrypt.hash(Password, saltRounds);
             const user1=new User({
             name:Name,
             email:Email,
@@ -63,8 +61,11 @@ app.post("/saveUser",async(req,res)=>{
          await user1.save();
          console.log("User Signed Up!!");
          flag=1;
-         } 
          res.status(200).json({ 'message': "User saved successfully" ,"flag":flag});
+         } else{
+            res.json({'message':'User Data not saved!'});
+         }
+         
          
     } catch(err){
         console.log(err);
