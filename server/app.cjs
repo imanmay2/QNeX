@@ -3,11 +3,11 @@ const cors=require('cors');
 const mongoose = require('mongoose');
 const app=express();
 const PORT=8080;
-
-
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 const User=require("./models/user.cjs");
-
+let flag=0;
 
 
 
@@ -21,7 +21,10 @@ app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 
 
-
+//functions
+function checkEmailValidation(email){
+    return email.includes("@gmail.com");
+}
 
 main().catch(err => console.log(err));
 
@@ -42,22 +45,30 @@ app.get("/data",(req,res)=>{
 
 
 app.post("/saveUser",async(req,res)=>{
-    // let {Name,Email,Password}=req.body;
-    // console.log("Name of the User: "+Name);
+    let hashPass="";
    const {Name,Email,Password}=req.body;
+     hashPass=await bcrypt.hash(Password, saltRounds);
+
     try{
          console.log(req.body);
-         const user1=new User({
+
+         let emailValidation=checkEmailValidation(Email);
+         console.log(emailValidation);
+         if(emailValidation==true){
+            const user1=new User({
             name:Name,
             email:Email,
-            password:Password
+            password:hashPass
          });
          await user1.save();
          console.log("User Signed Up!!");
-         res.status(200).json({ message: "User saved successfully" });
+         flag=1;
+         } 
+         res.status(200).json({ 'message': "User saved successfully" ,"flag":flag});
+         
     } catch(err){
         console.log(err);
-        res.status(500).json({message:"Error in pushing the data. "});
+        res.status(500).json({'message':"Error in pushing the data. "});
     }
 });
 

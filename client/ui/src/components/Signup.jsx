@@ -13,16 +13,25 @@ import InputLabel from '@mui/material/InputLabel';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import FormControl from '@mui/material/FormControl';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+
 
 function Signup() {
     const [showPassword, setShowPassword] = React.useState(false);
-
     const handleClickShowPassword = () => setShowPassword((show) => !show);
-
+    const [flashOpen, setFlashOpen] = React.useState(false);
+    const [flashMsg, setFlashMsg] = React.useState('');
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
+
+     let handleFlashClose = (event, reason) => {
+        if (reason === 'clickaway') return;
+        setFlashOpen(false);
+    };
+
 
     const handleMouseUpPassword = (event) => {
         event.preventDefault();
@@ -30,44 +39,54 @@ function Signup() {
 
 
     //handle change.
-    let [data,setData]=useState({
-        Name:"",
-        Email:"",
-        Password:""
+    let [data, setData] = useState({
+        Name: "",
+        Email: "",
+        Password: ""
     });
 
-    let handleInputChange=(event)=>{
-        let fieldName=event.target.name;
-        let fieldValue=event.target.value;
-        setData((currData)=>{
-            currData[fieldName]=fieldValue;
-            return {...currData};
+
+   
+
+    let handleInputChange = (event) => {
+        let fieldName = event.target.name;
+        let fieldValue = event.target.value;
+        setData((currData) => {
+            currData[fieldName] = fieldValue;
+            return { ...currData };
         });
     }
 
-    let handleSubmit=async (event)=>{
+    let handleSubmit = async (event) => {
         event.preventDefault();
-        try{
-            const response=await axios.post("http://localhost:8080/saveUser",data);
-            console.log("Success",response.data);
+        try {
+            const response = await axios.post("http://localhost:8080/saveUser", data);
+            console.log(response.data);
+            if (!response.data.flag) {
+                setFlashMsg("Invalid Email. Please enter a valid email address.");
+                setFlashOpen(true);
+                return;
+            }
             setData({
-            Name:'',
-            Email:'',
-            Password:''
-        });
-        } catch(err){
+                Name: '',
+                Email: '',
+                Password: ''
+            });
+        } catch (err) {
             console.error(err);
+            setFlashMsg("Something went wrong. Please try again.");
+            setFlashOpen(true);
         }
-        
+
     }
 
 
     return (
         <div className='signup_div'>
             <p className='montserrat_font leftMargin small'><font className="small">Already member?</font>  <Link to="/login">Login</Link></p>
-            <br />
+
             <h2 className='montserrat_font'>Sign Up</h2>
-             <br />
+            <br />
 
 
 
@@ -92,7 +111,8 @@ function Signup() {
             {/* EMAIL */}
             <TextField name="Email" value={data.Email} id="standard-basic" label="Email" variant="standard" onChange={handleInputChange} fullWidth />
 
-            <br /><br /> <br /> <br />
+            <br /><br /> <br />
+            <br />
 
             {/* PASSWORD */}
             <FormControl sx={{ width: '30rem' }} variant="outlined">
@@ -118,8 +138,15 @@ function Signup() {
                     label="Password"
                 /></FormControl> <br /> <br />
 
-            <center><Button variant="contained" onClick={handleSubmit}>SignUp &nbsp; <FaArrowRight/></Button> <br /> <br />
-            <p className="para montserrat_font small">Secure your Communication with QNeX</p></center>
+            <center><Button variant="contained" onClick={handleSubmit}>SignUp &nbsp; <FaArrowRight /></Button> <br /> <br />
+                <p className="para montserrat_font small">Secure your Communication with QNeX</p></center>
+
+
+            <Snackbar open={flashOpen} autoHideDuration={4000} onClose={handleFlashClose}>
+                <MuiAlert onClose={handleFlashClose} severity="error" sx={{ width: '100%' }}>
+                    {flashMsg}
+                </MuiAlert>
+            </Snackbar>
         </div>
     )
 }
