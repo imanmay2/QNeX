@@ -23,7 +23,14 @@ app.use(express.json());
 
 //functions
 function checkEmailValidation(email) {
-    return email.includes("@gmail.com");
+    // return email.includes("@gmail.com");
+    if(email.includes('@')){
+        let arr=email.split('@');
+        if(arr[arr.length-1]=="gmail.com"){
+            return true;
+        }
+    }
+    return false;
 }
 function generateUsername(email) {
     return email.split('@')[0];
@@ -49,35 +56,41 @@ app.get("/data", (req, res) => {
 
 app.post("/saveUser", async (req, res) => {
     const { Name, Email, Password } = req.body;
-    try {
-        console.log(req.body);
-        let hashPass = "";
-        let emailValidation = checkEmailValidation(Email);
-        console.log(emailValidation);
-        if (emailValidation == true) {
-            //Generate a username;
-            let userName = generateUsername(Email);
-            console.log("UserName is: " + userName);
-            hashPass = await bcrypt.hash(Password, saltRounds);   //Encrytption of the password.
-            const user1 = new User({
-                name: Name,
-                email: Email,
-                password: hashPass,
-                username: userName,
-            });
-            await user1.save();
-            console.log("User Signed Up!!");
-            flag = 1;
-            res.status(200).json({ 'message': "User saved successfully", "flag": flag });
-        } else {
-            res.json({ 'message': 'User Data not saved!' });
+    let userRes = await User.find({ email: Email });
+    if (!userRes.length) {
+        try {
+            console.log(req.body);
+            let hashPass = "";
+            let emailValidation = checkEmailValidation(Email);
+            console.log(emailValidation);
+            if (emailValidation == true) {
+                //Generate a username;
+                let userName = generateUsername(Email);
+                console.log("UserName is: " + userName);
+                hashPass = await bcrypt.hash(Password, saltRounds);   //Encrytption of the password.
+                const user1 = new User({
+                    name: Name,
+                    email: Email,
+                    password: hashPass,
+                    username: userName,
+                });
+                await user1.save();
+                console.log("User Signed Up!!");
+                flag = 1;
+                res.status(200).json({ 'message': "User saved successfully", "flag": flag });
+            } else {
+                res.json({ 'message': 'Email is Invalid ! ' });
+            }
+
+
+        } catch (err) {
+            console.log(err);
+            res.status(500).json({ 'message': "Error in pushing the data. " });
         }
-
-
-    } catch (err) {
-        console.log(err);
-        res.status(500).json({ 'message': "Error in pushing the data. " });
+    } else{
+        res.json({'message':'User already exists ! '});
     }
+
 });
 
 

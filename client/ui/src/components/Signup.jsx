@@ -62,7 +62,7 @@ function Signup() {
             const response = await axios.post("http://localhost:8080/saveUser", data);
             console.log(response.data);
             if (!response.data.flag) {    // we need a valid response from the API.
-                setFlashMsg("Invalid Email. Please enter a valid email address.");
+                setFlashMsg(response.data.message);
                 setFlashOpen(true);
                 return;
             }
