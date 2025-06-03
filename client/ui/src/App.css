@@ -1,5 +1,8 @@
 #root{
-    background-image: linear-gradient(to right,rgb(99, 165, 246),rgb(107, 250, 186));
+    /* background-image: linear-gradient(to right,rgb(99, 165, 246),rgb(107, 250, 186)); */
+    height:100%;
+    width:100%;
+    background-color: #ffffff;
 }
 
 .root1{
@@ -7,7 +10,8 @@
     width:140vh;
     margin:auto;
     margin-top:10vh;
-    background-color: aliceblue;
+    /* background-color: aliceblue; */
+    background-image: linear-gradient(to right,rgb(99, 165, 246),rgb(107, 250, 186));
     display:flex;
     flex-direction: row;
     border-radius: 16px;

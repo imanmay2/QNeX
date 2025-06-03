@@ -76,7 +76,6 @@ function Signup() {
             setFlashMsg("Something went wrong. Please try again.");
             setFlashOpen(true);
         }
-
     }
 
 

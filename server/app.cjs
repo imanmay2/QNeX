@@ -77,7 +77,7 @@ app.post("/saveUser", async (req, res) => {
                 await user1.save();
                 console.log("User Signed Up!!");
                 flag = 1;
-                res.status(200).json({ 'message': "User saved successfully", "flag": flag });
+                res.status(200).json({ 'message': "User saved successfully", "flag": flag });   
             } else {
                 res.json({ 'message': 'Email is Invalid ! ' });
             }
