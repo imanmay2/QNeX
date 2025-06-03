@@ -9,7 +9,8 @@ function Options() {
     return (
         <div className="option_div">
             <div className="tag"><h1>QNeX</h1></div>
-            <hr />
+            {/* <hr /> */}
+            <br />
             {/* <div className="menu">Menu</div> */}
             <div className="dash"><FiHome/> &nbsp;&nbsp;DashBoard</div>
             <div className="ct"><AiOutlinePlusSquare/> &nbsp;&nbsp;Create Test</div>
