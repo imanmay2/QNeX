@@ -1,8 +1,9 @@
 #root{
-    /* background-image: linear-gradient(to right,rgb(99, 165, 246),rgb(107, 250, 186)); */
-    height:100%;
+    background-image: linear-gradient(to right,rgb(99, 165, 246),rgb(107, 250, 186));
+    height:100vh;
     width:100%;
     background-color: #ffffff;
+    display: flex;
 }
 
 .root1{
@@ -10,8 +11,9 @@
     width:140vh;
     margin:auto;
     margin-top:10vh;
+    background-color: #ffffff;
     /* background-color: aliceblue; */
-    background-image: linear-gradient(to right,rgb(99, 165, 246),rgb(107, 250, 186));
+    /* background-image: linear-gradient(to right,rgb(99, 165, 246),rgb(107, 250, 186)); */
     display:flex;
     flex-direction: row;
     border-radius: 16px;
