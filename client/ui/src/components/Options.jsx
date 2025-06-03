@@ -12,7 +12,7 @@ function Options() {
             <hr />
             {/* <div className="menu">Menu</div> */}
             <div className="dash"><FiHome/> &nbsp;&nbsp;DashBoard</div>
-            <div className="ct"><AiOutlinePlusSquare/> &nbsp;&nbsp;Test</div>
+            <div className="ct"><AiOutlinePlusSquare/> &nbsp;&nbsp;Create Test</div>
             <div className="at"><MdAssignmentTurnedIn/> &nbsp;&nbsp;Attend Test</div>
             <div className="rt"><AiOutlineFileSearch/> &nbsp;&nbsp;Review Test</div>
             <div className="setGap">
