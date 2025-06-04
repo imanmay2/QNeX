@@ -5,18 +5,13 @@ import { Right_Container } from './components/Right_Container';
 import { Login } from './components/Login';
 import { Signup } from './components/Signup';
 import { Dashboard } from './components/Dashboard';
-import { Options } from './components/Options';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 
 
 function App() {
   
-  // const [msg, setMsg] = useState("");
-  // let fetchData=async()=>{
-  //   let data=await fetch("http://localhost:8080/data");
-  //   let response=await data.json();
-  //   setMsg(response.message);
+ 
 
 
   const router = createBrowserRouter([
@@ -43,7 +38,7 @@ function App() {
     },{
       path:"/dashboard",
       element: <div className='dashboard'>
-        <Options/>
+        
         <Dashboard/>
       </div>
     }

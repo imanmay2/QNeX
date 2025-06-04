@@ -1,3 +1,8 @@
 .dashboard{
     display: flex;
+    flex-direction:row;
+}
+
+.dash{
+    background-color: #5BA4E7;
 }

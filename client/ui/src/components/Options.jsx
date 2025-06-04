@@ -20,7 +20,6 @@ function Options() {
                 <div className="settings"><FiUser/> &nbsp;&nbsp;Account</div>
                 <div className="logout"><FiLogOut/> &nbsp;&nbsp;Logout</div>
             </div>
-
         </div>
     )
 }

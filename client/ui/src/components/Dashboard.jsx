@@ -1,11 +1,9 @@
 import "./css/dashboard.css";
-
+import {Options} from "./Options"
 function Dashboard(){
     return(
         <div className="dashboard">
-            {/* <div className="nav">
-                <h1 className="tag">QNeX</h1>
-            </div> */}
+            <Options/>
         </div>
     )
 }
