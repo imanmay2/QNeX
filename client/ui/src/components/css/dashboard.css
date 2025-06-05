@@ -6,3 +6,62 @@
 .dash{
     background-color: #5BA4E7;
 }
+
+.main{
+    display:flex;
+    flex-direction: column;
+}
+
+.nav{
+    /* padding:3rem; */
+    padding-top: 2rem;
+    display: flex;
+    margin-top:0.5rem;
+    margin-left: 3rem;
+    margin-right:5rem;
+}
+
+.greet{
+    padding-top: 2rem;
+   margin-top:0.5rem;
+    margin-left: 3rem;
+    margin-right:5rem;
+    display: flex;
+
+}
+
+#date{
+    margin-left:39vw;
+    margin-top:2vh;
+    font-size: small;
+    color:rgb(185, 182, 182);
+}
+
+.space{
+    margin-top: 1rem;
+}
+
+.quote{
+    margin-top:12rem;
+    color:rgb(180, 177, 177);
+}
+
+.designDash{
+    color:#71b2ef;
+    font-weight: 400;
+    font-size: 2rem;
+}
+
+
+#details{
+    margin-left:53vw;
+    display: flex;
+}
+
+#username{
+    color:silver;
+}
+
+.line{
+    border: 1px solid rgb(214, 212, 212);
+}
