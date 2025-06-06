@@ -18,19 +18,19 @@
     padding: 1.5em;
 }
 
-.dash, .ct, .at, .rt{
+.dash, .ct, .at, .rt,.settings,.logout{
     /* text-align: center; */
     padding:2em;
     padding-left: 4rem;
 }
-.setGap{
+/* .setGap{
     margin-top:20vh;
-}
+} */
 
-.settings,.logout{
+/* {
     padding:1rem;
     padding-left:4rem;  
-}
+} */
 
 .dash:hover{
    background-color: #5BA4E7;
