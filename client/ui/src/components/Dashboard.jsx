@@ -3,10 +3,13 @@ import { Options } from "./Options";
 import { User } from 'lucide-react';
 import { HiOutlineFaceSmile } from "react-icons/hi2";
 import { RiArrowDownSLine } from "react-icons/ri";
+import { PieChart } from "./PieChart";
+import { BarGraph } from "./BarGraph";
 function Dashboard() {
     let name = "Manmay";
     let username = "imanmay2";
-
+    let totalTest=24;
+    let attendedTest=16;
     //fetch date:
     function getFormattedDate() {
         const date = new Date();
@@ -50,8 +53,31 @@ function Dashboard() {
                             <font className="quote">Always take care of your health to carry out Smart.</font></div>
                     </div>
                     <div id="date">
-                       {getFormattedDate()}
+                        {getFormattedDate()}
                     </div>
+                </div>
+                <div className="footer">
+                    <div className="F_Row">
+                        <div className="piechart">
+                            <div className="pie">
+                                <PieChart />
+                            </div>
+                            
+                        </div>
+                        <div className="testRecords">
+                            <h3>Total Tests : {totalTest}</h3> <br />
+                            <h3>Tests Attended : {attendedTest}</h3>
+                        </div>
+                    </div>
+                    <div className="S_Row">
+                        <div className="ongoing">
+                           Lists of Ongoing tests: 
+                        </div>
+                         <div className="bargraph">
+                            <BarGraph/>
+                        </div>
+                    </div>
+    
                 </div>
 
 
@@ -59,5 +85,4 @@ function Dashboard() {
         </div>
     )
 }
-
 export { Dashboard };
