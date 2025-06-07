@@ -6,10 +6,11 @@ function CreateTest() {
             <Options />
             <div className="main">
                 <div className="content">
-                    
-                        <div className="test_details">
-                            <div className="heading_">
-                        <font>Create New Test</font></div>
+
+                    <div className="test_details">
+                        <div className="heading_">
+                            <font>Create New Test</font> <button className="ai-create-btn">🚀 Create Test with AI</button>
+                        </div>
                         <br />
                         <div> <label htmlFor="test_title">Test Title</label> <br />
                             <input type="text" id="test_title" style={{ width: "85vh" }} /></div>

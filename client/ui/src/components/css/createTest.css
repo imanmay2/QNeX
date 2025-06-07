@@ -94,3 +94,32 @@ input{
     font-size: xx-large;
     font-weight: 500;
 }
+
+
+.ai-create-btn {
+  margin-top: 1rem;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: white;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(118, 75, 162, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-left:50%;
+}
+
+.ai-create-btn:hover {
+  background: linear-gradient(135deg, #5a67d8, #6b46c1);
+  box-shadow: 0 10px 25px rgba(106, 74, 162, 0.4);
+  transform: translateY(-2px);
+}
+
+.ai-create-btn:active {
+  transform: scale(0.98);
+}
