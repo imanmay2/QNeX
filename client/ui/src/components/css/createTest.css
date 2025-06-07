@@ -1,0 +1,81 @@
+.createTest{
+    display: flex;
+    
+}
+
+
+.main{
+    /* background-image: linear-gradient(to right,rgb(9, 82, 241),rgb(13, 3, 96)); */
+    background-color: #f8f9fd;
+    height:100vh;
+    width:74.2vw;
+   
+}
+h2{
+    color:white;
+}
+.content{
+    
+    margin:2rem;
+    /* border:1px solid white; */
+}
+label{
+    /* color:white; */
+}
+
+input{
+    background-color: inherit;
+    /* color:white; */
+    border-color: rgb(112, 115, 115);
+    border-radius: 12px;
+    height:5vh;
+    width: 4vw;
+}
+.info{
+    display: flex;
+    
+}
+
+
+
+
+.addQ{
+    padding:2rem;
+    border-radius:12px;
+    background-color: white;
+    height: fit-content;
+
+}
+
+.delete{
+    color:rgb(6, 6, 167);
+    border-radius:12px;
+    /* border:1px solid rgb(6, 6, 167); */
+    padding:0.8rem;
+    margin-left:3vw;
+
+}
+.add_anotherQ{
+    color:rgb(6, 6, 167);
+    border-radius:12px;
+    /* border:1px solid rgb(6, 6, 167); */
+    padding:0.8rem;
+    margin-left:18vw;
+}
+
+.options{
+    display:flex;
+}
+
+.create_test_btn{
+    border-radius: 12px;
+    padding:0.7rem;
+    color:white;
+    background-color: rgb(25, 25, 187);
+}
+
+.heading_{
+    color: #5BA4E7;
+    font-size: xx-large;
+    font-weight: 500;
+}

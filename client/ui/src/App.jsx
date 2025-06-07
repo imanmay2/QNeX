@@ -6,7 +6,7 @@ import { Login } from './components/Login';
 import { Signup } from './components/Signup';
 import { Dashboard } from './components/Dashboard';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-
+import { CreateTest } from './components/CreateTest';
 
 
 function App() {
@@ -38,8 +38,12 @@ function App() {
     },{
       path:"/dashboard",
       element: <div className='dashboard'>
-        
         <Dashboard/>
+      </div>
+    },{
+      path:"/createTest",
+      element: <div className='createTest'>
+        <CreateTest/>
       </div>
     }
   ])

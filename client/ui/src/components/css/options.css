@@ -2,7 +2,7 @@
 
 
 .option_div{
-    height:100vh;
+    min-height:100vh;
     width:18vw;
     display: flex;
     flex-direction: column;
@@ -10,6 +10,7 @@
     /* border-radius:12px; */
     background-image: linear-gradient(to bottom, #4A90E2, #145C9E);
     color:#ffffff;
+    /* position: fixed; */
 }
 
 .tag{
