@@ -82,7 +82,11 @@ input{
     border-radius: 12px;
     padding:0.7rem;
     color:white;
-    background-color: rgb(25, 25, 187);
+    background-color: rgb(78, 78, 195);
+}
+
+.create_test_btn:hover{
+    background-color: rgb(33, 33, 157);
 }
 
 .heading_{
