@@ -6,7 +6,6 @@ function CreateTest() {
             <Options />
             <div className="main">
                 <div className="content">
-
                     <div className="test_details">
                         <div className="heading_">
                             <font>Create New Test</font> <button className="ai-create-btn">🚀 Create Test with AI</button>
@@ -15,7 +14,6 @@ function CreateTest() {
                         <div> <label htmlFor="test_title">Test Title</label> <br />
                             <input type="text" id="test_title" style={{ width: "85vh" }} /></div>
                         <br />
-
                         <div className="info">
                             <span>
                                 <label htmlFor="description">Description</label> <br />
@@ -31,7 +29,6 @@ function CreateTest() {
                                 <input type="text" id="min" />
                             </span>
                         </div> <br /><br /><br />
-
                         <h2>Add Questions</h2>
                         <div className="addQ">
                             <label htmlFor="Question">Question 1</label><br />
@@ -52,10 +49,7 @@ function CreateTest() {
                                     <label htmlFor="option_C">Option C</label><br />&nbsp;&nbsp;
                                     <input type="text" id="option_C" style={{ width: "30vh" }} />
                                 </span>
-
-
                             </div>
-
                             <br /><br /> <br />
                             <label htmlFor="correctAns">Correct Answer</label>&nbsp;&nbsp;<br />
                             <input type="text" id="option_C" style={{ width: "30vh" }} />
