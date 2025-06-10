@@ -90,7 +90,6 @@ app.post("/saveUser", async (req, res) => {
     } else{
         res.json({'message':'User already exists ! '});
     }
-
 });
 
 

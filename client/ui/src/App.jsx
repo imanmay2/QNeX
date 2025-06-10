@@ -7,7 +7,7 @@ import { Signup } from './components/Signup';
 import { Dashboard } from './components/Dashboard';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { CreateTest } from './components/CreateTest';
-
+import { ReviewTest } from './components/ReviewTest';
 
 function App() {
   
@@ -44,6 +44,11 @@ function App() {
       path:"/createTest",
       element: <div className='createTest'>
         <CreateTest/>
+      </div>
+    },{
+      path:"/reviewTest",
+      element: <div className="reviewTest">
+        <ReviewTest/>
       </div>
     }
   ])

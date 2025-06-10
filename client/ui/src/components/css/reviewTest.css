@@ -1,0 +1,69 @@
+.reviewTest {
+    display: flex;
+    min-height: 100vh;
+    min-width: 100vw;
+    background-color: #f8f9fd;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    margin-left: 2rem;
+    margin-top: 1rem;
+}
+
+span {
+    font-size: 1.8em;
+    color: #5BA4E7;
+    margin-bottom: 1rem;
+}
+
+.tests {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8rem;
+}
+
+.testCard {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem;
+    width: 500px;
+    border-radius: 12px;
+    border: 2px solid #5BA4E7;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(91, 164, 231, 0.2);
+}
+
+.testInfo {
+    flex: 1;
+}
+
+.testInfo p {
+    margin: 0.3rem 0;
+}
+
+.btn {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: #a9cbeb;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #5BA4E7;
+}
+
+.progressContainer {
+    width: 80px;
+    height: 80px;
+    margin-left: 2rem;
+}
