@@ -67,7 +67,7 @@ function ReviewTest() {
     <div className="reviewTest">
       <Options />
       <div className="main">
-        <span>Tests</span>
+        <span>Review Tests</span>
          <div className="tests">
         {testData.map(({ testName, createdOn, attemptedOn, scoreText, percentage }, i) => {
           return (
