@@ -1,6 +1,4 @@
 
-
-
 .option_div{
     min-height:100vh;
     width:18vw;
@@ -52,7 +50,12 @@
    background-color: #5BA4E7;
 }
 
-Link{
-  text-decoration:none;
+
+.nav-link {
   color: white;
+  text-decoration: none; /* Removes underline */
+}
+
+.nav-link:hover {
+  color: #ccc; /* Optional: light gray on hover */
 }

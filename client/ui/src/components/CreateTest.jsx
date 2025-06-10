@@ -1,6 +1,6 @@
 import "./css/createTest.css";
 import { Options } from "./Options";
-function CreateTest() {
+function CreateTest(){
     return (
         <div className="createTest">
             <Options />

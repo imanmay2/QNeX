@@ -8,6 +8,7 @@ import { Dashboard } from './components/Dashboard';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { CreateTest } from './components/CreateTest';
 import { ReviewTest } from './components/ReviewTest';
+import { AttendTest } from './components/AttendTest';
 
 function App() {
   
@@ -49,6 +50,11 @@ function App() {
       path:"/reviewTest",
       element: <div className="reviewTest">
         <ReviewTest/>
+      </div>
+    },{
+      path:"/attendTest",
+      element: <div className="attendTest">
+        <AttendTest/>
       </div>
     }
   ])

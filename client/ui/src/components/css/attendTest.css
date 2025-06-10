@@ -1,0 +1,10 @@
+.attendTest{
+    display: flex;
+    background-color: white;
+    min-height:100vh;
+    min-width:100vw;
+}
+
+.main_{
+    display:flex;
+}

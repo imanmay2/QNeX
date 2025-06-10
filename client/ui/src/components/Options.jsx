@@ -13,13 +13,13 @@ function Options() {
             {/* <hr /> */}
             <br />
             {/* <div className="menu">Menu</div> */}
-            <div className="dash"><FiHome/> &nbsp;&nbsp;<Link to="http://localhost:5173/dashboard">DashBoard</Link></div>
-            <div className="ct"><AiOutlinePlusSquare/> &nbsp;&nbsp;<Link to="http://localhost:5173/createTest">Create Test</Link></div>
-            <div className="at"><MdAssignmentTurnedIn/> &nbsp;&nbsp;<Link to="http://localhost:5173/attendTest">Attend Test</Link></div>
-            <div className="rt"><AiOutlineFileSearch/> &nbsp;&nbsp;<Link to="http://localhost:5173/reviewTest">Review Test</Link></div>
+            <div className="dash"><FiHome/> &nbsp;&nbsp;<Link to="http://localhost:5173/dashboard" className="nav-link">DashBoard</Link></div>
+            <div className="ct"><AiOutlinePlusSquare/> &nbsp;&nbsp;<Link to="http://localhost:5173/createTest" className="nav-link">Create Test</Link></div>
+            <div className="at"><MdAssignmentTurnedIn/> &nbsp;&nbsp;<Link to="http://localhost:5173/attendTest" className="nav-link">Attend Test</Link></div>
+            <div className="rt"><AiOutlineFileSearch/> &nbsp;&nbsp;<Link to="http://localhost:5173/reviewTest" className="nav-link">Review Test</Link></div>
             <div className="setGap">
-                <div className="settings"><FiUser/> &nbsp;&nbsp;<Link to="http://localhost:5173/settings">Settings</Link></div>
-                <div className="logout"><FiLogOut/> &nbsp;&nbsp;<Link to="http://localhost:5173/logout">Logout</Link></div>
+                <div className="settings"><FiUser/> &nbsp;&nbsp;<Link to="http://localhost:5173/settings" className="nav-link">Settings</Link></div>
+                <div className="logout"><FiLogOut/> &nbsp;&nbsp;<Link to="http://localhost:5173/logout" className="nav-link">Logout</Link></div>
             </div>
         </div>
     )
