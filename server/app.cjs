@@ -10,7 +10,6 @@ const User = require("./models/user.cjs");
 let flag = 0;
 
 
-
 const corsOptions = {
     origin: "http://localhost:5173",
 };
