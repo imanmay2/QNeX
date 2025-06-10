@@ -23,9 +23,9 @@ app.use(express.json());
 //functions
 function checkEmailValidation(email) {
     // return email.includes("@gmail.com");
-    if(email.includes('@')){
-        let arr=email.split('@');
-        if(arr[arr.length-1]=="gmail.com"){
+    if (email.includes('@')) {
+        let arr = email.split('@');
+        if (arr[arr.length - 1] == "gmail.com") {
             return true;
         }
     }
@@ -76,7 +76,7 @@ app.post("/saveUser", async (req, res) => {
                 await user1.save();
                 console.log("User Signed Up!!");
                 flag = 1;
-                res.status(200).json({ 'message': "User saved successfully", "flag": flag });   
+                res.status(200).json({ 'message': "User saved successfully", "flag": flag });
             } else {
                 res.json({ 'message': 'Email is Invalid ! ' });
             }
@@ -86,8 +86,8 @@ app.post("/saveUser", async (req, res) => {
             console.log(err);
             res.status(500).json({ 'message': "Error in pushing the data. " });
         }
-    } else{
-        res.json({'message':'User already exists ! '});
+    } else {
+        res.json({ 'message': 'User already exists ! ' });
     }
 });
 
