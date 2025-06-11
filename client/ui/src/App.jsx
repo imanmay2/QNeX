@@ -9,12 +9,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { CreateTest } from './components/CreateTest';
 import { ReviewTest } from './components/ReviewTest';
 import { AttendTest } from './components/AttendTest';
-
+import { Test } from './components/Test';
 function App() {
-  
- 
-
-
   const router = createBrowserRouter([
     {
       path: "/",
@@ -26,7 +22,6 @@ function App() {
           <Right_Container />
         </div></div>
     },
-
     {
       path: "/login",
       element: <div className='root1'>
@@ -55,6 +50,11 @@ function App() {
       path:"/attendTest",
       element: <div className="attendTest">
         <AttendTest/>
+      </div>
+    },{
+      path:"/Test/QNX123",
+      element: <div>
+        <Test/>
       </div>
     }
   ])
