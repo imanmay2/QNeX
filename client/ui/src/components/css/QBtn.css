@@ -1,0 +1,41 @@
+.QBtn {
+    min-height: 100vh;
+    width: 18vw;
+    background-color: #5BA4E7; /* Keep the original theme blue */
+}
+
+.tag_head {
+    font-size: 3em;
+    font-weight: bold;
+    color: #FFFFFF; /* White for strong contrast */
+    margin: 2em;
+    padding-top: 2em;
+}
+
+.QuestionBtn {
+    padding: 2rem;
+    margin-top: 6em;
+    display: flex;
+    gap: 3rem;
+    margin-left: 1.5em;
+    flex-wrap: wrap;
+    text-align: center;
+    overflow-y: auto;
+}
+
+.trackQ {
+    height: fit-content;
+    width: fit-content;
+    border: 1px solid #ffffff88; /* Soft white border with transparency */
+    border-radius: 12px;
+    padding: 1em;
+    background-color: #ffffffcc; /* Light translucent white for clarity */
+    color: #005792; /* Deep blue text for contrast */
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.trackQ:hover {
+    background-color: #003f70; /* Darker blue on hover */
+    color: #ffffff; /* Invert text color for contrast */
+}
