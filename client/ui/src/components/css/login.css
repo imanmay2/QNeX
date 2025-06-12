@@ -1,22 +1,22 @@
-.login_div{
+.login_div {
     border-right: 1px solid rgba(4, 71, 65, 0.191);
-    width:30em;
-    padding:3rem;
-    height:83%;
+    width: 30em;
+    padding: 3rem;
+    height: 83%;
 }
 
-.leftMargin{
+.leftMargin {
     margin-left: 52vh;
 }
 
-.small{
-    font-size:x-small;
+.small {
+    font-size: x-small;
 }
 
-.para{
+.para {
     opacity: 0.3;
 }
 
-a{
+a {
     text-decoration: none;
 }

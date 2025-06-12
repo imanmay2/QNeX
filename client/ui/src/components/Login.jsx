@@ -25,13 +25,13 @@ import CloseIcon from '@mui/icons-material/Close';
 function Login() {
     const [showPassword, setShowPassword] = React.useState(false);
     const [open, setOpen] = React.useState(false);
-    const [msg,setMsg]=React.useState("");
+    const [msg, setMsg] = React.useState("");
     const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-    setOpen(false);
-  };
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpen(false);
+    };
 
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -57,7 +57,7 @@ function Login() {
         event.preventDefault();
         try {
             const response = await axios.post("http://localhost:8080/loginUser", data);
-            if(!response.data.flag){
+            if (!response.data.flag) {
                 setMsg(response.data.message);
                 setOpen(true);
             }
@@ -72,17 +72,17 @@ function Login() {
     }
 
     const action = (
-    <React.Fragment>
-      <IconButton
-        size="small"
-        aria-label="close"
-        color="inherit"
-        onClick={handleClose}
-      >
-        <CloseIcon fontSize="small" />
-      </IconButton>
-    </React.Fragment>
-  );
+        <React.Fragment>
+            <IconButton
+                size="small"
+                aria-label="close"
+                color="inherit"
+                onClick={handleClose}
+            >
+                <CloseIcon fontSize="small" />
+            </IconButton>
+        </React.Fragment>
+    );
 
     return (
         <>
@@ -138,14 +138,14 @@ function Login() {
                     </p></center>
 
                 <Snackbar
-                 anchorOrigin={{ vertical:"bottom", horizontal:"center" }}
+                    anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
                     open={open}
                     autoHideDuration={6000}
                     onClose={handleClose}
                     action={action}
                 ><Alert variant="filled" severity="error" sx={{ width: '100%' }}>
-        {msg}
-      </Alert></Snackbar>
+                        {msg}
+                    </Alert></Snackbar>
             </div>
         </>
     )
