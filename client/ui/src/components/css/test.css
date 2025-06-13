@@ -1,49 +1,51 @@
-.test {
+.test_ {
     background-color: white;
     display: flex;
     min-height: 100vh;
     min-width: 100vw;
 }
 
-.maindiv {
+.maindiv_ {
     margin: 4em;
     display: flex;
     flex-direction: column;
-    /* border:1px solid grey; */
+    padding: 1em;
+    border:2px solid rgb(194, 194, 194);
+    border-radius: 20px;
 }
 
-.testTitle {
+.testTitle_ {
     color: #5BA4E7;
-    font-size: 2em;
+    font-size: 200%;
 }
 
-.timer {
+.timer_ {
     font-size: 1em;
     color: black;
     border: 1px solid silver;
     border-radius: 12px;
     padding: 1rem;
-    margin-left: 53em;
+    margin-left: 40vw;
 }
 
-.heading1 {
+.heading1_ {
     display: flex;
 }
-.heading2{
+.heading2_{
     display:flex;
     margin-left:18rem;
 }
 
-.marks {
+.marks_ {
     font-size: medium;
 }
 
-.testid {
+.testid_ {
     font-size: medium;
     margin-left:10rem;
 }
 
-.Q{
+.Q_{
     border:1px solid silver;
     border-radius:12px;
     height:40vh;
@@ -51,19 +53,19 @@
     margin:5rem;
 }
 
-h2{
+.Question_{
     font-weight: 500;
     padding:2rem;
 }
 
-.options{
+.options_{
     margin-top:3em;
     display:flex;
     
 }
 
-label{
-    margin-left:-120px
+.option_{
+    margin-left:-10px
 }
 
 
@@ -71,7 +73,7 @@ label{
     margin-left:-8rem;
 }
 
-.options {
+.options_ {
     margin-top: 3em;
     display: flex;
     flex-direction: column; /* make options vertical */
@@ -79,7 +81,7 @@ label{
     padding-left: 4rem;
 }
 
-.option {
+.option_ {
     font-size: 1.2rem;
     display: flex;
     align-items: center;
@@ -91,7 +93,7 @@ label{
     cursor: pointer;
 }
 
-.btns {
+.btns_ {
     display: flex;
     gap: 2rem;
     margin-left: 6rem;
@@ -99,7 +101,7 @@ label{
 }
 
 /* Common Button Styles */
-.previous, .next, .submit {
+.previous_, .next_, .submit_ {
     padding: 1rem 2rem;
     font-size: 1.1rem;
     border-radius: 12px;
@@ -111,32 +113,32 @@ label{
 }
 
 /* Previous & Next buttons */
-.previous, .next {
+.previous_, .next_ {
     background-color: transparent;
     border: 2px solid #5BA4E7;
     color: #5BA4E7;
 }
 
-.previous:hover,
-.next:hover {
+.previous_:hover,
+.next_:hover {
     background-color: #5BA4E7;
     color: #ffffff;
     transform: scale(1.05);
 }
 
 /* Submit button */
-.submit {
+.submit_ {
     background-color: #5BA4E7;
     color: #ffffff;
     border: 2px solid #5BA4E7;
 }
 
-.submit:hover {
+.submit_:hover {
     background-color: #3f8ed4;
     transform: scale(1.05);
     box-shadow: 0 6px 12px rgba(91, 164, 231, 0.3);
 }
 
-.next{
+.next_{
     margin-left:48rem;
-}
+} 
