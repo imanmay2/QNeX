@@ -16,21 +16,17 @@ function App() {
       path: "/",
       element: <div className='root1'>
         <div>
-          <Signup />
+          <Login/>
         </div>
-        <div>
-          <Right_Container />
-        </div></div>
+       </div>
     },
     {
-      path: "/login",
+      path: "/signup",
       element: <div className='root1'>
         <div>
-          <Login />
+         <Signup/>
         </div>
-        <div>
-          <Right_Container />
-        </div></div>
+        </div>
     },{
       path:"/dashboard",
       element: <div className='dashboard'>

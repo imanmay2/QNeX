@@ -87,7 +87,7 @@ function Login() {
     return (
         <>
             <div className="login_div">
-                <p className='montserrat_font leftMargin small'><font className="small">New to QNeX?</font><Link to="/">SignUp</Link></p>
+                 <p>New To QNeX? <Link className='signup_' to="/signup">Signup</Link></p>
                 <br />
                 <h2 className='montserrat_font'>Login</h2>
                 <br /> <br />
