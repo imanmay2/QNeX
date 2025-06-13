@@ -77,6 +77,8 @@ app.post("/saveUser", async (req, res) => {
                 console.log("User Signed Up!!");
                 flag = 1;
                 res.status(200).json({ 'message': "User saved successfully", "flag": flag });
+               res.redirect("localhost:5173/dashboard");
+
             } else {
                 res.json({ 'message': 'Email is Invalid ! ' });
             }
@@ -104,6 +106,8 @@ app.post("/loginUser", async (req, res) => {
                 flag = 1;
                 console.log("User logged in successfully");
                 res.json({ "message": "User Logged in Successfully", "flag": flag });
+                res.redirect("localhost:5173/dashboard");
+
             } else {
                 res.json({ "message": "Password is incorrect ! " });
             }
