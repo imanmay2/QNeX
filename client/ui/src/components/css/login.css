@@ -1,22 +1,114 @@
+/* Background and overall page layout */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to right, #74ebd5, #ACB6E5);
+    min-height: 100vh;
+}
+
+/* Flex container to center login */
+.login_main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100vh;
+    padding: 2em;
+}
+
+/* Login card container */
 .login_div {
-    border-right: 1px solid rgba(4, 71, 65, 0.191);
-    width: 30em;
-    padding: 3rem;
-    height: 83%;
+    background-color: white;
+    padding: 3rem 3rem 2rem 3rem;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    max-width: 450px;
+    width: 100%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
 }
 
-.leftMargin {
-    margin-left: 52vh;
+/* Heading */
+.heading {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 0.5rem;
 }
 
-.small {
-    font-size: x-small;
+/* Input box spacing */
+.inputBox {
+    width: 100%;
 }
 
-.para {
-    opacity: 0.3;
+/* Prompt above form */
+.prompt-text {
+    font-size: 0.95rem;
+    color: #444;
+    margin-bottom: 0.2rem;
 }
 
-/* a {
+.signup_ {
+    color: #1976d2;
     text-decoration: none;
-} */
+    font-weight: 600;
+}
+
+.signup_:hover {
+    text-decoration: underline;
+}
+
+/* Button */
+.login_btn {
+    margin-top: 1rem;
+    background-color: #1976d2;
+    padding: 0.6rem 2rem;
+    font-size: 1rem;
+    border-radius: 8px;
+}
+
+.login_btn:hover {
+    background-color: #125aa3;
+}
+
+/* Text below login */
+.para {
+    color: #999;
+    font-size: 0.85rem;
+    margin-top: 1.5rem;
+}
+
+/* Right side branding */
+.qtag {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.qtext {
+    font-size: 3rem;
+    font-weight: bold;
+    color: white;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+    letter-spacing: 2px;
+}
+
+/* Responsive for mobile */
+@media (max-width: 768px) {
+    .login_main {
+        flex-direction: column;
+        padding: 1rem;
+    }
+
+    .login_div {
+        width: 100%;
+        max-width: 90%;
+        margin-bottom: 2rem;
+    }
+
+    .qtext {
+        font-size: 2.5rem;
+    }
+}

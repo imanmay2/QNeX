@@ -19,134 +19,128 @@ import Alert from '@mui/material/Alert';
 
 function Signup() {
     const [showPassword, setShowPassword] = React.useState(false);
-    const handleClickShowPassword = () => setShowPassword((show) => !show);
     const [flashOpen, setFlashOpen] = React.useState(false);
     const [flashMsg, setFlashMsg] = React.useState('');
-    const handleMouseDownPassword = (event) => {
-        event.preventDefault();
-    };
 
-     let handleFlashClose = (event, reason) => {
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
+    const handleMouseDownPassword = (event) => event.preventDefault();
+    const handleMouseUpPassword = (event) => event.preventDefault();
+    const handleFlashClose = (event, reason) => {
         if (reason === 'clickaway') return;
         setFlashOpen(false);
     };
 
+    const [data, setData] = useState({ Name: "", Email: "", Password: "" });
 
-    const handleMouseUpPassword = (event) => {
-        event.preventDefault();
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setData((prevData) => ({ ...prevData, [name]: value }));
     };
 
-
-    //handle change.
-    let [data, setData] = useState({
-        Name: "",
-        Email: "",
-        Password: ""
-    });
-
-
-   
-
-    let handleInputChange = (event) => {
-        let fieldName = event.target.name;
-        let fieldValue = event.target.value;
-        setData((currData) => {
-            currData[fieldName] = fieldValue;
-            return { ...currData };
-        });
-    }
-
-    let handleSubmit = async (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         try {
             const response = await axios.post("http://localhost:8080/saveUser", data);
-            console.log(response.data);
-            if (!response.data.flag) {    // we need a valid response from the API.
+            if (!response.data.flag) {
                 setFlashMsg(response.data.message);
                 setFlashOpen(true);
                 return;
             }
-            setData({
-                Name: '',
-                Email: '',
-                Password: ''
-            });
+            setData({ Name: '', Email: '', Password: '' });
         } catch (err) {
             console.error(err);
             setFlashMsg("Something went wrong. Please try again.");
             setFlashOpen(true);
         }
-    }
-
+    };
 
     return (
-        <div className='signup_div'>
-          <p>New To QNeX? <Link className='signup_' to="/">Login</Link></p>
+        <div className="signup_container">
+            <div className='signup_left'>
+                <p className="small">Already Registered? <Link className='link_' to="/">Login</Link></p>
+                <h2 className='montserrat_font'>Create Your QNeX Account</h2>
+                <br />
 
-            <h2 className='montserrat_font'>Sign Up</h2>
-            <br />
-
-
-
-            {/* NAME */}
-            <TextField
-                id="input-with-icon-textfield"
-                name="Name" onChange={handleInputChange} value={data.Name}
-                label="Name" fullWidth
-                slotProps={{
-                    input: {
+                {/* NAME */}
+                <TextField
+                    name="Name"
+                    value={data.Name}
+                    label="Name"
+                    fullWidth
+                    onChange={handleInputChange}
+                    variant="standard"
+                    InputProps={{
                         startAdornment: (
                             <InputAdornment position="start">
                                 <AccountCircle />
                             </InputAdornment>
-                        ),
-                    },
-                }}
-                variant="standard"
-            /> <br /> <br /> <br />
+                        )
+                    }}
+                />
+                <br /><br /><br />
 
+                {/* EMAIL */}
+                <TextField
+                    name="Email"
+                    value={data.Email}
+                    label="Email"
+                    fullWidth
+                    onChange={handleInputChange}
+                    variant="standard"
+                />
+                <br /><br /><br />
 
-            {/* EMAIL */}
-            <TextField name="Email" value={data.Email} id="standard-basic" label="Email" variant="standard" onChange={handleInputChange} fullWidth />
+                {/* PASSWORD */}
+                <FormControl variant="standard" fullWidth>
+                    <InputLabel>Password</InputLabel>
+                    <OutlinedInput
+                        name="Password"
+                        value={data.Password}
+                        onChange={handleInputChange}
+                        type={showPassword ? 'text' : 'password'}
+                        endAdornment={
+                            <InputAdornment position="end">
+                                <IconButton
+                                    onClick={handleClickShowPassword}
+                                    onMouseDown={handleMouseDownPassword}
+                                    onMouseUp={handleMouseUpPassword}
+                                    edge="end"
+                                >
+                                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                                </IconButton>
+                            </InputAdornment>
+                        }
+                        label="Password"
+                    />
+                </FormControl>
 
-            <br /><br /> <br />
-            <br />
+                <br /><br />
+                <Button fullWidth variant="contained" onClick={handleSubmit}>
+                    SIGN UP &nbsp; <FaArrowRight />
+                </Button>
 
-            {/* PASSWORD */}
-            <FormControl sx={{ width: '30rem' }} variant="outlined">
-                <InputLabel htmlFor="outlined-adornment-password" className='width'>Password</InputLabel>
-                <OutlinedInput name="Password" value={data.Password} onChange={handleInputChange}
-                    id="outlined-adornment-password"
-                    type={showPassword ? 'text' : 'password'}
-                    endAdornment={
-                        <InputAdornment position="end">
-                            <IconButton
-                                aria-label={
-                                    showPassword ? 'hide the password' : 'display the password'
-                                }
-                                onClick={handleClickShowPassword}
-                                onMouseDown={handleMouseDownPassword}
-                                onMouseUp={handleMouseUpPassword}
-                                edge="end"
-                            >
-                                {showPassword ? <VisibilityOff /> : <Visibility />}
-                            </IconButton>
-                        </InputAdornment>
-                    }
-                    label="Password"
-                /></FormControl> <br /> <br />
+                <br /><br />
+                <p className="para montserrat_font small">
+                    Secure your Communication with QNeX
+                </p>
 
-            <center><Button variant="contained" onClick={handleSubmit}>SignUp &nbsp; <FaArrowRight /></Button> <br /> <br />
-                <p className="para montserrat_font small">Secure your Communication with QNeX</p></center>
+                <Snackbar
+                    anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+                    open={flashOpen}
+                    autoHideDuration={4000}
+                    onClose={handleFlashClose}
+                >
+                    <Alert onClose={handleFlashClose} variant='filled' severity="error" sx={{ width: '100%' }}>
+                        {flashMsg}
+                    </Alert>
+                </Snackbar>
+            </div>
 
-
-            <Snackbar anchorOrigin={{ vertical:"bottom", horizontal:"center" }} open={flashOpen} autoHideDuration={4000} onClose={handleFlashClose}>
-                <Alert onClose={handleFlashClose} variant='filled' severity="error" sx={{ width: '100%' }}>
-                    {flashMsg}
-                </Alert>
-            </Snackbar>
+            <div className="signup_right">
+                <h1 className="q_logo">QNeX</h1>
+            </div>
         </div>
-    )
+    );
 }
 
 export { Signup };
