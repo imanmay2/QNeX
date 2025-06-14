@@ -5,6 +5,7 @@ body, html {
     font-family: 'Segoe UI', sans-serif;
     background: linear-gradient(to right, #74ebd5, #ACB6E5);
     min-height: 100vh;
+
 }
 
 /* Flex container to center login */
@@ -14,6 +15,8 @@ body, html {
     align-items: center;
     height: 100vh;
     padding: 2em;
+    background-image: linear-gradient(135deg, #a0f0cf, #9ddcf9);
+
 }
 
 /* Login card container */
