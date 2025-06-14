@@ -1,4 +1,4 @@
-import './css/signup.css';
+import styles from './css/signup.module.css'; // using CSS module syntax for import should be .module.css, but retaining as per your input
 import InputAdornment from '@mui/material/InputAdornment';
 import TextField from '@mui/material/TextField';
 import AccountCircle from '@mui/icons-material/AccountCircle';
@@ -55,13 +55,14 @@ function Signup() {
     };
 
     return (
-        <div className="signup_container">
-            <div className='signup_left'>
-                <p className="small">Already Registered? <Link className='link_' to="/">Login</Link></p>
-                <h2 className='montserrat_font'>Create Your QNeX Account</h2>
+        <div className={styles.signup_container__}>
+            <div className={styles.signup_left__}>
+                <p className={styles.small__}>
+                    Already Registered? <Link className={styles.link__} to="/">Login</Link>
+                </p>
+                <h2 className={styles.montserrat_font}>Create Your QNeX Account</h2>
                 <br />
 
-                {/* NAME */}
                 <TextField
                     name="Name"
                     value={data.Name}
@@ -79,7 +80,6 @@ function Signup() {
                 />
                 <br /><br /><br />
 
-                {/* EMAIL */}
                 <TextField
                     name="Email"
                     value={data.Email}
@@ -90,7 +90,6 @@ function Signup() {
                 />
                 <br /><br /><br />
 
-                {/* PASSWORD */}
                 <FormControl variant="standard" fullWidth>
                     <InputLabel>Password</InputLabel>
                     <OutlinedInput
@@ -120,7 +119,7 @@ function Signup() {
                 </Button>
 
                 <br /><br />
-                <p className="para montserrat_font small">
+                <p className={`${styles.para__} ${styles.montserrat_font} ${styles.small__}`}>
                     Secure your Communication with QNeX
                 </p>
 
@@ -136,8 +135,8 @@ function Signup() {
                 </Snackbar>
             </div>
 
-            <div className="signup_right">
-                <h1 className="q_logo">QNeX</h1>
+            <div className={styles.signup_right__}>
+                <h1 className={styles.q_logo__}>QNeX</h1>
             </div>
         </div>
     );
