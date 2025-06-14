@@ -65,7 +65,7 @@ app.post("/saveUser", async (req, res) => {
             if (emailValidation == true) {
                 //Generate a username;
                 let userName = generateUsername(Email);
-                console.log("UserName is: " + userName);
+                // console.log("UserName is: " + userName);
                 hashPass = await bcrypt.hash(Password, saltRounds);   //Encrytption of the password.
                 const user1 = new User({
                     name: Name,
@@ -105,9 +105,7 @@ app.post("/loginUser", async (req, res) => {
             if (result) {
                 flag = 1;
                 console.log("User logged in successfully");
-                res.json({ "message": "User Logged in Successfully", "flag": flag });
-                res.redirect("localhost:5173/dashboard");
-
+                res.json({ "message": "User Logged in Successfully", "flag": flag,"userData":userRes });
             } else {
                 res.json({ "message": "Password is incorrect ! " });
             }
