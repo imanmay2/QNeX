@@ -1,41 +1,41 @@
-.signup_container__ {
-    display: flex;
+.signup_wrapper {
     height: 100vh;
-
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.signup_left__ {
-    flex: 1;
-    padding: 4rem;
-    background-color: white;
     display: flex;
-    flex-direction: column;
     justify-content: center;
-}
-
-.signup_right__ {
-    flex: 1;
-    background: linear-gradient(to bottom right, #00d2ff, #3aefb5);
-    display: flex;
     align-items: center;
-    justify-content: center;
-    color: white;
+    background: linear-gradient(120deg, #b2fefa, #0ed2f7);
+}
+
+.signup_card {
+    width: 400px;
+    background-color: white;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+.signup_text {
+    text-align: right;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+    color: #444;
+}
+
+.heading {
+    font-size: 1.8rem;
     font-weight: 700;
-    font-size: 2.5rem;
-    box-shadow: -10px 0 20px rgba(0, 0, 0, 0.1);
-}
-
-.q_logo__ {
-    text-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
-    letter-spacing: 2px;
-}
-
-.montserrat_font {
+    margin-bottom: 2rem;
+    color: #2196f3;
     font-family: 'Montserrat', sans-serif;
-    font-weight: 600;
-    font-size: 1.6rem;
-    color: #1a3f8b;
+}
+
+.para__ {
+    opacity: 0.5;
+    font-size: 0.8rem;
+    text-align: center;
+    margin-top: 1.5rem;
+    line-height: 1.4;
 }
 
 .link__ {
@@ -44,14 +44,10 @@
     font-weight: 500;
 }
 
-.para__ {
-    opacity: 0.4;
-    font-size: 0.8rem;
-    text-align: center;
-    margin-top: 1rem;
+.montserrat_font {
+    font-family: 'Montserrat', sans-serif;
 }
 
 .small__ {
     font-size: 0.9rem;
-    margin-bottom: 1rem;
 }

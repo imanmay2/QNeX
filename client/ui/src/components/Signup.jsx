@@ -1,4 +1,4 @@
-import styles from './css/signup.module.css'; // using CSS module syntax for import should be .module.css, but retaining as per your input
+import styles from './css/signup.module.css';
 import InputAdornment from '@mui/material/InputAdornment';
 import TextField from '@mui/material/TextField';
 import AccountCircle from '@mui/icons-material/AccountCircle';
@@ -55,13 +55,12 @@ function Signup() {
     };
 
     return (
-        <div className={styles.signup_container__}>
-            <div className={styles.signup_left__}>
-                <p className={styles.small__}>
+        <div className={styles.signup_wrapper}>
+            <div className={styles.signup_card}>
+                <p className={styles.signup_text}>
                     Already Registered? <Link className={styles.link__} to="/">Login</Link>
                 </p>
-                <h2 className={styles.montserrat_font}>Create Your QNeX Account</h2>
-                <br />
+                <h2 className={styles.heading}>SignUp</h2>
 
                 <TextField
                     name="Name"
@@ -78,7 +77,7 @@ function Signup() {
                         )
                     }}
                 />
-                <br /><br /><br />
+                <br /><br />
 
                 <TextField
                     name="Email"
@@ -88,7 +87,7 @@ function Signup() {
                     onChange={handleInputChange}
                     variant="standard"
                 />
-                <br /><br /><br />
+                <br /><br />
 
                 <FormControl variant="standard" fullWidth>
                     <InputLabel>Password</InputLabel>
@@ -112,15 +111,16 @@ function Signup() {
                         label="Password"
                     />
                 </FormControl>
-
                 <br /><br />
+
                 <Button fullWidth variant="contained" onClick={handleSubmit}>
                     SIGN UP &nbsp; <FaArrowRight />
                 </Button>
 
-                <br /><br />
-                <p className={`${styles.para__} ${styles.montserrat_font} ${styles.small__}`}>
-                    Secure your Communication with QNeX
+                <br />
+                <p className={styles.para__}>
+                    Secure your Communication with QNeX<br />
+                    Welcome to QNeX!
                 </p>
 
                 <Snackbar
@@ -133,10 +133,6 @@ function Signup() {
                         {flashMsg}
                     </Alert>
                 </Snackbar>
-            </div>
-
-            <div className={styles.signup_right__}>
-                <h1 className={styles.q_logo__}>QNeX</h1>
             </div>
         </div>
     );
