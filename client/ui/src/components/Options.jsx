@@ -5,8 +5,22 @@ import { MdAssignmentTurnedIn } from "react-icons/md";
 import { AiOutlineFileSearch } from "react-icons/ai";
 import { FiUser } from "react-icons/fi";
 import { FiLogOut } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import axios from "axios";
+import Cookies from "js-cookie";
 function Options() {
+    const navigate=useNavigate();
+    const handleLogout=async()=>{
+        let response=await axios.post("http://localhost:8080/logout",{},{
+            withCredentials:true
+        })
+        if(response.data.flag=="true"){
+            Cookies.remove("login");
+            Cookies.remove("name");
+            Cookies.remove("username");
+            navigate("/");
+        }
+    }
     return (
         <div className="option_div">
             <div className="tag"><h1>QNeX</h1></div>
@@ -19,7 +33,7 @@ function Options() {
             <div className="rt"><AiOutlineFileSearch/> &nbsp;&nbsp;<Link to="http://localhost:5173/reviewTest" className="nav-link">Review Test</Link></div>
             <div className="setGap">
                 <div className="settings"><FiUser/> &nbsp;&nbsp;<Link to="http://localhost:5173/settings" className="nav-link">Settings</Link></div>
-                <div className="logout"><FiLogOut/> &nbsp;&nbsp;<Link to="http://localhost:5173/logout" className="nav-link">Logout</Link></div>
+                <div className="logout"><FiLogOut/> &nbsp;&nbsp;<Link onClick={handleLogout} className="nav-link">Logout</Link></div>
             </div>
         </div>
     )

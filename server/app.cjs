@@ -56,6 +56,8 @@ app.get("/data", (req, res) => {
 });
 
 
+
+//signup
 app.post("/saveUser", async (req, res) => {
     const { Name, Email, Password } = req.body;
     let userRes = await User.find({ email: Email });
@@ -104,7 +106,7 @@ app.post("/saveUser", async (req, res) => {
     }
 });
 
-
+//login 
 app.post("/loginUser", async (req, res) => {
     let flag = 0;
     const { Username, Password } = req.body;
@@ -130,3 +132,11 @@ app.post("/loginUser", async (req, res) => {
         res.json({ "message": "Username is incorrect ! " });
     }
 });
+
+
+
+//logging out.
+app.post("/logout",(req,res)=>{
+    res.cookie("login","false",{secure:false});
+    res.json({"flag":"true"});
+})
