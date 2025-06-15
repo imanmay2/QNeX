@@ -71,7 +71,7 @@ function Dashboard() {
                     </div>
                     <div className="S_Row">
                         <div className="ongoing">
-                            Lists of Ongoing tests:
+                            Tests Attempted:
                         </div>
                         <div className="bargraph">
                             <BarGraph />

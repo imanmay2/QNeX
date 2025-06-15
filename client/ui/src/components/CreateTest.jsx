@@ -1,7 +1,19 @@
 import "./css/createTest.css";
 import { Options } from "./Options";
-
+import { useState } from "react";
 function CreateTest() {
+    let [test,setTest]=useState({
+        testTitle:"",
+        description:"",
+        duration:"",
+        min:"",
+        questions_:{
+            questionNo:"",
+            question:"",
+            options:[],
+            ans:""
+        }
+    });
     return (
         <div className="createTest">
             <Options />
@@ -15,28 +27,28 @@ function CreateTest() {
                         <br />
                         <div>
                             <label htmlFor="test_title" id="test_title_label">Test Title</label> <br />
-                            <input type="text" id="test_title" style={{ width: "85vh" }} />
+                            <input type="text" id="test_title" name="testTitle" style={{ width: "85vh" }} />
                         </div>
                         <br />
                         <div className="info">
                             <span>
                                 <label htmlFor="description">Description</label> <br />
-                                <input type="text" id="description" style={{ width: "65vh" }} />
+                                <input type="text"  name="description" id="description" style={{ width: "65vh" }} />
                             </span>
                             <span>
                                 <label htmlFor="duration">Duration</label> <br />
-                                <input type="text" id="duration" />
+                                <input type="text" name="duration" id="duration" />
                             </span>
                             <span>
                                 <label htmlFor="min">Min</label> <br />
-                                <input type="text" id="min" />
+                                <input type="text" name="min" id="min" />
                             </span>
                         </div>
                         <br /><br /><br />
                         <h2>Add Questions</h2>
                         <div className="addQ">
                             <label htmlFor="Question" id="question_1_label">Question 1</label><br />
-                            <input type="text" id="Question" style={{ width: "90vh" }} /> <br /><br /><br />
+                            <input type="text" id="Question" name="question" style={{ width: "90vh" }} /> <br /><br /><br />
                             <div className="options">
                                 <span>
                                     <label htmlFor="option_A">Option A</label><br />
