@@ -9,6 +9,7 @@ const cookieParser=require("cookie-parser");
 
 
 const User = require("./models/user.cjs");
+const Question=require("./models/test.cjs");
 let flag = 0;
 
 
@@ -134,6 +135,27 @@ app.post("/loginUser", async (req, res) => {
 });
 
 
+//Creating the test by saving the Question into the database.
+app.post("/createTest",async(req,res)=>{
+    let {test}=req.body;
+    const test_=new Question({
+        testTitle:test.testTitle,
+        description:test.description,
+        duration:test.duration,
+        test_id:test.test_id,
+        questions_:{
+            question:test.questions_.question,
+            options:{
+                option_A:test.questions_.options.option_A,
+                option_B:test.questions_.options.option_B,
+                option_C:test.questions_.options.option_C,
+            }
+        }
+    });
+    await test_.save();
+    console.log("Test saved successfully.");
+    res.json({"message":"Test created succesfully."});
+})
 
 //logging out.
 app.post("/logout",(req,res)=>{

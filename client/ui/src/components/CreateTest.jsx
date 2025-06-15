@@ -1,13 +1,14 @@
 import "./css/createTest.css";
 import { Options } from "./Options";
 import { useState } from "react";
+import axios from "axios";
 function CreateTest() {
     let i = 1;
     let [test, setTest] = useState({
         testTitle: "",
         description: "",
         duration: "",
-        min: "",
+        test_id:"",
         questions_: [{
             question: "",
             options: {
@@ -21,7 +22,7 @@ function CreateTest() {
     let handleInput = ((event) => {
         let {name,value}=event.target;
         setTest((currData)=>{
-            if(["testTitle","description","duration","min"].includes(name)){
+            if(["testTitle","description","duration","test_id"].includes(name)){
                 return{...currData,[name]:value};
             }
             return currData;
@@ -52,9 +53,39 @@ function CreateTest() {
             }
             return currData;
         })
-    })
-    
+    });
 
+
+    let addQ=(()=>{
+        if(Q.question!="" && Q.ans!="" && Q.options.option_A!="" && Q.options.option_B!="" && Q.options.option_C!=""){
+            setTest((currData)=>{
+                return {...currData,
+                    questions_:[...currData.questions_,Q]
+                }
+            })
+        }
+        // console.log(Q);
+        console.log(test);
+        setQ({
+             question: "",
+        options: {
+            option_A: "",
+            option_B: "",
+            option_C: "",
+        },
+        ans: ""
+        })
+    })
+
+
+    let createTest=(async()=>{
+        if(test.testTitle!="" && test.duration!="" && test.description!="" && test.test_id!=""){
+            const response=await axios.post("http://localhost:8080/createTest",test,{withCredentials:true});
+            console.log(response.data.message);
+        } else{
+            //SnackBar
+        }
+    })
     return (
         <div className="createTest">
             <Options />
@@ -81,8 +112,8 @@ function CreateTest() {
                                 <input type="text" name="duration" value={test.duration} onChange={handleInput} id="duration" />
                             </span>
                             <span>
-                                <label htmlFor="min">Min</label> <br />
-                                <input type="text" name="min" value={test.min} onChange={handleInput} id="min" />
+                                <label htmlFor="test_id">Test_ID</label> <br />
+                                <input type="text" name="test_id" value={test.test_id} onChange={handleInput} id="test_id"/>
                             </span>
                         </div>
                         <br /><br /><br />
@@ -109,12 +140,12 @@ function CreateTest() {
                             <br /><br />
                             <label htmlFor="correctAns">Correct Answer</label><br />
                             <input type="text" id="correctAns" name="ans" value={Q.ans} onChange={handleQ} style={{ width: "30vh" }} />
-                            <span className="add_anotherQ">+ Add Another Question</span>
+                            <span className="add_anotherQ" onClick={addQ}>+ Add Another Question</span>
                             <span className="delete">Delete Question</span>
                         </div>
                         <br /><br />
                         <center>
-                            <span className="create_test_btn">Create Test</span>
+                            <span className="create_test_btn" onClick={createTest}>Create Test</span>
                         </center>
                     </div>
                 </div>
