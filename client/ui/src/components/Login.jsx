@@ -20,12 +20,12 @@ import { Link } from 'react-router-dom';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import CloseIcon from '@mui/icons-material/Close';
-
+import { useNavigate } from 'react-router-dom';
 function Login() {
+    const navigate=useNavigate();
     const [showPassword, setShowPassword] = React.useState(false);
     const [open, setOpen] = React.useState(false);
     const [msg, setMsg] = React.useState("");
-
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') return;
         setOpen(false);
@@ -49,10 +49,15 @@ function Login() {
     let handleSubmit_ = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.post("http://localhost:8080/loginUser", data);
+            const response = await axios.post("http://localhost:8080/loginUser", data,{
+                withCredentials:true
+            });
             if (!response.data.flag) {
                 setMsg(response.data.message);
                 setOpen(true);
+                return;
+            } else{
+                navigate("/dashboard");
             }
         } catch (err) {
             console.error(err);

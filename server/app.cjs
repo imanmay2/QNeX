@@ -5,6 +5,8 @@ const app = express();
 const PORT = 8080;
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+const cookieParser=require("cookie-parser");
+
 
 const User = require("./models/user.cjs");
 let flag = 0;
@@ -12,13 +14,14 @@ let flag = 0;
 
 const corsOptions = {
     origin: "http://localhost:5173",
+    credentials:true
 };
 
 //middlewares
 app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
+app.use(cookieParser());
 
 //functions
 function checkEmailValidation(email) {
@@ -74,10 +77,16 @@ app.post("/saveUser", async (req, res) => {
                     username: userName,
                 });
                 await user1.save();
+
+                //cookies
+                res.cookie("login","true",{secure:false});
+                res.cookie("username",userName,{secure:false});
+                res.cookie("name",Name,{secure:false});  // secure false as using http. not https.
+                
                 console.log("User Signed Up!!");
                 flag = 1;
                 res.status(200).json({ 'message': "User saved successfully", "flag": flag });
-               res.redirect("localhost:5173/dashboard");
+               
 
             } else {
                 res.json({ 'message': 'Email is Invalid ! ' });
@@ -105,7 +114,12 @@ app.post("/loginUser", async (req, res) => {
             if (result) {
                 flag = 1;
                 console.log("User logged in successfully");
-                res.json({ "message": "User Logged in Successfully", "flag": flag,"userData":userRes });
+
+                ///setting up cookies.
+                res.cookie("login","true",{secure:false});
+                res.cookie("name",userRes[0].name,{secure:false});
+                res.cookie("username",userRes[0].username,{secure:false});
+                res.json({ "message": "User Logged in Successfully", "flag": flag });
             } else {
                 res.json({ "message": "Password is incorrect ! " });
             }

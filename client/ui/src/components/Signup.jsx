@@ -16,8 +16,9 @@ import FormControl from '@mui/material/FormControl';
 import { Link } from 'react-router-dom';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
-
+import { useNavigate } from 'react-router-dom';
 function Signup() {
+    const navigate=useNavigate();
     const [showPassword, setShowPassword] = React.useState(false);
     const [flashOpen, setFlashOpen] = React.useState(false);
     const [flashMsg, setFlashMsg] = React.useState('');
@@ -40,11 +41,15 @@ function Signup() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.post("http://localhost:8080/saveUser", data);
+            const response = await axios.post("http://localhost:8080/saveUser", data,{
+                withCredentials:true
+            });
             if (!response.data.flag) {
                 setFlashMsg(response.data.message);
                 setFlashOpen(true);
                 return;
+            } else{
+                navigate("/dashboard");
             }
             setData({ Name: '', Email: '', Password: '' });
         } catch (err) {
