@@ -5,11 +5,12 @@ import { HiOutlineFaceSmile } from "react-icons/hi2";
 import { RiArrowDownSLine } from "react-icons/ri";
 import { PieChart } from "./PieChart";
 import { BarGraph } from "./BarGraph";
+import Cookies from "js-cookie";
 function Dashboard() {
-    let name = "Manmay";
-    let username = "imanmay2";
-    let totalTest=24;
-    let attendedTest=16;
+    let name = Cookies.get("name");
+    let username = Cookies.get("username");
+    let totalTest = 24;
+    let attendedTest = 16;
     //fetch date:
     function getFormattedDate() {
         const date = new Date();
@@ -22,7 +23,6 @@ function Dashboard() {
         const day = date.getDate();
         const monthName = months[date.getMonth()];
         const year = date.getFullYear();
-
         return `${dayName}, ${day} ${monthName} ${year}`;
     }
 
@@ -62,7 +62,7 @@ function Dashboard() {
                             <div className="pie">
                                 <PieChart />
                             </div>
-                            
+
                         </div>
                         <div className="testRecords">
                             <h3>Total Tests : {totalTest}</h3> <br />
@@ -71,16 +71,13 @@ function Dashboard() {
                     </div>
                     <div className="S_Row">
                         <div className="ongoing">
-                           Lists of Ongoing tests: 
+                            Lists of Ongoing tests:
                         </div>
-                         <div className="bargraph">
-                            <BarGraph/>
+                        <div className="bargraph">
+                            <BarGraph />
                         </div>
                     </div>
-    
                 </div>
-
-
             </div>
         </div>
     )

@@ -17,6 +17,7 @@ import { Link } from 'react-router-dom';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import { useNavigate } from 'react-router-dom';
+import Cookies from "js-cookie";
 function Signup() {
     const navigate=useNavigate();
     const [showPassword, setShowPassword] = React.useState(false);
@@ -48,8 +49,11 @@ function Signup() {
                 setFlashMsg(response.data.message);
                 setFlashOpen(true);
                 return;
-            } else{
+            } else if(Cookies.get('login')=="true"){
                 navigate("/dashboard");
+            } else {
+                setMsg("Signup  before you proceed");
+                setOpen(true);
             }
             setData({ Name: '', Email: '', Password: '' });
         } catch (err) {

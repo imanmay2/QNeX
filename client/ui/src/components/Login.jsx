@@ -21,8 +21,9 @@ import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import CloseIcon from '@mui/icons-material/Close';
 import { useNavigate } from 'react-router-dom';
+import Cookies from "js-cookie";
 function Login() {
-    const navigate=useNavigate();
+    const navigate = useNavigate();
     const [showPassword, setShowPassword] = React.useState(false);
     const [open, setOpen] = React.useState(false);
     const [msg, setMsg] = React.useState("");
@@ -49,15 +50,18 @@ function Login() {
     let handleSubmit_ = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.post("http://localhost:8080/loginUser", data,{
-                withCredentials:true
+            const response = await axios.post("http://localhost:8080/loginUser", data, {
+                withCredentials: true
             });
             if (!response.data.flag) {
                 setMsg(response.data.message);
                 setOpen(true);
                 return;
-            } else{
+            } else if (Cookies.get("login") == "true") {
                 navigate("/dashboard");
+            } else {
+                setMsg("Login  before you proceed");
+                setOpen(true);
             }
         } catch (err) {
             console.error(err);
@@ -147,7 +151,7 @@ function Login() {
                 </Snackbar>
             </div>
 
-           
+
         </div>
     );
 }
