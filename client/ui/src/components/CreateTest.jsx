@@ -114,10 +114,11 @@ function CreateTest() {
 
 
     let createTest = (async () => {
-        if(!test.questions_.length){
+        if(test.questions_.length==0){
             setMsg("Please Add atleast 1 Question ! ");
             setServerity("error");
             setOpen(true);
+            return;
         }
         if (Q.question && Q.ans && Q.options.option_A && Q.options.option_B && Q.options.option_C){
             setTest((currData) => ({
