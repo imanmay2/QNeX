@@ -126,7 +126,7 @@ app.post("/loginUser", async (req, res) => {
                 res.cookie("username", userRes[0].username, { secure: false });
                 res.json({ "message": "User Logged in Successfully", "flag": flag });
             } else {
-                res.json({ "message": "Password is incorrect ! "});
+                res.json({ "message": "Password is incorrect ! " });
             }
         });
     } else {
@@ -166,9 +166,24 @@ app.post("/createTest", async (req, res) => {
         } else {
             res.json({ "message": "Test_ID already in use", "flag": "error" });
         }
+    } catch (err) {
+        res.json({ "message": err.message, "flag": "error" });
+    }
+})
+
+// fetching the test Question for a particular test_id.
+app.get("/test/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+        let findId = await Question.find({ test_id: id });
+        if (findId.length) {
+            res.json({"test":findId,"flag":"success"});
+        }else{
+            res.json({"test":findId,"flag":"error"});
+        }
     } catch(err){
-        res.json({"message":err.message,"flag":"error"});
-    } 
+        res.status(500).json({"test":[],"message":err.message,"flag":"error"});
+    }
 })
 
 //logging out.

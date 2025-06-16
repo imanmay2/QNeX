@@ -1,8 +1,54 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./css/test.css";
 import { QBtn } from "./QBtn";
-
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import * as React from 'react';
+import Button from '@mui/material/Button';
+import Snackbar from '@mui/material/Snackbar';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+import Alert from '@mui/material/Alert';
 function Test() {
+  const navigate = useNavigate();
+  const [open, setOpen] = React.useState(false);
+  const [msg, setMsg] = React.useState(false);
+  const [serverity, setServerity] = React.useState(false);
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
+
+  const action = (
+    <React.Fragment>
+      <Button color="secondary" size="small" onClick={handleClose}>
+        UNDO
+      </Button>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleClose}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </React.Fragment>
+  );
+  const { id } = useParams();
+  useEffect(() => {
+    const response = axios.get(`http://localhost:8080/test/${id}`);
+    const test = response.data.test;
+    if (!test.length) {
+      navigate("/attendTest", { state: response.data.flag });
+      setMsg("Test ID not found!");
+      setServerity("error");
+      setOpen(true);
+      return;
+    }
+  }, [])
   const tests = [
     {
       questionNo: 1,
@@ -56,34 +102,34 @@ function Test() {
     }
   ];
 
-  const [tracker,setTracker] =useState(0);
+  const [tracker, setTracker] = useState(0);
 
-  let prev=()=>{
-    setTracker((tracker)=>{
-      if(tracker==0){
+  let prev = () => {
+    setTracker((tracker) => {
+      if (tracker == 0) {
         return tracker;
       }
-      return tracker-1;
+      return tracker - 1;
     })
   }
 
-    let next=()=>{
-    setTracker((tracker)=>{
-      if(tracker==tests.length-1){
+  let next = () => {
+    setTracker((tracker) => {
+      if (tracker == tests.length - 1) {
         return tracker;
       }
-      return tracker+1;
+      return tracker + 1;
     })
   }
 
-  let setQ=(ques)=>{
+  let setQ = (ques) => {
     setTracker(ques);
   }
-  
+
 
   return (
     <div className="test_">
-      <QBtn questions={tests} setQ={setQ}/>
+      <QBtn questions={tests} setQ={setQ} />
       <div className="maindiv_">
         <div className="heading1_">
           <span className="testTitle_">Test: Data Structure and Algorithm</span>
@@ -110,7 +156,7 @@ function Test() {
             </label>
             <label className="option_">
               <input className="input_" type="radio" name="q1" value="C" />
-             {tests[tracker].options[2]}
+              {tests[tracker].options[2]}
             </label>
           </div>
         </div>
@@ -121,6 +167,15 @@ function Test() {
           <button className="submit_">Submit</button>
         </div>
       </div>
+      <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        action={action}
+      >
+        <Alert variant="filled" severity={serverity}>{msg}</Alert>
+      </Snackbar>
     </div>
   );
 }

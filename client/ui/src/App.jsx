@@ -46,7 +46,7 @@ function App() {
         <AttendTest/>
       </div>
     },{
-      path:"/Test/QNX123",
+      path:"/Test/:id",
       element: <div>
         <Test/>
       </div>

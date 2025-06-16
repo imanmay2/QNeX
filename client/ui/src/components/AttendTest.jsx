@@ -1,7 +1,7 @@
 import "./css/attendTest.css";
 import { Options } from "./Options";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 function AttendTest() {
     const navigate = useNavigate();
@@ -13,10 +13,11 @@ function AttendTest() {
 
     const handleSubmit = () => {
         if (testId.trim()) {
-
             // Navigate or perform logic with testId
             console.log("Entered Test ID:", testId);
             navigate(`/Test/${testId}`);
+
+            
         }
     };
 
