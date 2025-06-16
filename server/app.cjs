@@ -5,17 +5,17 @@ const app = express();
 const PORT = 8080;
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
-const cookieParser=require("cookie-parser");
+const cookieParser = require("cookie-parser");
 
 
 const User = require("./models/user.cjs");
-const Question=require("./models/test.cjs");
+const Question = require("./models/test.cjs");
 let flag = 0;
 
 
 const corsOptions = {
     origin: "http://localhost:5173",
-    credentials:true
+    credentials: true
 };
 
 //middlewares
@@ -82,16 +82,16 @@ app.post("/saveUser", async (req, res) => {
                 await user1.save();
 
                 //cookies
-                res.cookie("login","true",{secure:false});
-                res.cookie("username",userName,{secure:false});
-                res.cookie("name",Name,{secure:false});  // secure false as using http. not https.
-                
+                res.cookie("login", "true", { secure: false });
+                res.cookie("username", userName, { secure: false });
+                res.cookie("name", Name, { secure: false });  // secure false as using http. not https.
+
                 console.log("User Signed Up!!");
                 flag = 1;
 
-                
+
                 res.status(200).json({ 'message': "User saved successfully", "flag": flag });
-               
+
 
             } else {
                 res.json({ 'message': 'Email is Invalid ! ' });
@@ -121,12 +121,12 @@ app.post("/loginUser", async (req, res) => {
                 console.log("User logged in successfully");
 
                 ///setting up cookies.
-                res.cookie("login","true",{secure:false});
-                res.cookie("name",userRes[0].name,{secure:false});
-                res.cookie("username",userRes[0].username,{secure:false});
+                res.cookie("login", "true", { secure: false });
+                res.cookie("name", userRes[0].name, { secure: false });
+                res.cookie("username", userRes[0].username, { secure: false });
                 res.json({ "message": "User Logged in Successfully", "flag": flag });
             } else {
-                res.json({ "message": "Password is incorrect ! " });
+                res.json({ "message": "Password is incorrect ! "});
             }
         });
     } else {
@@ -136,30 +136,42 @@ app.post("/loginUser", async (req, res) => {
 
 
 //Creating the test by saving the Question into the database.
-app.post("/createTest",async(req,res)=>{
-    let test=req.body;
-    console.log(test);
-    const test_=new Question({
-        testTitle:test.testTitle,
-        description:test.description,
-        duration:test.duration,
-        test_id:test.test_id,
-        questions_:[{
-            question:test.questions_.question,
-            options:{
-                option_A:test.questions_.options.option_A,
-                option_B:test.questions_.options.option_B,
-                option_C:test.questions_.options.option_C,
-            }
-        }]
-    });
-    await test_.save();
-    console.log("Test saved successfully.");
-    res.json({"message":"Test created succesfully."});
+app.post("/createTest", async (req, res) => {
+    try {
+        let test = req.body;
+        console.log(test);
+        let findTest = await Question.find({ test_id: test.test_id });
+        if (findTest.length) {
+            const test_ = new Question({
+                testTitle: test.testTitle,
+                description: test.description,
+                duration: test.duration,
+                test_id: test.test_id,
+                questions_: test.questions_.map((q) => {
+                    return {
+                        question: q.question,
+                        options: {
+                            option_A: q.options.option_A,
+                            option_B: q.options.option_B,
+                            option_C: q.options.option_C,
+                        },
+                        ans: q.ans,
+                    }
+                })
+            });
+            await test_.save();
+            console.log("Test saved successfully.");
+            res.json({ "message": "Test created succesfully.", "flag": "success" });
+        } else {
+            res.json({ "message": "Test_ID already in use", "flag": "failed" });
+        }
+    } catch(err){
+        res.json({"message":err,"flag":"failed"});
+    } 
 })
 
 //logging out.
-app.post("/logout",(req,res)=>{
-    res.cookie("login","false",{secure:false});
-    res.json({"flag":"true"});
+app.post("/logout", (req, res) => {
+    res.cookie("login", "false", { secure: false });
+    res.json({ "flag": "true" });
 })
