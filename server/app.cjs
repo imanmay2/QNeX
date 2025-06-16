@@ -137,20 +137,21 @@ app.post("/loginUser", async (req, res) => {
 
 //Creating the test by saving the Question into the database.
 app.post("/createTest",async(req,res)=>{
-    let {test}=req.body;
+    let test=req.body;
+    console.log(test);
     const test_=new Question({
         testTitle:test.testTitle,
         description:test.description,
         duration:test.duration,
         test_id:test.test_id,
-        questions_:{
+        questions_:[{
             question:test.questions_.question,
             options:{
                 option_A:test.questions_.options.option_A,
                 option_B:test.questions_.options.option_B,
                 option_C:test.questions_.options.option_C,
             }
-        }
+        }]
     });
     await test_.save();
     console.log("Test saved successfully.");

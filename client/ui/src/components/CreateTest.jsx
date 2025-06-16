@@ -2,13 +2,47 @@ import "./css/createTest.css";
 import { Options } from "./Options";
 import { useState } from "react";
 import axios from "axios";
+import * as React from 'react';
+import Button from '@mui/material/Button';
+import Snackbar from '@mui/material/Snackbar';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+import Alert from '@mui/material/Alert';
 function CreateTest() {
+    const [open, setOpen] = React.useState(false);
+
+    const [open_, setOpen_] = React.useState(false);
+    let [msg_,setMsg_]=React.useState(false);
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpen(false);
+    };
+
+    const action = (
+    <React.Fragment>
+      <Button color="secondary" size="small" onClick={handleClose}>
+        UNDO
+      </Button>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleClose}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </React.Fragment>
+  );
+
+
     let i = 1;
     let [test, setTest] = useState({
         testTitle: "",
         description: "",
         duration: "",
-        test_id:"",
+        test_id: "",
         questions_: [{
             question: "",
             options: {
@@ -20,10 +54,10 @@ function CreateTest() {
         }]
     });
     let handleInput = ((event) => {
-        let {name,value}=event.target;
-        setTest((currData)=>{
-            if(["testTitle","description","duration","test_id"].includes(name)){
-                return{...currData,[name]:value};
+        let { name, value } = event.target;
+        setTest((currData) => {
+            if (["testTitle", "description", "duration", "test_id"].includes(name)) {
+                return { ...currData, [name]: value };
             }
             return currData;
         })
@@ -39,15 +73,15 @@ function CreateTest() {
         ans: ""
     });
 
-    let handleQ=((event)=>{
-        let {name,value}=event.target;
-        setQ((currData)=>{
-            if(["question","ans"].includes(name)){
-                return {...currData,[name]:value}
-            } else if(["option_A","option_B","option_C"].includes(name)){
+    let handleQ = ((event) => {
+        let { name, value } = event.target;
+        setQ((currData) => {
+            if (["question", "ans"].includes(name)) {
+                return { ...currData, [name]: value }
+            } else if (["option_A", "option_B", "option_C"].includes(name)) {
                 return {
-                    ...currData, options:{
-                        ...currData.options,[name]:value
+                    ...currData, options: {
+                        ...currData.options, [name]: value
                     }
                 }
             }
@@ -56,34 +90,38 @@ function CreateTest() {
     });
 
 
-    let addQ=(()=>{
-        if(Q.question!="" && Q.ans!="" && Q.options.option_A!="" && Q.options.option_B!="" && Q.options.option_C!=""){
-            setTest((currData)=>{
-                return {...currData,
-                    questions_:[...currData.questions_,Q]
+    let addQ = (() => {
+        if (Q.question != "" && Q.ans != "" && Q.options.option_A != "" && Q.options.option_B != "" && Q.options.option_C != "") {
+            setTest((currData) => {
+                return {
+                    ...currData,
+                    questions_: [...currData.questions_, Q]
                 }
             })
-        }
-        // console.log(Q);
-        console.log(test);
-        setQ({
-             question: "",
-        options: {
-            option_A: "",
-            option_B: "",
-            option_C: "",
-        },
-        ans: ""
+
+            console.log(test);
+            setQ({
+            question: "",
+            options: {
+                option_A: "",
+                option_B: "",
+                option_C: "",
+            },
+            ans: ""
         })
+        } else{
+            setOpen(true);
+        }
     })
 
 
-    let createTest=(async()=>{
-        if(test.testTitle!="" && test.duration!="" && test.description!="" && test.test_id!=""){
-            const response=await axios.post("http://localhost:8080/createTest",test,{withCredentials:true});
-            console.log(response.data.message);
-        } else{
-            //SnackBar
+    let createTest = (async () => {
+        if (test.testTitle != "" && test.duration != "" && test.description != "" && test.test_id != "") {
+            const response = await axios.post("http://localhost:8080/createTest", test, { withCredentials: true });
+            setMsg_(response.data.message);
+            setOpen_(true);
+        } else {
+            setOpen(true);
         }
     })
     return (
@@ -113,7 +151,7 @@ function CreateTest() {
                             </span>
                             <span>
                                 <label htmlFor="test_id">Test_ID</label> <br />
-                                <input type="text" name="test_id" value={test.test_id} onChange={handleInput} id="test_id"/>
+                                <input type="text" placeholder="QNX123" name="test_id" value={test.test_id} onChange={handleInput} id="test_id" />
                             </span>
                         </div>
                         <br /><br /><br />
@@ -150,6 +188,28 @@ function CreateTest() {
                     </div>
                 </div>
             </div>
+
+            {/* SnackBar for Error */}
+            <Snackbar
+                open={open}
+                autoHideDuration={6000}
+                onClose={handleClose}
+                anchorOrigin={{ vertical:"bottom",horizontal:"center" }}
+                action={action}
+            >
+                <Alert variant="filled" severity="error">Enter all the details to proceed</Alert>
+            </Snackbar>
+
+            {/* SnackBar for success */}
+            <Snackbar
+                open={open_}
+                autoHideDuration={6000}
+                onClose={handleClose}
+                anchorOrigin={{ vertical:"bottom",horizontal:"center" }}
+                action={action}
+            >
+                <Alert variant="filled" severity="success">{msg_}</Alert>
+            </Snackbar>
         </div>
     );
 }
