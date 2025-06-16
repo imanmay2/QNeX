@@ -10,9 +10,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import Alert from '@mui/material/Alert';
 function CreateTest() {
     const [open, setOpen] = React.useState(false);
-
-    const [open_, setOpen_] = React.useState(false);
-    let [msg_,setMsg_]=React.useState(false);
+    const [msg, setMsg] = React.useState(false);
+    const [serverity, setServerity] = React.useState(false);
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
             return;
@@ -21,20 +20,20 @@ function CreateTest() {
     };
 
     const action = (
-    <React.Fragment>
-      <Button color="secondary" size="small" onClick={handleClose}>
-        UNDO
-      </Button>
-      <IconButton
-        size="small"
-        aria-label="close"
-        color="inherit"
-        onClick={handleClose}
-      >
-        <CloseIcon fontSize="small" />
-      </IconButton>
-    </React.Fragment>
-  );
+        <React.Fragment>
+            <Button color="secondary" size="small" onClick={handleClose}>
+                UNDO
+            </Button>
+            <IconButton
+                size="small"
+                aria-label="close"
+                color="inherit"
+                onClick={handleClose}
+            >
+                <CloseIcon fontSize="small" />
+            </IconButton>
+        </React.Fragment>
+    );
 
 
     let i = 1;
@@ -43,15 +42,7 @@ function CreateTest() {
         description: "",
         duration: "",
         test_id: "",
-        questions_: [{
-            question: "",
-            options: {
-                option_A: "",
-                option_B: "",
-                option_C: "",
-            },
-            ans: ""
-        }]
+        questions_: []
     });
     let handleInput = ((event) => {
         let { name, value } = event.target;
@@ -100,27 +91,42 @@ function CreateTest() {
             })
 
             console.log(test);
-            setQ({
-            question: "",
-            options: {
-                option_A: "",
-                option_B: "",
-                option_C: "",
-            },
-            ans: ""
-        })
-        } else{
+            setMsg("Question Added ! ");
+            setServerity("success");
             setOpen(true);
+            setQ({
+                question: "",
+                options: {
+                    option_A: "",
+                    option_B: "",
+                    option_C: "",
+                },
+                ans: ""
+            })
+        } else {
+            setMsg("Please enter all the details to proceed !!");
+            setServerity("error");
+            setOpen(true);
+
         }
     })
 
 
     let createTest = (async () => {
+        if (Q.question && Q.ans && Q.options.option_A && Q.options.option_B && Q.options.option_C) {
+            setTest((currData) => ({
+                ...currData,
+                questions_: [...currData.questions_, Q]
+            }));
+        }
         if (test.testTitle != "" && test.duration != "" && test.description != "" && test.test_id != "") {
             const response = await axios.post("http://localhost:8080/createTest", test, { withCredentials: true });
-            setMsg_(response.data.message);
-            setOpen_(true);
+            setMsg(response.data.message);
+            setServerity(response.data.flag);
+            setOpen(true);
         } else {
+            setMsg("Please enter all the details to proceed ! ");
+            setServerity("error");
             setOpen(true);
         }
     })
@@ -194,22 +200,13 @@ function CreateTest() {
                 open={open}
                 autoHideDuration={6000}
                 onClose={handleClose}
-                anchorOrigin={{ vertical:"bottom",horizontal:"center" }}
+                anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
                 action={action}
             >
-                <Alert variant="filled" severity="error">Enter all the details to proceed</Alert>
+                <Alert variant="filled" severity={serverity}>{msg}</Alert>
             </Snackbar>
 
-            {/* SnackBar for success */}
-            <Snackbar
-                open={open_}
-                autoHideDuration={6000}
-                onClose={handleClose}
-                anchorOrigin={{ vertical:"bottom",horizontal:"center" }}
-                action={action}
-            >
-                <Alert variant="filled" severity="success">{msg_}</Alert>
-            </Snackbar>
+
         </div>
     );
 }

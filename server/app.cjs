@@ -9,7 +9,7 @@ const cookieParser = require("cookie-parser");
 
 
 const User = require("./models/user.cjs");
-const Question = require("./models/test.cjs");
+const Question = require("./models/question.cjs");
 let flag = 0;
 
 
@@ -141,7 +141,8 @@ app.post("/createTest", async (req, res) => {
         let test = req.body;
         console.log(test);
         let findTest = await Question.find({ test_id: test.test_id });
-        if (findTest.length) {
+        console.log(findTest);
+        if (!findTest.length) {
             const test_ = new Question({
                 testTitle: test.testTitle,
                 description: test.description,
@@ -163,10 +164,10 @@ app.post("/createTest", async (req, res) => {
             console.log("Test saved successfully.");
             res.json({ "message": "Test created succesfully.", "flag": "success" });
         } else {
-            res.json({ "message": "Test_ID already in use", "flag": "failed" });
+            res.json({ "message": "Test_ID already in use", "flag": "error" });
         }
     } catch(err){
-        res.json({"message":err,"flag":"failed"});
+        res.json({"message":err.message,"flag":"error"});
     } 
 })
 
