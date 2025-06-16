@@ -36,7 +36,7 @@ function CreateTest() {
     );
 
 
-    let i = 1;
+    let [i, seti] = React.useState(1);
     let [test, setTest] = useState({
         testTitle: "",
         description: "",
@@ -91,6 +91,7 @@ function CreateTest() {
             })
 
             console.log(test);
+            seti(i + 1);
             setMsg("Question Added ! ");
             setServerity("success");
             setOpen(true);
@@ -107,13 +108,18 @@ function CreateTest() {
             setMsg("Please enter all the details to proceed !!");
             setServerity("error");
             setOpen(true);
-
+            
         }
     })
 
 
     let createTest = (async () => {
-        if (Q.question && Q.ans && Q.options.option_A && Q.options.option_B && Q.options.option_C) {
+        if(!test.questions_.length){
+            setMsg("Please Add atleast 1 Question ! ");
+            setServerity("error");
+            setOpen(true);
+        }
+        if (Q.question && Q.ans && Q.options.option_A && Q.options.option_B && Q.options.option_C){
             setTest((currData) => ({
                 ...currData,
                 questions_: [...currData.questions_, Q]
@@ -124,11 +130,38 @@ function CreateTest() {
             setMsg(response.data.message);
             setServerity(response.data.flag);
             setOpen(true);
+
+            if(response.data.flag=="success"){
+                setTest({
+                testTitle: "",
+                description: "",
+                duration: "",
+                test_id: "",
+                questions_: []
+            });
+            }
+
         } else {
             setMsg("Please enter all the details to proceed ! ");
             setServerity("error");
             setOpen(true);
         }
+    })
+
+    let deleteQuestion=(()=>{
+        setQ({
+                question: "",
+                options: {
+                    option_A: "",
+                    option_B: "",
+                    option_C: "",
+                },
+                ans: ""
+            })
+        setMsg("Question Deleted ! ");
+        setServerity("success");
+        setOpen(true);
+            
     })
     return (
         <div className="createTest">
@@ -165,7 +198,7 @@ function CreateTest() {
 
 
                         <div className="addQ">
-                            <label htmlFor="Question" id="question_1_label">Question 1</label><br />
+                            <label htmlFor="Question" id="question_1_label">Question {i}</label><br />
                             <input type="text" id="Question" name="question" value={Q.question} onChange={handleQ} style={{ width: "90vh" }} /> <br /><br /><br />
                             <div className="options">
                                 <span>
@@ -185,7 +218,7 @@ function CreateTest() {
                             <label htmlFor="correctAns">Correct Answer</label><br />
                             <input type="text" id="correctAns" name="ans" value={Q.ans} onChange={handleQ} style={{ width: "30vh" }} />
                             <span className="add_anotherQ" onClick={addQ}>+ Add Another Question</span>
-                            <span className="delete">Delete Question</span>
+                            <span className="delete" onClick={deleteQuestion}>Delete Question</span>
                         </div>
                         <br /><br />
                         <center>
@@ -205,8 +238,6 @@ function CreateTest() {
             >
                 <Alert variant="filled" severity={serverity}>{msg}</Alert>
             </Snackbar>
-
-
         </div>
     );
 }
