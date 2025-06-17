@@ -84,10 +84,14 @@ function CreateTest() {
 
     let addQ = (() => {
         if (Q.question != "" && Q.ans != "" && Q.options.option_A != "" && Q.options.option_B != "" && Q.options.option_C != "") {
+            const newQ = {
+            ...Q,
+            questionNo: i
+        };
             setTest((currData) => {
                 return {
                     ...currData,
-                    questions_: [...currData.questions_, Q]
+                    questions_: [...currData.questions_, newQ]
                 }
             })
 
@@ -98,7 +102,7 @@ function CreateTest() {
             setOpen(true);
             setQ({
                 question: "",
-                questionNo:i,
+                questionNo:i+1,
                 options: {
                     option_A: "",
                     option_B: "",
@@ -141,6 +145,16 @@ function CreateTest() {
                 test_id: "",
                 questions_: []
             });
+            setQ({
+                question: "",
+                questionNo:i,
+                options: {
+                    option_A: "",
+                    option_B: "",
+                    option_C: "",
+                },
+                ans: ""
+            })
             }
 
         } else {
@@ -221,7 +235,7 @@ function CreateTest() {
                             <label htmlFor="correctAns">Correct Answer</label><br />
                             <input type="text" id="correctAns" name="ans" value={Q.ans} onChange={handleQ} style={{ width: "30vh" }} />
                             <span className="add_anotherQ" onClick={addQ}>+ Add Another Question</span>
-                            <span className="delete" onClick={deleteQuestion}>Delete Question</span>
+                            <span className="delete" onClick={deleteQuestion}>Reset Question</span>
                         </div>
                         <br /><br />
                         <center>
