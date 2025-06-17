@@ -3,27 +3,16 @@ import "./css/test.css";
 import { QBtn } from "./QBtn";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import * as React from 'react';
+import CircularProgress from '@mui/material/CircularProgress';
 function Test() {
   const navigate = useNavigate();
-  const { id } = useParams();
-  console.log(id);
-  let [test,updateTest]=useState();
-  useEffect(() => {
-    try {
-      (async () => {
-        const response = await axios.get(`http://localhost:8080/test/${id}`);
-        updateTest(response.data.test);
-        console.log(test);
-        
-      })()
-    } catch (err) {
-      console.log("Error fetching in test : " + err.message);
-    }
-  }, [id])
+  const location = useLocation();
+  const test=location.state[0];
+  console.log("Test Page: ");
+  console.log(test);
   const [tracker, setTracker] = useState(0);
-
   let prev = () => {
     setTracker((tracker) => {
       if (tracker == 0) {
@@ -87,9 +76,12 @@ function Test() {
           <button className="submit_">Submit</button>
         </div>
       </div>
-      
+
     </div>
   );
+
+
+
 }
 
 export { Test };

@@ -144,7 +144,7 @@ app.post("/createTest", async (req, res) => {
                 questions_: test.questions_.map((q) => {
                     return {
                         question: q.question,
-                        questionNo:q.questionNo,
+                        questionNo: q.questionNo,
                         options: {
                             option_A: q.options.option_A,
                             option_B: q.options.option_B,
@@ -168,31 +168,32 @@ app.post("/createTest", async (req, res) => {
 
 
 
-// fetching the test Question for a particular test_id.
-app.get("/test/:id", async (req, res) => {
-    try {
-        const { id } = req.params;
-        console.log("ID_+ " + id);
-        let findId = await Question.find({ "test_id": id });
-        if (findId.length) {
-            console.log(findId);
-            res.json({ "test": findId, "flag": "success" });
-        } else {
-            res.json({ "test": findId, "flag": "error" });
-        }
-    } catch (err) {
-        res.status(500).json({ "test": [], "message": err.message, "flag": "error" });
-    }
-})
+// // fetching the test Question for a particular test_id.
+// app.get("/test/:id", async (req, res) => {
+//     try {
+//         const { id } = req.params;
+//         console.log("Attend Test Page: ");
+//         let findId = await Question.find({ "test_id": id });
+//         console.log(findId);
+//         if (findId.length) {
+//             res.json({ "test": findId, "flag": "success" });
+//         } else {
+//             res.json({ "test": findId, "flag": "error" });
+//         }
+//     } catch (err) {
+//         res.status(500).json({ "test": [], "message": err.message, "flag": "error" });
+//     }
+// })
 
 // cheking for the test id is present or not (in the attendTest.jsx)
 app.get("/findtest/:test_id", async (req, res) => {
     try {
         let { test_id } = req.params;
         let findId = await Question.find({ "test_id": test_id });
+        console.log("Backend : ");
         console.log(findId);
         if (findId.length) {
-            res.json({ "find": true });
+            res.json({ "find": findId });
             return;
         }
         res.json({ "find": false, "message": "Test id not found ! " });
@@ -203,7 +204,7 @@ app.get("/findtest/:test_id", async (req, res) => {
 })
 
 //logging out.
-app.post("/logout", async(req, res) => {
+app.post("/logout", async (req, res) => {
     res.cookie("login", "false", { secure: false });
     res.json({ "flag": "true" });
 })

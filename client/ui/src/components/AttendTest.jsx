@@ -4,13 +4,13 @@ import { Options } from "./Options";
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
-
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Alert from '@mui/material/Alert';
+
 function AttendTest() {
     const [open, setOpen] = React.useState(false);
     const [msg, setMsg] = React.useState(false);
@@ -50,7 +50,9 @@ function AttendTest() {
             console.log("Entered Test ID:", testId);
             const response = await axios.get(`http://localhost:8080/findtest/${testId}`);
             if (response.data.find) {
-                navigate(`/Test/${testId}`);
+                console.log("Attend Test page : ");
+                console.log(response.data.find);
+                navigate(`/Test/${testId}`,{state:response.data.find});
             } else {
                 setMsg("Test_Id not found ! ");
                 setServerity("error");
