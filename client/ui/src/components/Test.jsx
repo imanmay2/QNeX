@@ -8,18 +8,20 @@ import * as React from 'react';
 function Test() {
   const navigate = useNavigate();
   const { id } = useParams();
-  let test={};
+  console.log(id);
+  let [test,updateTest]=useState();
   useEffect(() => {
     try {
       (async () => {
         const response = await axios.get(`http://localhost:8080/test/${id}`);
-        test = response.data.test;
+        updateTest(response.data.test);
+        console.log(test);
         
       })()
     } catch (err) {
       console.log("Error fetching in test : " + err.message);
     }
-  }, [])
+  }, [id])
   const [tracker, setTracker] = useState(0);
 
   let prev = () => {
