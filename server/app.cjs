@@ -1,3 +1,4 @@
+///imports
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
@@ -7,7 +8,7 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const cookieParser = require("cookie-parser");
 
-
+//initialize
 const User = require("./models/user.cjs");
 const Question = require("./models/question.cjs");
 let flag = 0;
@@ -24,6 +25,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 
+
+
 //functions
 function checkEmailValidation(email) {
     // return email.includes("@gmail.com");
@@ -35,6 +38,8 @@ function checkEmailValidation(email) {
     }
     return false;
 }
+
+
 function generateUsername(email) {
     return email.split('@')[0];
 }
@@ -50,13 +55,9 @@ app.listen(PORT, (req, res) => {
     console.log("Server is listening to " + PORT);
 });
 
-
-
 app.get("/data", (req, res) => {
     res.json({ 'message': 'Welcome to QNex' });
 });
-
-
 
 //signup
 app.post("/saveUser", async (req, res) => {
@@ -85,19 +86,12 @@ app.post("/saveUser", async (req, res) => {
                 res.cookie("login", "true", { secure: false });
                 res.cookie("username", userName, { secure: false });
                 res.cookie("name", Name, { secure: false });  // secure false as using http. not https.
-
                 console.log("User Signed Up!!");
                 flag = 1;
-
-
                 res.status(200).json({ 'message': "User saved successfully", "flag": flag });
-
-
             } else {
                 res.json({ 'message': 'Email is Invalid ! ' });
             }
-
-
         } catch (err) {
             console.log(err);
             res.status(500).json({ 'message': "Error in pushing the data. " });
@@ -119,7 +113,6 @@ app.post("/loginUser", async (req, res) => {
             if (result) {
                 flag = 1;
                 console.log("User logged in successfully");
-
                 ///setting up cookies.
                 res.cookie("login", "true", { secure: false });
                 res.cookie("name", userRes[0].name, { secure: false });
@@ -151,6 +144,7 @@ app.post("/createTest", async (req, res) => {
                 questions_: test.questions_.map((q) => {
                     return {
                         question: q.question,
+                        questionNo:q.questionNo,
                         options: {
                             option_A: q.options.option_A,
                             option_B: q.options.option_B,
@@ -171,18 +165,36 @@ app.post("/createTest", async (req, res) => {
     }
 })
 
+
+// cheking for the test id is present or not (in the attendTest.jsx)
+app.get("/findtest/:test_id", async (req, res) => {
+    try {
+        let { test_id } = req.params;
+        let findId = await Question.find({ "test_id": test_id });
+        if (findId.length) {
+            res.json({ "find": true });
+            return;
+        }
+        res.json({ "find": false, "message": "Test id not found ! " });
+    } catch (err) {
+        res.json({ "find": false, "message": err.message });
+    }
+
+})
+
 // fetching the test Question for a particular test_id.
 app.get("/test/:id", async (req, res) => {
     try {
         const { id } = req.params;
+        console.log("ID_+ " + id);
         let findId = await Question.find({ test_id: id });
         if (findId.length) {
-            res.json({"test":findId,"flag":"success"});
-        }else{
-            res.json({"test":findId,"flag":"error"});
+            res.json({ "test": findId, "flag": "success" });
+        } else {
+            res.json({ "test": findId, "flag": "error" });
         }
-    } catch(err){
-        res.status(500).json({"test":[],"message":err.message,"flag":"error"});
+    } catch (err) {
+        res.status(500).json({ "test": [], "message": err.message, "flag": "error" });
     }
 })
 

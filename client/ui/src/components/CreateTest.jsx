@@ -56,6 +56,7 @@ function CreateTest() {
 
     let [Q, setQ] = useState({
         question: "",
+        questionNo:i,
         options: {
             option_A: "",
             option_B: "",
@@ -97,6 +98,7 @@ function CreateTest() {
             setOpen(true);
             setQ({
                 question: "",
+                questionNo:i,
                 options: {
                     option_A: "",
                     option_B: "",
@@ -152,6 +154,7 @@ function CreateTest() {
     let deleteQuestion=(()=>{
         setQ({
                 question: "",
+                questionNo:i,
                 options: {
                     option_A: "",
                     option_B: "",
