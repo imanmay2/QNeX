@@ -21,9 +21,9 @@ const questionSchema = new mongoose.Schema({
         question: {
             type: String,
             required: true
-        },questionNo:{
-            type:Number,
-             required: true
+        }, questionNo: {
+            type: Number,
+            required: true
         }
         , options: {
             option_A: {

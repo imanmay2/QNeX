@@ -110,7 +110,6 @@ function CreateTest() {
             setMsg("Please enter all the details to proceed !!");
             setServerity("error");
             setOpen(true);
-            
         }
     })
 
