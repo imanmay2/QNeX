@@ -7,6 +7,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import * as React from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 function Test() {
+  
   const navigate = useNavigate();
   const location = useLocation();
   const test=location.state[0];
@@ -35,6 +36,14 @@ function Test() {
     setTracker(ques);
   }
 
+  //tracking the test answers..
+  const [answer,setAnswer]=useState(Array(test.questions_.length).fill(""));
+
+let handleChange=(qIdx,optionIdx)=>{
+  let updatedAns=[...answer];
+  updatedAns[qIdx]=optionIdx;
+  setAnswer(updatedAns);
+}
 
   return (
     <div className="test_">
@@ -54,7 +63,9 @@ function Test() {
         <div className="Q_">
           <h2 className="Question_">Question: {test.questions_[tracker].questionNo} . {test.questions_[tracker].question}</h2>
           <hr />
-          <div className="options_">
+
+          {/* options */}
+          {/* <div className="options_">
             <label className="option_">
               <input className="input_" type="radio" name="q1" value="A" />
               {test.questions_[tracker].options.option_A}
@@ -67,9 +78,26 @@ function Test() {
               <input className="input_" type="radio" name="q1" value="C" />
               {test.questions_[tracker].options.option_C}
             </label>
+          </div> */}
+          <div className="options_">
+            {test.questions_[tracker].options.map((opt,i)=>{
+                <label key={i}>
+              <input
+                type="radio"
+                name={`question-${tracker}`}
+                value={opt}
+                checked={answer[tracker] === opt}
+                onChange={() => handleChange(index, opt)}
+              />
+              {opt}
+            </label>
+            }
+            )}
           </div>
-        </div>
 
+
+
+        </div>
         <div className="btns_">
           <button className="previous_" onClick={prev}>Previous</button>
           <button className="next_" onClick={next}>Next</button>
