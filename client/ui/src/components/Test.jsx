@@ -65,7 +65,7 @@ let handleChange=(qIdx,optionIdx)=>{
           <hr />
 
           {/* options */}
-          {/* <div className="options_">
+          <div className="options_">
             <label className="option_">
               <input className="input_" type="radio" name="q1" value="A" />
               {test.questions_[tracker].options.option_A}
@@ -78,8 +78,8 @@ let handleChange=(qIdx,optionIdx)=>{
               <input className="input_" type="radio" name="q1" value="C" />
               {test.questions_[tracker].options.option_C}
             </label>
-          </div> */}
-          <div className="options_">
+          </div>
+          {/* <div className="options_">
             {test.questions_[tracker].options.map((opt,i)=>{
                 <label key={i}>
               <input
@@ -93,7 +93,7 @@ let handleChange=(qIdx,optionIdx)=>{
             </label>
             }
             )}
-          </div>
+          </div> */}
 
 
 
