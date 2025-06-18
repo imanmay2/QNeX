@@ -36,14 +36,22 @@ function Test() {
     setTracker(ques);
   }
 
-  //tracking the test answers..
-  const [answer,setAnswer]=useState(Array(test.questions_.length).fill(""));
+  //Create the answer section.
+  let [ans,setAns]=useState(Array(test.questions_.length).fill(null));
+  //handleRadioButton Change.
+  let handleOptionChange=(event)=>{
+    let updatedAns=[...ans];
+    updatedAns[tracker]=event.target.value;
+    setAns(updatedAns);
+  }
 
-let handleChange=(qIdx,optionIdx)=>{
-  let updatedAns=[...answer];
-  updatedAns[qIdx]=optionIdx;
-  setAnswer(updatedAns);
-}
+  let handleSubmit=async()=>{
+    console.log("Ans: ");
+    console.log(ans);
+    setAns([]);
+    const response=await axios.post();
+  }
+
 
   return (
     <div className="test_">
@@ -53,6 +61,7 @@ let handleChange=(qIdx,optionIdx)=>{
           <span className="testTitle_">{test.testTitle}</span>
           <span className="timer_">{test.duration}</span>
         </div>
+
         <br />
         <div className="heading2_">
           <span className="marks_"><u>{test.description}</u></span>
@@ -67,33 +76,19 @@ let handleChange=(qIdx,optionIdx)=>{
           {/* options */}
           <div className="options_">
             <label className="option_">
-              <input className="input_" type="radio" name="q1" value="A" />
+              <input className="input_" type="radio" name={`q${tracker}`} value="A" onChange={handleOptionChange} checked={ans[tracker]==="A"}/>
               {test.questions_[tracker].options.option_A}
             </label>
             <label className="option_">
-              <input className="input_" type="radio" name="q1" value="B" />
+              <input className="input_" type="radio" name={`q${tracker}`} value="B" onChange={handleOptionChange}  checked={ans[tracker]==="B"}/>
               {test.questions_[tracker].options.option_B}
             </label>
             <label className="option_">
-              <input className="input_" type="radio" name="q1" value="C" />
+              <input className="input_" type="radio" name={`q${tracker}`} value="C" onChange={handleOptionChange}  checked={ans[tracker]==="C"}/>
               {test.questions_[tracker].options.option_C}
             </label>
           </div>
-          {/* <div className="options_">
-            {test.questions_[tracker].options.map((opt,i)=>{
-                <label key={i}>
-              <input
-                type="radio"
-                name={`question-${tracker}`}
-                value={opt}
-                checked={answer[tracker] === opt}
-                onChange={() => handleChange(index, opt)}
-              />
-              {opt}
-            </label>
-            }
-            )}
-          </div> */}
+          
 
 
 
@@ -101,7 +96,7 @@ let handleChange=(qIdx,optionIdx)=>{
         <div className="btns_">
           <button className="previous_" onClick={prev}>Previous</button>
           <button className="next_" onClick={next}>Next</button>
-          <button className="submit_">Submit</button>
+          <button className="submit_" onClick={handleSubmit}>Submit</button>
         </div>
       </div>
 
