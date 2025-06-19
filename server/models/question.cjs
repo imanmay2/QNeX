@@ -17,6 +17,10 @@ const questionSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    createdOn:{
+        type:String,
+        required:true
+    },
     questions_: [{
         question: {
             type: String,

@@ -20,6 +20,10 @@ const userSchema=new mongoose.Schema({
     score:{
         type:Number,
         required:true
+    },
+    attemptedOn:{
+        type:String,
+        required:true
     }
 });
 

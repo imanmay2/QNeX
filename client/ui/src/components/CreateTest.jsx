@@ -9,6 +9,14 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Alert from '@mui/material/Alert';
 function CreateTest() {
+    function getTodayDate() {
+        const today = new Date();
+        const dd = String(today.getDate()).padStart(2, '0');
+        const mm = String(today.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+        const yyyy = today.getFullYear();
+        return `${dd}-${mm}-${yyyy}`;
+    }
+
     const [open, setOpen] = React.useState(false);
     const [msg, setMsg] = React.useState(false);
     const [serverity, setServerity] = React.useState(false);
@@ -42,6 +50,7 @@ function CreateTest() {
         description: "",
         duration: "",
         test_id: "",
+        createdOn: "",
         questions_: []
     });
     let handleInput = ((event) => {
@@ -56,7 +65,7 @@ function CreateTest() {
 
     let [Q, setQ] = useState({
         question: "",
-        questionNo:i,
+        questionNo: i,
         options: {
             option_A: "",
             option_B: "",
@@ -85,9 +94,9 @@ function CreateTest() {
     let addQ = (() => {
         if (Q.question != "" && Q.ans != "" && Q.options.option_A != "" && Q.options.option_B != "" && Q.options.option_C != "") {
             const newQ = {
-            ...Q,
-            questionNo: i
-        };
+                ...Q,
+                questionNo: i
+            };
             setTest((currData) => {
                 return {
                     ...currData,
@@ -102,7 +111,7 @@ function CreateTest() {
             setOpen(true);
             setQ({
                 question: "",
-                questionNo:i+1,
+                questionNo: i + 1,
                 options: {
                     option_A: "",
                     option_B: "",
@@ -119,42 +128,44 @@ function CreateTest() {
 
 
     let createTest = (async () => {
-        if(test.questions_.length==0){
+        if (test.questions_.length == 0) {
             setMsg("Please Add atleast 1 Question ! ");
             setServerity("error");
             setOpen(true);
             return;
         }
-        if (Q.question && Q.ans && Q.options.option_A && Q.options.option_B && Q.options.option_C){
+        if (Q.question && Q.ans && Q.options.option_A && Q.options.option_B && Q.options.option_C) {
             setTest((currData) => ({
                 ...currData,
                 questions_: [...currData.questions_, Q]
             }));
         }
         if (test.testTitle != "" && test.duration != "" && test.description != "" && test.test_id != "") {
-            const response = await axios.post("http://localhost:8080/createTest", test, { withCredentials: true });
+            let final = { ...test, createdOn: getTodayDate() }
+            const response = await axios.post("http://localhost:8080/createTest", final, { withCredentials: true });
             setMsg(response.data.message);
             setServerity(response.data.flag);
             setOpen(true);
 
-            if(response.data.flag=="success"){
+            if (response.data.flag == "success") {
                 setTest({
-                testTitle: "",
-                description: "",
-                duration: "",
-                test_id: "",
-                questions_: []
-            });
-            setQ({
-                question: "",
-                questionNo:i,
-                options: {
-                    option_A: "",
-                    option_B: "",
-                    option_C: "",
-                },
-                ans: ""
-            })
+                    testTitle: "",
+                    description: "",
+                    duration: "",
+                    test_id: "",
+                    createdOn: "",
+                    questions_: []
+                });
+                setQ({
+                    question: "",
+                    questionNo: i,
+                    options: {
+                        option_A: "",
+                        option_B: "",
+                        option_C: "",
+                    },
+                    ans: ""
+                })
             }
 
         } else {
@@ -164,21 +175,21 @@ function CreateTest() {
         }
     })
 
-    let deleteQuestion=(()=>{
+    let deleteQuestion = (() => {
         setQ({
-                question: "",
-                questionNo:i,
-                options: {
-                    option_A: "",
-                    option_B: "",
-                    option_C: "",
-                },
-                ans: ""
-            })
+            question: "",
+            questionNo: i,
+            options: {
+                option_A: "",
+                option_B: "",
+                option_C: "",
+            },
+            ans: ""
+        })
         setMsg("Question Deleted ! ");
         setServerity("success");
         setOpen(true);
-            
+
     })
     return (
         <div className="createTest">

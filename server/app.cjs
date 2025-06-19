@@ -45,6 +45,15 @@ function generateUsername(email) {
     return email.split('@')[0];
 }
 
+function getDateToday() {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+  const day = String(today.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+
 main().catch(err => console.log(err));
 
 async function main() {
@@ -142,6 +151,7 @@ app.post("/createTest", async (req, res) => {
                 description: test.description,
                 duration: test.duration,
                 test_id: test.test_id,
+                createdOn:test.createdOn,
                 questions_: test.questions_.map((q) => {
                     return {
                         question: q.question,
@@ -193,7 +203,7 @@ app.get("/findtest/:test_id", async (req, res) => {
         let findId = await Question.find({ "test_id": test_id });
         console.log("Backend : ");
         console.log(findId);
-        if (findId.length) {
+        if (findId.length){
             res.json({ "find": findId });
             return;
         }
@@ -224,6 +234,7 @@ app.post("/reviewTest",async(req,res)=>{
             test_id:test_id,
             response:ans,
             totalScore:ans.length,
+            attemptedOn:getDateToday(),
             score:score
         });
         await addResponse.save();

@@ -17,7 +17,7 @@ function Test() {
   const [msg, setMsg] = React.useState(false);
   const [serverity, setServerity] = React.useState(false);
   const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
+    if (reason === 'clickaway'){
       return;
     }
     setOpen(false);
@@ -111,7 +111,6 @@ function Test() {
   let showOverlay = () => {
     calculate();
     overlayRef.current.style.display = 'flex';
-
   }
 
   let hideOverlay = () => {
