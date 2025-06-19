@@ -94,7 +94,7 @@ function Test() {
   setNotAttempt(notAttemptCount);
   setAttempt(ans.length - notAttemptCount);
 };
-
+ 
 
   let overlayRef=React.useRef(null);
   let showOverlay = () => {
@@ -119,7 +119,7 @@ function Test() {
 
           Total Questions : {total} <br />
           No. of  Questions Attempted : {attempted} <br />
-          Questions not attempted : {notAttempted} <br />
+          Questions not attempted : {notAttempted} <br />  <br />
           <button type="submit" className="overlaySubmit" onClick={handleSubmit}>Submit</button>
         </div>
       </div>
