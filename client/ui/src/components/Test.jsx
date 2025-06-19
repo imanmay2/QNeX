@@ -6,13 +6,42 @@ import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
 import * as React from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
+
+import Button from '@mui/material/Button';
+import Snackbar from '@mui/material/Snackbar';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+import Alert from '@mui/material/Alert';
 function Test() {
-  
+  const [open, setOpen] = React.useState(false);
+  const [msg, setMsg] = React.useState(false);
+  const [serverity, setServerity] = React.useState(false);
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
+
+  const action = (
+    <React.Fragment>
+      <Button color="secondary" size="small" onClick={handleClose}>
+        UNDO
+      </Button>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleClose}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </React.Fragment>
+  );
+
   const navigate = useNavigate();
   const location = useLocation();
-  const test=location.state[0];
-  console.log("Test Page: ");
-  console.log(test);
+  const test = location.state[0];
   const [tracker, setTracker] = useState(0);
   let prev = () => {
     setTracker((tracker) => {
@@ -36,25 +65,55 @@ function Test() {
     setTracker(ques);
   }
 
+
   //Create the answer section.
-  let [ans,setAns]=useState(Array(test.questions_.length).fill(null));
+  let [ans, setAns] = useState(Array(test.questions_.length).fill(null));
   //handleRadioButton Change.
-  let handleOptionChange=(event)=>{
-    let updatedAns=[...ans];
-    updatedAns[tracker]=event.target.value;
+  let handleOptionChange = (event) => {
+    let updatedAns = [...ans];
+    updatedAns[tracker] = event.target.value;
     setAns(updatedAns);
   }
-
-  let handleSubmit=async()=>{
+  
+  
+  let handleSubmit = async () => {
     console.log("Ans: ");
     console.log(ans);
+    setMsg("Test Submitted Successfully !!");
+    setServerity("success");
+    setOpen(true);
     setAns([]);
-    const response=await axios.post();
+    // const response = await axios.post();
   }
 
+
+  let container = document.getElementById("overlay");
+  let showOverlay = () => {
+
+    container.style.display = 'flex';
+  }
+
+  let hideOverlay = () => {
+    container.style.display = 'none';
+  }
+
+  let total=ans.length;
+  let attempted=0;
+  let notAttempted=0;
 
   return (
     <div className="test_">
+
+      {/* Overlay container */}
+      <div className="overlay" id="overlay">
+        <div className="overlay-content">
+          Total Questions : {total} <br />
+          No. of  Questions Attempted : {attempted} <br />
+          Questions not attempted : {notAttempted} <br />
+          <button type="submit" className="overlaySubmit" onClick={handleSubmit}>Submit</button>
+        </div>
+      </div>
+
       <QBtn questions_={test.questions_} setQ={setQ} />
       <div className="maindiv_">
         <div className="heading1_">
@@ -76,29 +135,38 @@ function Test() {
           {/* options */}
           <div className="options_">
             <label className="option_">
-              <input className="input_" type="radio" name={`q${tracker}`} value="A" onChange={handleOptionChange} checked={ans[tracker]==="A"}/>
+              <input className="input_" type="radio" name={`q${tracker}`} value="A" onChange={handleOptionChange} checked={ans[tracker] === "A"} />
               {test.questions_[tracker].options.option_A}
             </label>
             <label className="option_">
-              <input className="input_" type="radio" name={`q${tracker}`} value="B" onChange={handleOptionChange}  checked={ans[tracker]==="B"}/>
+              <input className="input_" type="radio" name={`q${tracker}`} value="B" onChange={handleOptionChange} checked={ans[tracker] === "B"} />
               {test.questions_[tracker].options.option_B}
             </label>
             <label className="option_">
-              <input className="input_" type="radio" name={`q${tracker}`} value="C" onChange={handleOptionChange}  checked={ans[tracker]==="C"}/>
+              <input className="input_" type="radio" name={`q${tracker}`} value="C" onChange={handleOptionChange} checked={ans[tracker] === "C"} />
               {test.questions_[tracker].options.option_C}
             </label>
           </div>
-          
-
 
 
         </div>
         <div className="btns_">
           <button className="previous_" onClick={prev}>Previous</button>
           <button className="next_" onClick={next}>Next</button>
-          <button className="submit_" onClick={handleSubmit}>Submit</button>
+          <button className="submit_" onClick={showOverlay}>Submit</button>
         </div>
       </div>
+
+
+      <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        action={action}
+      >
+        <Alert variant="filled" severity={serverity}>{msg}</Alert>
+      </Snackbar>
 
     </div>
   );
