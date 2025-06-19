@@ -172,3 +172,10 @@
     transform: scale(1.05);
     box-shadow: 0 6px 12px rgba(91, 164, 231, 0.3);
 }
+
+
+#close{
+    margin-left:14rem;
+    color:red !important;
+    cursor:pointer
+}

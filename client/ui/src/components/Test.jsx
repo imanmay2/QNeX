@@ -6,7 +6,7 @@ import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
 import * as React from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
-
+import { ImCancelCircle } from "react-icons/im";
 import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
@@ -68,45 +68,55 @@ function Test() {
 
   //Create the answer section.
   let [ans, setAns] = useState(Array(test.questions_.length).fill(null));
+  let [total, setTotal] = useState(ans.length);
+  let [attempted, setAttempt] = useState(0);
+  let [notAttempted, setNotAttempt] = useState(0);
   //handleRadioButton Change.
   let handleOptionChange = (event) => {
     let updatedAns = [...ans];
     updatedAns[tracker] = event.target.value;
     setAns(updatedAns);
+
+
   }
-  
-  
+
+
   let handleSubmit = async () => {
     console.log("Ans: ");
     console.log(ans);
     setMsg("Test Submitted Successfully !!");
     setServerity("success");
     setOpen(true);
-    setAns([]);
     // const response = await axios.post();
   }
+  let calculate = () => {
+  let notAttemptCount = ans.filter(val => val === null).length;
+  setNotAttempt(notAttemptCount);
+  setAttempt(ans.length - notAttemptCount);
+};
 
 
-  let container = document.getElementById("overlay");
+  let overlayRef=React.useRef(null);
   let showOverlay = () => {
-
-    container.style.display = 'flex';
+    calculate();
+    overlayRef.current.style.display = 'flex';
+    
   }
 
   let hideOverlay = () => {
-    container.style.display = 'none';
+    overlayRef.current.style.display = 'none';
   }
 
-  let total=ans.length;
-  let attempted=0;
-  let notAttempted=0;
+
 
   return (
     <div className="test_">
 
       {/* Overlay container */}
-      <div className="overlay" id="overlay">
+      <div className="overlay" ref={overlayRef} id="overlay">
         <div className="overlay-content">
+          <div id="close" onClick={hideOverlay}><ImCancelCircle /></div>
+
           Total Questions : {total} <br />
           No. of  Questions Attempted : {attempted} <br />
           Questions not attempted : {notAttempted} <br />
@@ -147,7 +157,6 @@ function Test() {
               {test.questions_[tracker].options.option_C}
             </label>
           </div>
-
 
         </div>
         <div className="btns_">
