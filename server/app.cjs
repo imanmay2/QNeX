@@ -11,7 +11,7 @@ const cookieParser = require("cookie-parser");
 //initialize
 const User = require("./models/user.cjs");
 const Question = require("./models/question.cjs");
-const ReviewTest=require("./models/user.cjs");
+const ReviewTest=require("./models/reviewTest.cjs");
 let flag = 0;
 
 
@@ -204,11 +204,34 @@ app.get("/findtest/:test_id", async (req, res) => {
 });
 
 
+//fetching the 
 app.post("/reviewTest",async(req,res)=>{
     try{
-        let ans=req.body;
-        console.log(ans);
+        let {ans,test_id}=req.body;
+        let {username}=req.cookies;
+        let score=0;
+        let findAns=await Question.find({test_id:test_id});
+        // console.log(findAns);
+        for(let i=0;i<ans.length;i++){
+            if(ans[i]===findAns[0].questions_[i].ans){
+                score++;
+            }
+        }
+        //adding the data in the reviewTest collection.
+        if(findAns.length){
+            const addResponse=new ReviewTest({
+            username: username,
+            test_id:test_id,
+            response:ans,
+            totalScore:ans.length,
+            score:score
+        });
+        await addResponse.save();
         res.json({'message':"Data saved succesfully.","flag":"success"});
+        }else{
+            res.json({'message':"No Question id found.","flag":"error"});
+        }
+        
     } catch(err){
         res.status(500).json({"message":err.message});
     }

@@ -83,19 +83,13 @@ function Test() {
     console.log("Ans: ");
     console.log(ans);
 
-
-
+    let test_id=test.test_id;
     //Sending the answer to the backend.
-    // let ansObj={...ans};
-    const response = await axios.post("http://localhost:8080/reviewTest", ans, { withCredentials: true });
+    let ansObj={ans,test_id};
+    const response = await axios.post("http://localhost:8080/reviewTest", ansObj, { withCredentials: true });
 
     if (response.data.flag == "success") {
-      navigate("/dashboard", {
-        state: {
-          message: "Test submitted successfully",
-          success: true
-        }
-      });
+      navigate("/dashboard");
 
       //send test submiited sucessfully.
       return;

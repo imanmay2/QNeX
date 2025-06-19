@@ -10,7 +10,7 @@ const userSchema=new mongoose.Schema({
         required:true
     },
     response:{
-        type:String,
+        type:[String],
         required:true
     },
     totalScore:{
@@ -21,7 +21,7 @@ const userSchema=new mongoose.Schema({
         type:Number,
         required:true
     }
-})
+});
 
 const ReviewTest=new mongoose.model("ReviewTest",userSchema);
 
