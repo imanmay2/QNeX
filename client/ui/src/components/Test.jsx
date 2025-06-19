@@ -76,31 +76,48 @@ function Test() {
     let updatedAns = [...ans];
     updatedAns[tracker] = event.target.value;
     setAns(updatedAns);
-
-
   }
 
 
   let handleSubmit = async () => {
     console.log("Ans: ");
     console.log(ans);
-    setMsg("Test Submitted Successfully !!");
-    setServerity("success");
-    setOpen(true);
-    // const response = await axios.post();
+
+
+
+    //Sending the answer to the backend.
+    // let ansObj={...ans};
+    const response = await axios.post("http://localhost:8080/reviewTest", ans, { withCredentials: true });
+
+    if (response.data.flag == "success") {
+      navigate("/dashboard", {
+        state: {
+          message: "Test submitted successfully",
+          success: true
+        }
+      });
+
+      //send test submiited sucessfully.
+      return;
+    }
+    else {
+      setMsg(response.data.message);
+      setServerity("error");
+      setOpen(true);
+    }
   }
   let calculate = () => {
-  let notAttemptCount = ans.filter(val => val === null).length;
-  setNotAttempt(notAttemptCount);
-  setAttempt(ans.length - notAttemptCount);
-};
- 
+    let notAttemptCount = ans.filter(val => val === null).length;
+    setNotAttempt(notAttemptCount);
+    setAttempt(ans.length - notAttemptCount);
+  };
 
-  let overlayRef=React.useRef(null);
+
+  let overlayRef = React.useRef(null);
   let showOverlay = () => {
     calculate();
     overlayRef.current.style.display = 'flex';
-    
+
   }
 
   let hideOverlay = () => {
@@ -157,7 +174,6 @@ function Test() {
               {test.questions_[tracker].options.option_C}
             </label>
           </div>
-
         </div>
         <div className="btns_">
           <button className="previous_" onClick={prev}>Previous</button>
@@ -179,9 +195,6 @@ function Test() {
 
     </div>
   );
-
-
-
 }
 
 export { Test };

@@ -203,6 +203,17 @@ app.get("/findtest/:test_id", async (req, res) => {
 
 })
 
+
+app.post("/reviewTest",async(req,res)=>{
+    try{
+        let ans=req.body;
+        console.log(ans);
+        res.json({'message':"Data saved succesfully.","flag":"success"});
+    } catch(err){
+        res.status(500).json({"message":err.message});
+    }
+});
+
 //logging out.
 app.post("/logout", async (req, res) => {
     res.cookie("login", "false", { secure: false });
