@@ -217,7 +217,7 @@ app.get("/findtest/:test_id", async (req, res) => {
 //fetching the 
 app.post("/reviewTest", async (req, res) => {
     try {
-        let { ans, test_id } = req.body;
+        let { ans, test_id,testTitle } = req.body;
         let { username } = req.cookies;
         let score = 0;
         let findAns = await Question.find({ test_id: test_id });
@@ -232,6 +232,7 @@ app.post("/reviewTest", async (req, res) => {
             const addResponse = new ReviewTest({
                 username: username,
                 test_id: test_id,
+                testTitle:testTitle,
                 response: ans,
                 totalScore: ans.length,
                 attemptedOn: getDateToday(),
@@ -251,8 +252,8 @@ app.post("/reviewTest", async (req, res) => {
 app.get("/reviewTest/:username", async (req, res) => {
     const { username } = req.params;
     let findTests = await ReviewTest.find({ username: username });
+    
     console.log(username);
-    console.log(findTests);
     if (findTests.length){
         console.log(findTests);
         res.json({ "Tests": findTests, "flag": true });
@@ -260,6 +261,20 @@ app.get("/reviewTest/:username", async (req, res) => {
         res.json({"Tests":"Error ! Nothing found!!","flag":"error"});
     }
 });
+
+//fetching the reviewTest via filtering through username and test_id.
+app.get("/reviewTest/:username/:test_id", async (req, res) => {
+    const { username ,test_id} = req.params;
+    let findTests = await ReviewTest.find({ username: username,test_id:test_id });
+    
+    if (findTests.length){
+        console.log(findTests);
+        res.json({ "Tests": findTests, "flag": true });
+    }else{
+        res.json({"Tests":"Error ! Nothing found!!","flag":"error"});
+    }
+});
+
 
 //logging out.
 app.post("/logout", async (req, res) => {

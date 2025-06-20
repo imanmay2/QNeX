@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./css/reviewTest.css";
 import { Options } from "./Options";
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
@@ -7,79 +7,30 @@ import axios from "axios";
 import Cookies from 'js-cookie';
 
 function ReviewTest() {
-  let testData;
-  console.log(Cookies.get("username"));
+  let [test,setTest]=useState([]);
   useEffect(() => {
     let fetchData=async()=>{
       try{
         const response=await axios.get(`http://localhost:8080/reviewTest/${Cookies.get("username")}`,{
           withCredentials:true
         });
-        testData=response.data.Tests;
+        setTest(response.data.Tests);
       } catch(err){
         console.log(err.message);
       }
     }
     fetchData();
-  },[])
-  // testData = [
-  //   {
-  //     testName: "Data Structures and Algorithm",
-  //     createdOn: "9th June 2025",
-  //     attemptedOn: "10th June 2025",
-  //     scoreText: "8/10",
-  //     percentage: 80
-  //   },
-  //   {
-  //     testName: "JavaScript Basics",
-  //     createdOn: "5th June 2025",
-  //     attemptedOn: "6th June 2025",
-  //     scoreText: "7/10",
-  //     percentage: 70
-  //   },
-  //   {
-  //     testName: "ReactJS Intermediate",
-  //     createdOn: "3rd June 2025",
-  //     attemptedOn: "4th June 2025",
-  //     scoreText: "9/10",
-  //     percentage: 90
-  //   },
-  //   {
-  //     testName: "Python OOP Concepts",
-  //     createdOn: "1st June 2025",
-  //     attemptedOn: "2nd June 2025",
-  //     scoreText: "6/10",
-  //     percentage: 60
-  //   },
-  //   {
-  //     testName: "Database Management",
-  //     createdOn: "28th May 2025",
-  //     attemptedOn: "29th May 2025",
-  //     scoreText: "10/10",
-  //     percentage: 100
-  //   },
-  //   {
-  //     testName: "HTML & CSS",
-  //     createdOn: "27th May 2025",
-  //     attemptedOn: "28th May 2025",
-  //     scoreText: "5/10",
-  //     percentage: 50
-  //   },
-  //   {
-  //     testName: "Operating Systems",
-  //     createdOn: "25th May 2025",
-  //     attemptedOn: "26th May 2025",
-  //     scoreText: "7/10",
-  //     percentage: 70
-  //   },
-  //   {
-  //     testName: "Computer Networks",
-  //     createdOn: "23rd May 2025",
-  //     attemptedOn: "24th May 2025",
-  //     scoreText: "6/10",
-  //     percentage: 60
-  //   }
-  // ];
+  },[]);
+
+
+
+  const handleTestReview=async(test_id)=>{
+    const username=Cookies.get("username");
+    const response=await axios.get(`http://localhost:8080/reviewTest/${username}/${test_id}`);
+    let testReview_=response.data.Tests;
+    console.log(testReview_);
+    //navigate to the respective page for the test to be reviewed.
+  }
 
   return (
     <div className="reviewTest">
@@ -87,21 +38,21 @@ function ReviewTest() {
       <div className="main">
         <span>Review Tests</span>
         <div className="tests">
-          {testData.map(({ testName, createdOn, attemptedOn, scoreText, percentage }, i) => {
+          {test.map(({ test_id,testTitle, attemptedOn,totalScore, score}, i) => {
             return (
 
 
               <div className="testCard" key={i}>
                 <div className="testInfo">
-                  <p><strong>Test:</strong>{testName}</p>
-                  <p><strong>Created on:</strong>{createdOn}</p>
+                  <p><strong>Test: </strong>{testTitle}</p>
+                  <p><strong>Test_id: </strong>{test_id}</p>
                   <p><strong>Attempted on:</strong>{attemptedOn}</p>
-                  <span className="btn">Review Test</span>
+                  <span className="btn" onClick={()=>handleTestReview(test_id)}>Review Test</span>
                 </div>
                 <div className="progressContainer">
                   <CircularProgressbar
-                    value={percentage}
-                    text={scoreText}
+                    value={(score*100)/totalScore}
+                    text={score+"/"+totalScore}
                     styles={buildStyles({
                       textColor: "#5BA4E7",
                       pathColor: "#5BA4E7",
@@ -110,9 +61,7 @@ function ReviewTest() {
                   />
                 </div>
               </div>
-
             )
-
           })}
         </div>
       </div>

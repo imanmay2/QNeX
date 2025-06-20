@@ -84,8 +84,9 @@ function Test() {
     console.log(ans);
 
     let test_id=test.test_id;
+    let testTitle=test.testTitle;
     //Sending the answer to the backend.
-    let ansObj={ans,test_id};
+    let ansObj={ans,test_id,testTitle};
     const response = await axios.post("http://localhost:8080/reviewTest", ansObj, { withCredentials: true });
 
     if (response.data.flag == "success") {
