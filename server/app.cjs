@@ -11,7 +11,7 @@ const cookieParser = require("cookie-parser");
 //initialize
 const User = require("./models/user.cjs");
 const Question = require("./models/question.cjs");
-const ReviewTest=require("./models/reviewTest.cjs");
+const ReviewTest = require("./models/reviewTest.cjs");
 let flag = 0;
 
 
@@ -46,11 +46,11 @@ function generateUsername(email) {
 }
 
 function getDateToday() {
-  const today = new Date();
-  const year = today.getFullYear();
-  const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
-  const day = String(today.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+    const day = String(today.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
 }
 
 
@@ -151,7 +151,7 @@ app.post("/createTest", async (req, res) => {
                 description: test.description,
                 duration: test.duration,
                 test_id: test.test_id,
-                createdOn:test.createdOn,
+                createdOn: test.createdOn,
                 questions_: test.questions_.map((q) => {
                     return {
                         question: q.question,
@@ -203,7 +203,7 @@ app.get("/findtest/:test_id", async (req, res) => {
         let findId = await Question.find({ "test_id": test_id });
         console.log("Backend : ");
         console.log(findId);
-        if (findId.length){
+        if (findId.length) {
             res.json({ "find": findId });
             return;
         }
@@ -215,36 +215,49 @@ app.get("/findtest/:test_id", async (req, res) => {
 
 
 //fetching the 
-app.post("/reviewTest",async(req,res)=>{
-    try{
-        let {ans,test_id}=req.body;
-        let {username}=req.cookies;
-        let score=0;
-        let findAns=await Question.find({test_id:test_id});
+app.post("/reviewTest", async (req, res) => {
+    try {
+        let { ans, test_id } = req.body;
+        let { username } = req.cookies;
+        let score = 0;
+        let findAns = await Question.find({ test_id: test_id });
         // console.log(findAns);
-        for(let i=0;i<ans.length;i++){
-            if(ans[i]===findAns[0].questions_[i].ans){
+        for (let i = 0; i < ans.length; i++) {
+            if (ans[i] === findAns[0].questions_[i].ans) {
                 score++;
             }
         }
         //adding the data in the reviewTest collection.
-        if(findAns.length){
-            const addResponse=new ReviewTest({
-            username: username,
-            test_id:test_id,
-            response:ans,
-            totalScore:ans.length,
-            attemptedOn:getDateToday(),
-            score:score
-        });
-        await addResponse.save();
-        res.json({'message':"Data saved succesfully.","flag":"success"});
-        }else{
-            res.json({'message':"No Question id found.","flag":"error"});
+        if (findAns.length) {
+            const addResponse = new ReviewTest({
+                username: username,
+                test_id: test_id,
+                response: ans,
+                totalScore: ans.length,
+                attemptedOn: getDateToday(),
+                score: score
+            });
+            await addResponse.save();
+            res.json({ 'message': "Data saved succesfully.", "flag": "success" });
+        } else {
+            res.json({ 'message': "No Question id found.", "flag": "error" });
         }
-        
-    } catch(err){
-        res.status(500).json({"message":err.message});
+
+    } catch (err) {
+        res.status(500).json({ "message": err.message });
+    }
+});
+
+app.get("/reviewTest/:username", async (req, res) => {
+    const { username } = req.params;
+    let findTests = await ReviewTest.find({ username: username });
+    console.log(username);
+    console.log(findTests);
+    if (findTests.length){
+        console.log(findTests);
+        res.json({ "Tests": findTests, "flag": true });
+    }else{
+        res.json({"Tests":"Error ! Nothing found!!","flag":"error"});
     }
 });
 
