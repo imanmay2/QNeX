@@ -10,54 +10,59 @@ import { CreateTest } from './components/CreateTest';
 import { ReviewTest } from './components/ReviewTest';
 import { AttendTest } from './components/AttendTest';
 import { Test } from './components/Test';
+import { TestReview } from './components/TestReview';
 function App() {
   const router = createBrowserRouter([
     {
       path: "/",
       element: <div className='login_'>
-
-          <Login/>
-       </div>
+        <Login />
+      </div>
     },
     {
       path: "/signup",
       element: <div className='root1'>
-
-         <Signup/>
-        </div>
-    },{
-      path:"/dashboard",
+        <Signup />
+      </div>
+    }, {
+      path: "/dashboard",
       element: <div className='dashboard'>
-        <Dashboard/>
+        <Dashboard />
       </div>
-    },{
-      path:"/createTest",
+    }, {
+      path: "/createTest",
       element: <div className='createTest'>
-        <CreateTest/>
+        <CreateTest />
       </div>
-    },{
-      path:"/reviewTest",
+    }, {
+      path: "/reviewTest",
       element: <div className="reviewTest">
-        <ReviewTest/>
+        <ReviewTest />
       </div>
-    },{
-      path:"/attendTest",
+    }, {
+      path: "/attendTest",
       element: <div className="attendTest">
-        <AttendTest/>
+        <AttendTest />
       </div>
-    },{
-      path:"/Test/:id",
+    }, {
+      path: "/Test/:id",
       element: <div>
-        <Test/>
+        <Test />
+      </div>
+    }, {
+      path: "/reviewtest/:username/:id",
+      element: <div>
+        <TestReview />
       </div>
     }
   ])
 
-return (
-  <>
-    <RouterProvider router={router}/>
-  </>
-)}
+  return (
+    <>
+      <RouterProvider router={router} />
+    </>
+  )
+}
 
 
 export default App;

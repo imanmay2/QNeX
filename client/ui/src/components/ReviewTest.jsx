@@ -5,8 +5,9 @@ import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import axios from "axios";
 import Cookies from 'js-cookie';
-
+import { Navigate, useNavigate } from "react-router-dom";
 function ReviewTest() {
+  let  navigate=useNavigate();
   let [test,setTest]=useState([]);
   useEffect(() => {
     let fetchData=async()=>{
@@ -30,6 +31,7 @@ function ReviewTest() {
     let testReview_=response.data.Tests;
     console.log(testReview_);
     //navigate to the respective page for the test to be reviewed.
+    navigate(`/reviewtest/${username}/${test_id}`,{state:test_id});
   }
 
   return (
@@ -42,8 +44,6 @@ function ReviewTest() {
           { (test.length===0) ? <p>No Tests Found !</p> :
           test.map(({ test_id,testTitle, attemptedOn,totalScore, score}, i) => {
             return (
-
-
               <div className="testCard" key={i}>
                 <div className="testInfo">
                   <p><strong>Test: </strong>{testTitle}</p>

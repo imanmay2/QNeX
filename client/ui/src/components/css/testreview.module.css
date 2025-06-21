@@ -1,0 +1,18 @@
+.heading{
+    font-weight: bolder;
+    margin:1rem;
+    
+    color: #1976d2;
+}
+
+.testreview{
+    display: flex;
+    flex-direction: row;
+}
+
+.main{
+    display:flex;
+    flex-direction:column;
+    margin:2rem;
+    width:100%;
+}
