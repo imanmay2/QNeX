@@ -14,7 +14,7 @@ function ReviewTest() {
         const response=await axios.get(`http://localhost:8080/reviewTest/${Cookies.get("username")}`,{
           withCredentials:true
         });
-        setTest(response.data.Tests);
+        setTest(Array.isArray(response.data.Tests)?response.data.Tests:[]);
       } catch(err){
         console.log(err.message);
       }
@@ -37,8 +37,10 @@ function ReviewTest() {
       <Options />
       <div className="main">
         <span>Review Tests</span>
+        
         <div className="tests">
-          {test.map(({ test_id,testTitle, attemptedOn,totalScore, score}, i) => {
+          { (test.length===0) ? <p>No Tests Found !</p> :
+          test.map(({ test_id,testTitle, attemptedOn,totalScore, score}, i) => {
             return (
 
 
