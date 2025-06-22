@@ -1,18 +1,29 @@
-.heading{
-    font-weight: bolder;
-    margin:1rem;
-    
+.heading {
+    font-weight: light;
+    margin: 1rem;
     color: #1976d2;
 }
 
-.testreview{
+.testreview {
     display: flex;
     flex-direction: row;
 }
 
-.main{
-    display:flex;
-    flex-direction:column;
-    margin:2rem;
-    width:100%;
+.main {
+    display: flex;
+    flex-direction: column;
+    margin: 2rem;
+    width: 90%;
+}
+
+
+
+p {
+    font-size: large;
+}
+
+.testDetails {
+    display: flex;
+    flex-direction: row;
+    gap:3rem;
 }
