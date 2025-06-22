@@ -8,6 +8,8 @@ import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Alert from '@mui/material/Alert';
+import { ImCancelCircle } from "react-icons/im";
+import { useRef } from "react";
 function CreateTest() {
     function getTodayDate() {
         const today = new Date();
@@ -189,17 +191,38 @@ function CreateTest() {
         setMsg("Question Deleted ! ");
         setServerity("success");
         setOpen(true);
-
     })
+
+
+    let overlayRef=React.useRef(null);
+    let handleSubmit=()=>{
+
+    }
+
+    let hideOverlay=()=>{
+        overlayRef.current.style.display='none';
+    }
+    let showOverlay=()=>{
+        overlayRef.current.style.display="flex";
+    }
     return (
         <div className="createTest">
             <Options />
             <div className="main">
+                {/* Overlay Container */}
+                <div className="overlay-container_" ref={overlayRef} id="overlay">
+                    <div className="overlay-content_">
+                         <div id="close" onClick={hideOverlay}><ImCancelCircle /></div>
+                        Create Test with the power of AI.
+                        <br />
+                        <button type="submit" className="overlaySubmit" onClick={handleSubmit}>Submit</button>
+                    </div>
+                </div>
                 <div className="content">
                     <div className="test_details">
                         <div className="heading_">
                             <font>Create New Test</font>
-                            <button className="ai-create-btn">🚀 Create Test with AI</button>
+                            <button className="ai-create-btn" onClick={showOverlay}>🚀 Create Test with AI</button>
                         </div>
                         <br />
                         <div>

@@ -10,7 +10,7 @@
     display: flex;
     flex-direction: column;
     padding: 1em;
-    border:2px solid rgb(194, 194, 194);
+    border: 2px solid rgb(194, 194, 194);
     border-radius: 20px;
 }
 
@@ -31,9 +31,10 @@
 .heading1_ {
     display: flex;
 }
-.heading2_{
-    display:flex;
-    margin-left:18rem;
+
+.heading2_ {
+    display: flex;
+    margin-left: 18rem;
 }
 
 .marks_ {
@@ -42,41 +43,42 @@
 
 .testid_ {
     font-size: medium;
-    margin-left:10rem;
+    margin-left: 10rem;
 }
 
-.Q_{
-    border:1px solid silver;
-    border-radius:12px;
-    height:40vh;
-    width:65vw;
-    margin:5rem;
+.Q_ {
+    border: 1px solid silver;
+    border-radius: 12px;
+    height: 40vh;
+    width: 65vw;
+    margin: 5rem;
 }
 
-.Question_{
+.Question_ {
     font-weight: 500;
-    padding:2rem;
-}
-
-.options_{
-    margin-top:3em;
-    display:flex;
-    
-}
-
-.option_{
-    margin-left:-10px
-}
-
-
-.input_{
-    margin-left:-8rem;
+    padding: 2rem;
 }
 
 .options_ {
     margin-top: 3em;
     display: flex;
-    flex-direction: column; /* make options vertical */
+
+}
+
+.option_ {
+    margin-left: -10px
+}
+
+
+.input_ {
+    margin-left: -8rem;
+}
+
+.options_ {
+    margin-top: 3em;
+    display: flex;
+    flex-direction: column;
+    /* make options vertical */
     gap: 1.2rem;
     padding-left: 4rem;
 }
@@ -101,7 +103,9 @@
 }
 
 /* Common Button Styles */
-.previous_, .next_, .submit_ {
+.previous_,
+.next_,
+.submit_ {
     padding: 1rem 2rem;
     font-size: 1.1rem;
     border-radius: 12px;
@@ -109,11 +113,12 @@
     cursor: pointer;
     transition: all 0.3s ease-in-out;
     font-weight: 600;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Previous & Next buttons */
-.previous_, .next_ {
+.previous_,
+.next_ {
     background-color: transparent;
     border: 2px solid #5BA4E7;
     color: #5BA4E7;
@@ -127,12 +132,14 @@
 }
 
 /* Submit button */
-.submit_,.overlaySubmit{
+.submit_,
+.overlaySubmit {
     background-color: #5BA4E7;
     color: #ffffff;
-    padding:0.5rem;
+    padding: 0.5rem;
     border: 2px solid #5BA4E7;
-    border-radius: 16px;;
+    border-radius: 16px;
+    ;
 }
 
 .submit_:hover {
@@ -141,41 +148,41 @@
     box-shadow: 0 6px 12px rgba(91, 164, 231, 0.3);
 }
 
-.next_{
-    margin-left:48rem;
-} 
+.next_ {
+    margin-left: 48rem;
+}
 
 .overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
 }
 
 .overlay-content {
-  background: white;
-  padding: 20px 30px;
-  border-radius: 10px;
-  width: 300px;
-  text-align: center;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    background: white;
+    padding: 20px 30px;
+    border-radius: 10px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 }
 
-.overlaySubmit:hover{
-     background-color: #3f8ed4;
+.overlaySubmit:hover {
+    background-color: #3f8ed4;
     transform: scale(1.05);
     box-shadow: 0 6px 12px rgba(91, 164, 231, 0.3);
 }
 
 
-#close{
-    margin-left:14rem;
-    color:red !important;
-    cursor:pointer
+#close {
+    margin-left: 14rem;
+    color: red !important;
+    cursor: pointer
 }

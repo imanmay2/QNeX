@@ -9,7 +9,8 @@ body {
   font-family: "Inter", sans-serif;
   background: #f8f9fd;
   color: #1f2937;
-  font-size: 0.95rem; /* Reduced global font size */
+  font-size: 0.95rem;
+  /* Reduced global font size */
 }
 
 /* ===== Page shell ===== */
@@ -18,7 +19,8 @@ body {
   height: 100vh;
   width: 100vw;
   overflow: hidden;
-  font-size: 0.95rem; /* Apply reduced font size to all children */
+  font-size: 0.95rem;
+  /* Apply reduced font size to all children */
 }
 
 /* ===== Main content area ===== */
@@ -46,7 +48,8 @@ body {
   flex-wrap: wrap;
   gap: 1rem;
   color: #5ba4e7;
-  font-size: 2rem; /* Keep heading font size */
+  font-size: 2rem;
+  /* Keep heading font size */
   font-weight: 600;
   margin-bottom: 1.5rem;
 }
@@ -109,7 +112,9 @@ input:focus {
   border-radius: 12px;
   transition: background 0.25s ease, transform 0.15s ease;
 }
-.add_anotherQ, .delete {
+
+.add_anotherQ,
+.delete {
   margin-left: 5%;
 }
 
@@ -170,4 +175,35 @@ input:focus {
 
 .ai-create-btn:active {
   transform: scale(0.98);
+}
+
+
+.overlay-container_ {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.overlay-content_ {
+  background: white;
+  padding: 20px 30px;
+  height: 80%;
+  width: 50% !important;
+  border-radius: 10px;
+  width: 300px;
+  text-align: center;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.overlaySubmit:hover {
+  background-color: #3f8ed4;
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(91, 164, 231, 0.3);
 }
