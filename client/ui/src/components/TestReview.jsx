@@ -1,19 +1,16 @@
 import { useEffect, useState } from "react";
 import styles from "./css/testreview.module.css";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Options } from "./Options";
 import axios from "axios";
 
 function TestReview() {
-    let { username, id } = useParams();
-    // console.log(username);
-    // console.log(id);
-    // let q;
-    // let test;
-    let [q, setQ] = useState();
-    let [test, setTest] = useState();
+    const { username, id } = useParams();
+    const [q, setQ] = useState();
+    const [test, setTest] = useState();
+
     useEffect(() => {
-        let func = async () => {
+        const func = async () => {
             try {
                 const response1 = await axios.get(`http://localhost:8080/reviewTest/${username}/${id}`, {
                     withCredentials: true
@@ -21,37 +18,47 @@ function TestReview() {
                 const response2 = await axios.get(`http://localhost:8080/findTest/${id}`, {
                     withCredentials: true
                 });
-                // console.log(response1.data.Tests);   //ReviewTest with response.
-                // console.log(response2.data.find);   //Question.
                 setQ(response2.data.find);
                 setTest(response1.data.Tests);
             } catch (err) {
                 console.log(err.message);
             }
-        }
+        };
         func();
     }, [username, id]);
 
-
-    console.log(q);
-    console.log(test);
     return (
         <div className={styles.testreview}>
             <Options />
             <div className={styles.main}>
-                <h1 className={styles.heading}>Review Test</h1>
-                <br />
+                <h1 className={styles.heading}>📝 Review Test</h1>
+
                 {q && q.length > 0 ? (
-                    <div className={styles.testdetails}>
-                        <span className={styles.testData}><p>Test: {q[0].testTitle}</p></span>
-                        <span className={styles.testData}><p>Test: {q[0].testTitle}</p></span>
-                        <span className={styles.testData}><p>Test: {q[0].testTitle}</p></span>
+                    <div className={styles.margin}>
+                        <div className={styles.analyze}>Start Analyzing Your Test</div>
+                        {q[0].questions_.map((ques, index) => (
+                            <div key={index} className={styles.Q_}>
+                                <div className={styles.question}>
+                                    Q{ques.questionNo}. {ques.question}
+                                </div>
+                                <div className={styles.options}>
+                                    <span>A. {ques.options.option_A}</span>
+                                    <span>B.  {ques.options.option_B}</span>
+                                    <span>© {ques.options.option_C}</span>
+                                </div>
+                            </div>
+                        ))}
+
+                        <div className={styles.btnContainer}>
+                            <button className={styles.btn}>⬅ Back to Review Page</button>
+                        </div>
                     </div>
                 ) : (
-                    <div>Loading test ...</div>
+                    <div className={styles.loading}>Loading test ...</div>
                 )}
             </div>
         </div>
-    )
+    );
 }
+
 export { TestReview };
