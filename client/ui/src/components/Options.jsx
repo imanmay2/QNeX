@@ -32,7 +32,7 @@ function Options() {
             <div className="at"><MdAssignmentTurnedIn/> &nbsp;&nbsp;<Link to="http://localhost:5173/attendTest" className="nav-link">Attend Test</Link></div>
             <div className="rt"><AiOutlineFileSearch/> &nbsp;&nbsp;<Link to="http://localhost:5173/reviewTest" className="nav-link">Review Test</Link></div>
             <div className="setGap">
-                <div className="settings"><FiUser/> &nbsp;&nbsp;<Link to="http://localhost:5173/settings" className="nav-link">Settings</Link></div>
+                <div className="settings"><FiUser/> &nbsp;&nbsp;<Link to="http://localhost:5173/settings" className="nav-link">Profile</Link></div>
                 <div className="logout"><FiLogOut/> &nbsp;&nbsp;<Link onClick={handleLogout} className="nav-link">Logout</Link></div>
             </div>
         </div>
