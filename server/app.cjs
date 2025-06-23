@@ -1,4 +1,5 @@
 ///imports
+require("dotenv").config();
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
@@ -7,6 +8,7 @@ const PORT = 8080;
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const cookieParser = require("cookie-parser");
+const axios=require("axios");
 
 //initialize
 const User = require("./models/user.cjs");
@@ -111,7 +113,7 @@ app.post("/saveUser", async (req, res) => {
     }
 });
 
-//login 
+//login route.
 app.post("/loginUser", async (req, res) => {
     let flag = 0;
     const { Username, Password } = req.body;
@@ -180,7 +182,7 @@ app.post("/createTest", async (req, res) => {
 
 
 
-// cheking for the test id is present or not (in the attendTest.jsx)
+// cheking for the test id is present or not (in the attendTest.jsx).
 app.get("/findtest/:test_id", async (req, res) => {
     try {
         let { test_id } = req.params;
@@ -198,7 +200,7 @@ app.get("/findtest/:test_id", async (req, res) => {
 });
 
 
-//fetching the 
+// review the test.
 app.post("/reviewTest", async (req, res) => {
     try {
         let { ans, test_id,testTitle } = req.body;
@@ -246,7 +248,7 @@ app.get("/reviewTest/:username", async (req, res) => {
     }
 });
 
-//fetching the reviewTest via filtering through username and test_id.
+// fetching the reviewTest via filtering through username and test_id.
 app.get("/reviewTest/:username/:test_id", async (req, res) => {
     const { username ,test_id} = req.params;
     let findTests = await ReviewTest.find({ username: username,test_id:test_id });
@@ -257,6 +259,53 @@ app.get("/reviewTest/:username/:test_id", async (req, res) => {
     }else{
         res.json({"Tests":"Error ! Nothing found!!","flag":"error"});
     }
+});
+
+
+//Creating test with AI.
+app.post("/api/ai", async (req, res) => {
+  const { inputObject, formatObject } = req.body;
+
+  if (!inputObject || !formatObject) {
+    return res.status(400).json({ error: "inputObject and formatObject are required." });
+  }
+
+  const prompt = `
+Use the input JSON below to generate a new JSON object in this format:
+${JSON.stringify(formatObject, null, 2)}
+
+Input:
+${JSON.stringify(inputObject, null, 2)}
+
+Respond ONLY with the valid JSON object.
+  `;
+
+  try {
+    const response = await axios.post(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${process.env.GEMINI_API_KEY}`,
+      {
+        contents: [{ parts: [{ text: prompt }] }],
+      },
+      {
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+
+    // Raw text returned by Gemini
+    const rawText = response.data.candidates[0].content.parts[0].text;
+    let jsonResponse;
+    try {
+      jsonResponse = JSON.parse(rawText);
+    } catch (parseError) {
+      const cleaned = rawText.replace(/```json|```/g, "").trim();
+      jsonResponse = JSON.parse(cleaned);
+    }
+
+    res.json(jsonResponse);
+  } catch (error) {
+    console.error("Gemini API error:", error?.response?.data || error.message);
+    res.status(500).json({ error: "Failed to generate JSON from Gemini" });
+  }
 });
 
 
