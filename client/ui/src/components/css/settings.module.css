@@ -1,0 +1,102 @@
+.container {
+  padding: 2rem;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1.8rem;
+  color: #3a3a3a;
+  margin-bottom: 2rem;
+  font-weight: 600;
+}
+
+.card {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 16px;
+  max-width: 600px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  animation: slideUp 0.4s ease-in-out;
+}
+
+.formGroup {
+  margin-bottom: 1.5rem;
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: 0.6rem;
+  color: #555;
+  font-weight: 500;
+}
+
+.formGroup input {
+  width: 100%;
+  padding: 0.9rem 1.2rem;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  font-size: 1rem;
+  background-color: #f9fafb;
+  transition: all 0.3s ease;
+}
+
+.formGroup input:focus {
+  outline: none;
+  border-color: #5ba4e7;
+  background-color: #fff;
+  box-shadow: 0 0 0 3px rgba(91, 164, 231, 0.2);
+}
+
+.actions {
+  text-align: right;
+}
+
+.actions button {
+  padding: 0.75rem 1.8rem;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  background-color: #5ba4e7;
+  color: white;
+  transition: 0.3s ease;
+}
+
+.actions button:hover {
+  background-color: #468fd3;
+  transform: translateY(-2px);
+}
+
+.saveBtn {
+  background-color: #22c55e !important;
+}
+
+.saveBtn:hover {
+  background-color: #16a34a !important;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

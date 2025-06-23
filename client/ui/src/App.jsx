@@ -11,6 +11,7 @@ import { ReviewTest } from './components/ReviewTest';
 import { AttendTest } from './components/AttendTest';
 import { Test } from './components/Test';
 import { TestReview } from './components/TestReview';
+import Settings from './components/Settings';
 function App() {
   const router = createBrowserRouter([
     {
@@ -53,6 +54,11 @@ function App() {
       path: "/reviewtest/:username/:id",
       element: <div>
         <TestReview />
+      </div>
+    }, {
+      path: "/settings",
+      element: <div>
+        <Settings />
       </div>
     }
   ])
