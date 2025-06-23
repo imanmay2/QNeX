@@ -149,7 +149,7 @@ function CreateTest() {
             setServerity(response.data.flag);
             setOpen(true);
 
-            if (response.data.flag == "success") {
+            if(response.data.flag == "success") {
                 setTest({
                     testTitle: "",
                     description: "",
@@ -194,16 +194,16 @@ function CreateTest() {
     })
 
 
-    let overlayRef=React.useRef(null);
-    let handleSubmit=()=>{
+    let overlayRef = React.useRef(null);
+    let handleSubmit = () => {
 
     }
 
-    let hideOverlay=()=>{
-        overlayRef.current.style.display='none';
+    let hideOverlay = () => {
+        overlayRef.current.style.display = 'none';
     }
-    let showOverlay=()=>{
-        overlayRef.current.style.display="flex";
+    let showOverlay = () => {
+        overlayRef.current.style.display = "flex";
     }
     return (
         <div className="createTest">
@@ -212,9 +212,22 @@ function CreateTest() {
                 {/* Overlay Container */}
                 <div className="overlay-container_" ref={overlayRef} id="overlay">
                     <div className="overlay-content_">
-                         <div id="close" onClick={hideOverlay}><ImCancelCircle /></div>
-                        Create Test with the power of AI.
-                        <br />
+                        <div id="close_" onClick={hideOverlay}><ImCancelCircle /></div><br />
+                        <h2 classname="heading2_"> Create Test with the power of AI.</h2>
+                        <br /><br /><br />
+                        <p classname="subject">Subject : &nbsp;&nbsp; <input style={{ width: "40%" }} type="text" /></p> <br /><br />
+                        <p classname="subject">Topic : &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; <input style={{ width: "40%" }} type="text" /></p> <br /><br />
+                        <p>Enter the medium of the test:  &nbsp;&nbsp; &nbsp; <select>
+                            <option value="">--Choose an option--</option>
+                            <option value="easy">Easy</option>
+                            <option value="medium">Medium</option>
+                            <option value="hard">Difficult</option>
+                        </select></p> <br /><br />
+
+                        <p classname="subject">Number of Questions : &nbsp;&nbsp; <input style={{ width: "10%", height:"5%" }} type="text" /></p> <br /><br />
+
+                        <p classname="subject">Enter the  test_id : &nbsp;&nbsp; <input style={{ width: "20%", height:"5%" }} type="text" /></p> <br /><br />
+                       
                         <button type="submit" className="overlaySubmit" onClick={handleSubmit}>Submit</button>
                     </div>
                 </div>
