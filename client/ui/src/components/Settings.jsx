@@ -17,6 +17,8 @@ function Settings() {
             <Options />
             <div className={styles.main}>
                 <div className={styles.heading}>Profile</div>
+
+                
             </div>
         </div>
     );
