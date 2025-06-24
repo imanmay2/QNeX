@@ -100,3 +100,9 @@
     opacity: 1;
   }
 }
+
+
+.profile{
+  display: flex;
+  flex-direction: row;
+}
