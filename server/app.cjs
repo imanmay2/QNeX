@@ -271,46 +271,64 @@ app.post("/api/ai", async (req, res) => {
   }
 
   const prompt = `
-Use the input JSON below to generate a new JSON object in this format:
-${JSON.stringify(formatObject, null, 2)}
-
-Input:
+You are an expert in creating structured JSON.
+Given the following input object:
 ${JSON.stringify(inputObject, null, 2)}
 
-Respond ONLY with the valid JSON object.
+Generate a JSON response in this format:
+${JSON.stringify(formatObject, null, 2)}
+
+Make sure to keep "description", "duration", and "test_id" same as input. 
+Also note that , give the "ans" field like:  "ans":A (in caps lock).
+ Do not include explanations. Just give valid JSON.
   `;
 
   try {
     const response = await axios.post(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${process.env.GEMINI_API_KEY}`,
+      'https://api.cohere.ai/v1/chat',
       {
-        contents: [{ parts: [{ text: prompt }] }],
+        message: prompt,
+        model: "command-r-plus",
+        temperature: 0.3,
       },
       {
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          Authorization: `Bearer ${process.env.API_KEY}`,
+          "Content-Type": "application/json",
+        },
       }
     );
 
-    // Raw text returned by Gemini
-    const rawText = response.data.candidates[0].content.parts[0].text;
+    const rawText = response.data.text;
     let jsonResponse;
+
     try {
       jsonResponse = JSON.parse(rawText);
-    } catch (parseError) {
+    } catch (err) {
       const cleaned = rawText.replace(/```json|```/g, "").trim();
       jsonResponse = JSON.parse(cleaned);
     }
+    console.log(jsonResponse);
 
-    res.json(jsonResponse);
+    //object created...now need to save in the database.
+    
+
+    //calling the /createTest route to save the data into the database.
+    const res_=await axios.post("http://localhost:8080/createTest",jsonResponse,{
+        withCredentials:true
+    })
+    res.json(res_.data);
+
   } catch (error) {
-    console.error("Gemini API error:", error?.response?.data || error.message);
-    res.status(500).json({ error: "Failed to generate JSON from Gemini" });
+    console.error("Cohere API Error:", error?.response?.data || error.message);
+    res.status(500).json({ error: "Failed to generate JSON from Cohere" });
   }
 });
+
 
 
 //logging out.
 app.post("/logout", async (req, res) => {
     res.cookie("login", "false", { secure: false });
     res.json({ "flag": "true" });
-})
+});

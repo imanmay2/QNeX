@@ -149,7 +149,7 @@ function CreateTest() {
             setServerity(response.data.flag);
             setOpen(true);
 
-            if(response.data.flag == "success") {
+            if (response.data.flag == "success") {
                 setTest({
                     testTitle: "",
                     description: "",
@@ -195,9 +195,6 @@ function CreateTest() {
 
 
     let overlayRef = React.useRef(null);
-    let handleSubmit = () => {
-
-    }
 
     let hideOverlay = () => {
         overlayRef.current.style.display = 'none';
@@ -207,37 +204,81 @@ function CreateTest() {
     }
 
     // usestate .
-    let [AI,setAI]=useState({
-        subject_:"",
-        topic_:"",
-        description_:"",
-        medium_:"",
-        no_of_Q:"",
-        duration_:"",
-        test_id_:""
+    let [AI, setAI] = useState({
+        subject_: "",
+        topic_: "",
+        description_: "",
+        medium_: "",
+        no_of_Q: "",
+        duration_: "",
+        test_id_: ""
     });
-
-    let handleChange=(event)=>{
-        let {name,value}=event.target;
-        setAI((currData)=>{
-            return {...currData,[name]:value};
+    let [inputObject, setObj] = useState();
+    let handleChange = (event) => {
+        let { name, value } = event.target;
+        setAI((currData) => {
+            return { ...currData, [name]: value };
         });
     }
+    let [formatObject, setFormat] = useState();
+    let SubmitAI = async () => {
+        const input = { ...AI };  
+        const format = {
+            testTitle: "",
+            description: "",
+            duration: "",
+            test_id: "",
+            createdOn: "",
+            questions_: [{
+                question: "",
+                questionNo: i,
+                options: {
+                    option_A: "",
+                    option_B: "",
+                    option_C: "",
+                },
+                ans: ""
+            }]
+        };
 
-    let SubmitAI=(event)=>{
-        event.preventDefault();
-        console.log(AI);
-    }
+        try {
+            const response = await axios.post("http://localhost:8080/api/ai", {
+                inputObject: input,
+                formatObject: format
+            }, {
+                withCredentials: true
+            });
 
-    
+            console.log(response.data);
 
-    
+            hideOverlay();
+            setServerity(response.data.flag);
+            setMsg(response.data.message);
+            setOpen(true);
+
+
+            // Clear the AI form.
+            setAI({
+                subject_: "",
+                topic_: "",
+                description_: "",
+                medium_: "",
+                no_of_Q: "",
+                duration_: "",
+                test_id_: ""
+            });
+
+        } catch (err) {
+            console.error("AI API Error:", err.response?.data || err.message);
+        }
+    };
+
+
+
     return (
         <div className="createTest">
             <Options />
             <div className="main">
-
-
                 {/* Overlay Container */}
                 <div className="overlay-container_" ref={overlayRef} id="overlay">
                     <div className="overlay-content_">
@@ -246,19 +287,19 @@ function CreateTest() {
                         <br /><br /><br />
 
                         {/* inputs for the AI section. */}
-                        <p className="subject">Subject : &nbsp;&nbsp; <input style={{ width: "40%" }} name="subject_" value={AI.subject_} type="text" onChange={handleChange}/></p> <br />
-                        <p className="subject">Topic : &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; <input style={{ width: "40%" }} name="topic_" value={AI.topic_} type="text"  onChange={handleChange}/></p> <br />
+                        <p className="subject">Subject : &nbsp;&nbsp; <input style={{ width: "40%" }} name="subject_" value={AI.subject_} type="text" onChange={handleChange} /></p> <br />
+                        <p className="subject">Topic : &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; <input style={{ width: "40%" }} name="topic_" value={AI.topic_} type="text" onChange={handleChange} /></p> <br />
                         <p className="subject">Description : &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; <input style={{ width: "40%" }} name="description_" value={AI.description_} onChange={handleChange} type="text" /></p> <br />
-                        <p>Enter the medium of the test:  &nbsp;&nbsp; &nbsp; 
-                        <select name="medium_" value={AI.medium_} onChange={handleChange}>
-                            <option value="">--Choose an option--</option>
-                            <option value="easy">Easy</option>
-                            <option value="medium">Medium</option>
-                            <option value="hard">Difficult</option>
-                        </select></p> <br /><br />
-                        <p className="subject">Number of Questions : &nbsp;&nbsp; <input style={{ width: "15%", height:"5%" }} onChange={handleChange} type="text" name="no_of_Q" value={AI.no_of_Q} /></p><br />
-                        <p className="subject">Duration of the test:  &nbsp;&nbsp; <input style={{ width: "30%", height:"5%" }} onChange={handleChange} type="text" name="duration_" value={AI.duration_} /></p> <br />
-                        <p className="subject">Enter the  test_id : &nbsp;&nbsp; <input style={{ width: "20%", height:"5%" }} onChange={handleChange} type="text" name="test_id_" value={AI.test_id_} /></p> <br /><br />
+                        <p>Enter the medium of the test:  &nbsp;&nbsp; &nbsp;
+                            <select name="medium_" value={AI.medium_} onChange={handleChange}>
+                                <option value="">--Choose an option--</option>
+                                <option value="easy">Easy</option>
+                                <option value="medium">Medium</option>
+                                <option value="hard">Difficult</option>
+                            </select></p> <br /><br />
+                        <p className="subject">Number of Questions : &nbsp;&nbsp; <input style={{ width: "15%", height: "5%" }} onChange={handleChange} type="text" name="no_of_Q" value={AI.no_of_Q} /></p><br />
+                        <p className="subject">Duration of the test:  &nbsp;&nbsp; <input style={{ width: "30%", height: "5%" }} onChange={handleChange} type="text" name="duration_" value={AI.duration_} /></p> <br />
+                        <p className="subject">Enter the  test_id : &nbsp;&nbsp; <input style={{ width: "20%", height: "5%" }} onChange={handleChange} type="text" name="test_id_" value={AI.test_id_} /></p> <br /><br />
                         <button type="submit" className="overlaySubmit" onClick={SubmitAI}>Submit</button>
 
 
