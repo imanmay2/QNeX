@@ -180,8 +180,6 @@ app.post("/createTest", async (req, res) => {
 
 
 
-
-
 // cheking for the test id is present or not (in the attendTest.jsx).
 app.get("/findtest/:test_id", async (req, res) => {
     try {
