@@ -5,13 +5,7 @@
   box-sizing: border-box;
 }
 
-body {
-  font-family: "Inter", sans-serif;
-  background: #f8f9fd;
-  color: #1f2937;
-  font-size: 0.95rem;
-  /* Reduced global font size */
-}
+
 
 /* ===== Page shell ===== */
 .createTest {
@@ -121,6 +115,10 @@ input:focus {
 .add_anotherQ {
   color: #0606a7;
   background: #8d8df1;
+  margin-left:20rem;
+  font-size:large;
+  height:10%;
+  width:24%;
 }
 
 .add_anotherQ:hover {
@@ -131,6 +129,9 @@ input:focus {
 .delete {
   color: #f80404;
   background: #f9a9a9;
+  font-size:large;
+  height:10%;
+  width:16%;
 }
 
 .delete:hover {
@@ -141,7 +142,10 @@ input:focus {
 .create_test_btn {
   color: #ffffff;
   background: #4e4ec3;
-  margin-top: 1.5rem;
+  margin-top: 1rem;
+   font-size:larger;
+  height:10%;
+  width:14%;
 }
 
 .create_test_btn:hover {
@@ -276,3 +280,11 @@ input:focus {
     transform: translateY(0px);
   }
 }
+
+
+#test_title_label{
+  color:black;
+  font-size:medium;
+}
+
+

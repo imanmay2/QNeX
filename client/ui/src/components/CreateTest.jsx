@@ -302,6 +302,8 @@ function CreateTest() {
                         <button type="submit" className="overlaySubmit" onClick={SubmitAI}>Submit</button>
                     </div>
                 </div>
+
+                {/* Create a new Test Manually */}
                 <div className="content">
                     <div className="test_details">
                         <div className="heading_">
@@ -310,21 +312,21 @@ function CreateTest() {
                         </div>
                         <br />
                         <div>
-                            <label htmlFor="test_title" id="test_title_label">Test Title</label> <br />
+                            <label htmlFor="test_title"><span id="test_title_label">Test Title</span></label> 
                             <input type="text" id="test_title" name="testTitle" value={test.testTitle} onChange={handleInput} style={{ width: "85vh" }} />
                         </div>
-                        <br />
+                        <br /><br />
                         <div className="info">
                             <span>
-                                <label htmlFor="description">Description</label> <br />
+                                <label htmlFor="description" id="test_title_label">Description</label> 
                                 <input type="text" name="description" value={test.description} id="description" onChange={handleInput} style={{ width: "65vh" }} />
                             </span>
                             <span>
-                                <label htmlFor="duration">Duration</label> <br />
+                                <label htmlFor="duration" id="test_title_label">Duration</label> 
                                 <input type="text" name="duration" value={test.duration} onChange={handleInput} id="duration" />
                             </span>
                             <span>
-                                <label htmlFor="test_id">Test_ID</label> <br />
+                                <label htmlFor="test_id" id="test_title_label">Test_ID</label> 
                                 <input type="text" placeholder="QNX123" name="test_id" value={test.test_id} onChange={handleInput} id="test_id" />
                             </span>
                         </div>
@@ -333,19 +335,19 @@ function CreateTest() {
 
 
                         <div className="addQ">
-                            <label htmlFor="Question" id="question_1_label">Question {i}</label><br />
+                            <label htmlFor="Question" id="test_title_label">Question {i}</label><br />
                             <input type="text" id="Question" name="question" value={Q.question} onChange={handleQ} style={{ width: "90vh" }} /> <br /><br /><br />
                             <div className="options">
                                 <span>
-                                    <label htmlFor="option_A">Option A</label><br />
+                                    <label htmlFor="option_A" id="test_title_label">Option A</label>
                                     <input type="text" id="option_A" name="option_A" value={Q.options.option_A} onChange={handleQ} style={{ width: "30vh" }} />
                                 </span>
                                 <span>
-                                    <label htmlFor="option_B">Option B</label><br />
+                                    <label htmlFor="option_B" id="test_title_label">Option B</label>
                                     <input type="text" id="option_B" name="option_B" value={Q.options.option_B} onChange={handleQ} style={{ width: "30vh" }} />
                                 </span>
                                 <span>
-                                    <label htmlFor="option_C">Option C</label><br />
+                                    <label htmlFor="option_C" id="test_title_label">Option C</label>
                                     <input type="text" id="option_C" name="option_C" value={Q.options.option_C} onChange={handleQ} style={{ width: "30vh" }} />
                                 </span>
                             </div>
@@ -376,5 +378,4 @@ function CreateTest() {
         </div>
     );
 }
-
 export { CreateTest };
