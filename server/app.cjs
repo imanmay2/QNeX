@@ -100,13 +100,13 @@ app.post("/saveUser", async (req, res) => {
                 res.cookie("name", Name, { secure: false });  // secure false as using http. not https.
                 console.log("User Signed Up!!");
                 flag = 1;
-                res.status(200).json({ 'message': "User saved successfully", "flag": flag });
+                res.status(200).json({ 'message': "User saved successfully", "flag": "success" });
             } else {
-                res.json({ 'message': 'Email is Invalid ! ' });
+                res.json({ 'message': 'Email is Invalid ! ', "flag": "error"  });
             }
         } catch (err) {
             console.log(err);
-            res.status(500).json({ 'message': "Error in pushing the data. " });
+            res.status(500).json({ 'message': "Error in pushing the data. ", "flag": "error"  });
         }
     } else {
         res.json({ 'message': 'User already exists ! ' });
@@ -324,10 +324,14 @@ Also note that , give the "ans" field like:  "ans":A (in caps lock).
 });
 
 
+
+//fetch user data and send to the profile section.
 app.get("/userData",async(req,res)=>{
     try{
-        
         const userDetails=await User.find({username:req.cookies.username});
+        if(userDetails.length){
+            res.json({'data_':userDetails});
+        }
     } catch(err){
         res.json({'message':err.message});
     }
@@ -336,23 +340,21 @@ app.get("/userData",async(req,res)=>{
 
 
 //update the data in the database.
-app.post("/updateData", async (req, res) => {
+app.get("/deleteUser", async (req, res) => {
     try {
-        const { name, email, password } = req.body.data;
-        // Update the user.
-        const result = await User.updateOne(
-            {username:req.cookies.username},                  // condition
-            { $set: { name, email, password } } // update fields
+        const result = await User.deleteOne(
+            {username:req.cookies.username} 
         );
+
         console.log(result);
         if (result.modifiedCount === 0) {
-            return res.status(404).json({ message: "User not found or no changes made" });
+            return res.status(404).json({ 'message': "User not found or no changes made","flag":"error" });
         }
-
-        res.status(200).json({ message: "User updated successfully" });
+        
+        res.status(200).json({ 'message': "User deleted successfully","flag":"success"});
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: "Internal server error" });
+        res.status(500).json({ 'message': "Internal server error","flag":"error" });
     }
 });
 

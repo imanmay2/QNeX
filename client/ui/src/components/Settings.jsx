@@ -42,8 +42,13 @@ function Settings() {
     useEffect(()=>{
         let fetch=async()=>{
             const response=await axios.get("http://localhost:8080/userData",{withCredentials:true});
+            let details=response.data.data_;
+            setName(details[0].name);
+            setEmail(details[0].email);
+            setPassword(details[0].password);
         }
-    })
+        fetch();
+    },[]);
 
     const usernameRef = useRef(null);
     const emailRef = useRef(null);
@@ -66,7 +71,7 @@ function Settings() {
         saveRef.current.style.display = 'flex';
     };
 
-    const handleClick = () => {
+    const handleClick = async() => {
         if (track === "edit") {
             setTrack("save");
             usernameRef.current.disabled = false;
@@ -85,11 +90,15 @@ function Settings() {
             editRef.current.style.backgroundColor="#0c81b3";
 
             //  update the saved data in the database.
+            const deleteUser=await axios.get("http://localhost:8080/deleteUser",{
+                withCredentials:true
+            });
+            const response=await axios.post("http://localhost:8080/updateData",{'Name':name,'Email':email,'Password':password},{withCredentials:true});
 
 
 
-            setMsg("Data Saved successfully.");
-            setServerity("success");
+            setMsg(response.data.message);
+            setServerity(response.data.flag);
             setOpen(true);
         }
     }
@@ -112,7 +121,7 @@ function Settings() {
                     <div className={styles.docs}>
                         <label htmlFor="username">Username</label>
                         <br />
-                        <input ref={usernameRef} type="text" name='username' value={username} disabled />
+                        <input ref={usernameRef} type="text" name='username' value={name} disabled />
                     </div>
                     <br />
                     <div className={styles.docs}>
