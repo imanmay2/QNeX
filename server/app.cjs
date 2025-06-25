@@ -325,6 +325,30 @@ Also note that , give the "ans" field like:  "ans":A (in caps lock).
 
 
 
+//update the data in the database.
+app.post("/updateData", async (req, res) => {
+    try {
+        const { name, email, password } = req.body.data;
+
+        // Update the user.
+        const result = await User.updateOne(
+            {username:req.cookies.username},                  // condition
+            { $set: { name, email, password } } // update fields
+        );
+        console.log(result);
+        if (result.modifiedCount === 0) {
+            return res.status(404).json({ message: "User not found or no changes made" });
+        }
+
+        res.status(200).json({ message: "User updated successfully" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+});
+
+
+
 //logging out.
 app.post("/logout", async (req, res) => {
     res.cookie("login", "false", { secure: false });
