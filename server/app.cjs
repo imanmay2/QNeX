@@ -324,12 +324,21 @@ Also note that , give the "ans" field like:  "ans":A (in caps lock).
 });
 
 
+app.get("/userData",async(req,res)=>{
+    try{
+        
+        const userDetails=await User.find({username:req.cookies.username});
+    } catch(err){
+        res.json({'message':err.message});
+    }
+})
+
+
 
 //update the data in the database.
 app.post("/updateData", async (req, res) => {
     try {
         const { name, email, password } = req.body.data;
-
         // Update the user.
         const result = await User.updateOne(
             {username:req.cookies.username},                  // condition

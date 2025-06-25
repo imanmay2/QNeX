@@ -35,13 +35,13 @@ function Settings() {
             </IconButton>
         </React.Fragment>
     );
-    const [username, setUsername] = useState('manmay');
-    const [email, setEmail] = useState('manmay@example.com');
+    const [name, setName] = useState();
+    const [email, setEmail] = useState();
     let [password, setPassword] = useState();
 
     useEffect(()=>{
         let fetch=async()=>{
-            const response=await axios.get()
+            const response=await axios.get("http://localhost:8080/userData",{withCredentials:true});
         }
     })
 
