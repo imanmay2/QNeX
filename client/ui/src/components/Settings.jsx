@@ -5,6 +5,7 @@ import { Options } from './Options';
 function Settings() {
     const [username, setUsername] = useState('manmay');
     const [email, setEmail] = useState('manmay@example.com');
+    let [password, setPassword] = useState()
     const [editing, setEditing] = useState(false);
 
     const handleSave = () => {
@@ -12,15 +13,13 @@ function Settings() {
         // Send updated data to server if needed
     };
 
-    return (
-        <div className={styles.profile}>
-            <Options />
-            <div className={styles.main}>
-                <div className={styles.heading}>Profile</div>
 
-                
-            </div>
-        </div>
+
+
+    return (
+       <div className={styles.profile}>
+        <Options/>
+       </div>
     );
 }
 
