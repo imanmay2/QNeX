@@ -8,7 +8,7 @@ const PORT = 8080;
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const cookieParser = require("cookie-parser");
-const axios=require("axios");
+const axios = require("axios");
 
 //initialize
 const User = require("./models/user.cjs");
@@ -50,7 +50,7 @@ function generateUsername(email) {
 function getDateToday() {
     const today = new Date();
     const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, '0'); 
+    const month = String(today.getMonth() + 1).padStart(2, '0');
     const day = String(today.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
 }
@@ -74,6 +74,7 @@ app.get("/data", (req, res) => {
 //signup
 app.post("/saveUser", async (req, res) => {
     const { Name, Email, Password } = req.body;
+    let preUserName = req.cookies.username || ""; //Storing the cookies, if already exists in the cookieSession.
     let userRes = await User.find({ email: Email });
     if (!userRes.length) {
         try {
@@ -100,13 +101,13 @@ app.post("/saveUser", async (req, res) => {
                 res.cookie("name", Name, { secure: false });  // secure false as using http. not https.
                 console.log("User Signed Up!!");
                 flag = 1;
-                res.status(200).json({ 'message': "User saved successfully", "flag": "success" });
+                res.status(200).json({ 'message': "User saved successfully", "flag": "success", "userCookie": preUserName });
             } else {
-                res.json({ 'message': 'Email is Invalid ! ', "flag": "error"  });
+                res.json({ 'message': 'Email is Invalid ! ', "flag": "error" });
             }
         } catch (err) {
             console.log(err);
-            res.status(500).json({ 'message': "Error in pushing the data. ", "flag": "error"  });
+            res.status(500).json({ 'message': "Error in pushing the data. ", "flag": "error" });
         }
     } else {
         res.json({ 'message': 'User already exists ! ' });
@@ -180,7 +181,7 @@ app.post("/createTest", async (req, res) => {
 
 
 
-// cheking for the test id is present or not (in the attendTest.jsx).
+// checking for the test id is present or not (in the attendTest.jsx).
 app.get("/findtest/:test_id", async (req, res) => {
     try {
         let { test_id } = req.params;
@@ -201,7 +202,7 @@ app.get("/findtest/:test_id", async (req, res) => {
 // review the test.
 app.post("/reviewTest", async (req, res) => {
     try {
-        let { ans, test_id,testTitle } = req.body;
+        let { ans, test_id, testTitle } = req.body;
         let { username } = req.cookies;
         let score = 0;
         let findAns = await Question.find({ test_id: test_id });
@@ -216,7 +217,7 @@ app.post("/reviewTest", async (req, res) => {
             const addResponse = new ReviewTest({
                 username: username,
                 test_id: test_id,
-                testTitle:testTitle,
+                testTitle: testTitle,
                 response: ans,
                 totalScore: ans.length,
                 attemptedOn: getDateToday(),
@@ -236,39 +237,39 @@ app.post("/reviewTest", async (req, res) => {
 app.get("/reviewTest/:username", async (req, res) => {
     const { username } = req.params;
     let findTests = await ReviewTest.find({ username: username });
-    
+
     console.log(username);
-    if (findTests.length){
+    if (findTests.length) {
         console.log(findTests);
         res.json({ "Tests": findTests, "flag": true });
-    }else{
-        res.json({"Tests":"Error ! Nothing found!!","flag":"error"});
+    } else {
+        res.json({ "Tests": "Error ! Nothing found!!", "flag": "error" });
     }
 });
 
 // fetching the reviewTest via filtering through username and test_id.
 app.get("/reviewTest/:username/:test_id", async (req, res) => {
-    const { username ,test_id} = req.params;
-    let findTests = await ReviewTest.find({ username: username,test_id:test_id });
-    
-    if (findTests.length){
+    const { username, test_id } = req.params;
+    let findTests = await ReviewTest.find({ username: username, test_id: test_id });
+
+    if (findTests.length) {
         console.log(findTests);
         res.json({ "Tests": findTests, "flag": true });
-    }else{
-        res.json({"Tests":"Error ! Nothing found!!","flag":"error"});
+    } else {
+        res.json({ "Tests": "Error ! Nothing found!!", "flag": "error" });
     }
 });
 
 
 //Creating test with AI.
 app.post("/api/ai", async (req, res) => {
-  const { inputObject, formatObject } = req.body;
+    const { inputObject, formatObject } = req.body;
 
-  if (!inputObject || !formatObject) {
-    return res.status(400).json({ error: "inputObject and formatObject are required." });
-  }
+    if (!inputObject || !formatObject) {
+        return res.status(400).json({ error: "inputObject and formatObject are required." });
+    }
 
-  const prompt = `
+    const prompt = `
 You are an expert in creating structured JSON.
 Given the following input object:
 ${JSON.stringify(inputObject, null, 2)}
@@ -281,59 +282,59 @@ Also note that , give the "ans" field like:  "ans":A (in caps lock).
  Do not include explanations. Just give valid JSON.
   `;
 
-  try {
-    const response = await axios.post(
-      'https://api.cohere.ai/v1/chat',
-      {
-        message: prompt,
-        model: "command-r-plus",
-        temperature: 0.3,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.API_KEY}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
-    const rawText = response.data.text;
-    let jsonResponse;
-
     try {
-      jsonResponse = JSON.parse(rawText);
-    } catch (err) {
-      const cleaned = rawText.replace(/```json|```/g, "").trim();
-      jsonResponse = JSON.parse(cleaned);
+        const response = await axios.post(
+            'https://api.cohere.ai/v1/chat',
+            {
+                message: prompt,
+                model: "command-r-plus",
+                temperature: 0.3,
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${process.env.API_KEY}`,
+                    "Content-Type": "application/json",
+                },
+            }
+        );
+
+        const rawText = response.data.text;
+        let jsonResponse;
+
+        try {
+            jsonResponse = JSON.parse(rawText);
+        } catch (err) {
+            const cleaned = rawText.replace(/```json|```/g, "").trim();
+            jsonResponse = JSON.parse(cleaned);
+        }
+        console.log(jsonResponse);
+
+        //object created...now need to save in the database.
+
+
+        //calling the /createTest route to save the data into the database.
+        const res_ = await axios.post("http://localhost:8080/createTest", jsonResponse, {
+            withCredentials: true
+        })
+        res.json(res_.data);
+
+    } catch (error) {
+        console.error("Cohere API Error:", error?.response?.data || error.message);
+        res.status(500).json({ error: "Failed to generate JSON from Cohere" });
     }
-    console.log(jsonResponse);
-
-    //object created...now need to save in the database.
-    
-
-    //calling the /createTest route to save the data into the database.
-    const res_=await axios.post("http://localhost:8080/createTest",jsonResponse,{
-        withCredentials:true
-    })
-    res.json(res_.data);
-
-  } catch (error) {
-    console.error("Cohere API Error:", error?.response?.data || error.message);
-    res.status(500).json({ error: "Failed to generate JSON from Cohere" });
-  }
 });
 
 
 
 //fetch user data and send to the profile section.
-app.get("/userData",async(req,res)=>{
-    try{
-        const userDetails=await User.find({username:req.cookies.username});
-        if(userDetails.length){
-            res.json({'data_':userDetails});
+app.get("/userData", async (req, res) => {
+    try {
+        const userDetails = await User.find({ username: req.cookies.username });
+        if (userDetails.length) {
+            res.json({ 'data_': userDetails });
         }
-    } catch(err){
-        res.json({'message':err.message});
+    } catch (err) {
+        res.json({ 'message': err.message });
     }
 })
 
@@ -343,21 +344,36 @@ app.get("/userData",async(req,res)=>{
 app.get("/deleteUser", async (req, res) => {
     try {
         const result = await User.deleteOne(
-            {username:req.cookies.username} 
+            { username: req.cookies.username }
         );
 
         console.log(result);
         if (result.modifiedCount === 0) {
-            return res.status(404).json({ 'message': "User not found or no changes made","flag":"error" });
+            return res.status(404).json({ 'message': "User not found or no changes made", "flag": "error" });
         }
-        
-        res.status(200).json({ 'message': "User deleted successfully","flag":"success"});
+
+        res.status(200).json({ 'message': "User deleted successfully", "flag": "success" });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ 'message': "Internal server error","flag":"error" });
+        res.status(500).json({ 'message': "Internal server error", "flag": "error" });
     }
 });
 
+
+//updating the ReviewTest user 
+app.post("/updateReviewUser", async (req, res) => {
+    try {
+        let { preUserName } = req.body;
+        const modify = await ReviewTest.updateOne({ username: preUserName }, { $set: { username: req.cookies.username } });
+        console.log(modify);
+        if (modify.modifiedCount === 0) {
+            res.json({ 'message': 'Task not done' });
+        }
+        res.json({ 'message': 'Task done' });
+    } catch (err) {
+        res.json({ 'message': err.msg });
+    }
+});
 
 
 //logging out.

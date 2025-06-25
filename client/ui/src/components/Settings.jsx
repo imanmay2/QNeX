@@ -57,19 +57,19 @@ function Settings() {
     let saveRef = useRef(null);
 
     let [track, setTrack] = useState("edit");
-    const handleSave = () => {
-        // Send updated data to server if needed
-    };
 
-    const edit = () => {
-        usernameRef.current.disabled = false;
-        emailRef.current.disabled = false;
-        passwordRef.current.disabled = false;
 
-        editRef.current.style.innertext = 'cancel';
+    const handleChange = (event) => {
+    const { name, value } = event.target;
+    if (name === "username") {
+        setName(value);
+    } else if (name === "email") {
+        setEmail(value);
+    } else if (name === "password") {
+        setPassword(value);
+    }
+};
 
-        saveRef.current.style.display = 'flex';
-    };
 
     const handleClick = async() => {
         if (track === "edit") {
@@ -93,8 +93,13 @@ function Settings() {
             const deleteUser=await axios.get("http://localhost:8080/deleteUser",{
                 withCredentials:true
             });
-            const response=await axios.post("http://localhost:8080/updateData",{'Name':name,'Email':email,'Password':password},{withCredentials:true});
 
+            const response=await axios.post("http://localhost:8080/saveUser",{'Name':name,'Email':email,'Password':password},{withCredentials:true});
+
+            let preUserName=response.data.userCookie;
+            if(preUserName!=""){
+                const updateUsername=await axios.post("http://localhost:8080/updateReviewUser",{preUserName},{withCredentials:true});
+            }
 
 
             setMsg(response.data.message);
@@ -119,21 +124,21 @@ function Settings() {
                     </div>
                     <br /> <br />
                     <div className={styles.docs}>
-                        <label htmlFor="username">Username</label>
+                        <label htmlFor="username">Name</label>
                         <br />
-                        <input ref={usernameRef} type="text" name='username' value={name} disabled />
+                        <input ref={usernameRef} type="text" name='username' value={name} onChange={handleChange} disabled />
                     </div>
                     <br />
                     <div className={styles.docs}>
                         <label htmlFor="email">Email</label>
                         <br />
-                        <input ref={emailRef} type="text" name='email' value={email} disabled />
+                        <input ref={emailRef} type="text" name='email' value={email} onChange={handleChange} disabled />
                     </div>
                     <br />
                     <div className={styles.docs}>
                         <label htmlFor="password">Password</label>
                         <br />
-                        <input ref={passwordRef} type="password" name='password' value={password} disabled />
+                        <input ref={passwordRef} type="password" name='password' onChange={handleChange} value={password} disabled />
                     </div>
 
                     {/* buttons */}
