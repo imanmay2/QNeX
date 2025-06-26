@@ -77,7 +77,6 @@ function Settings() {
             usernameRef.current.disabled = false;
             emailRef.current.disabled = false;
             passwordRef.current.disabled = false;
-
             editRef.current.innerText="Save";
             editRef.current.style.backgroundColor="rgb(40, 167, 69)";
         } else if(track==="save"){

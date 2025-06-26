@@ -10,6 +10,9 @@ import CloseIcon from '@mui/icons-material/Close';
 import Alert from '@mui/material/Alert';
 import { ImCancelCircle } from "react-icons/im";
 import { useRef } from "react";
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
+
 function CreateTest() {
     function getTodayDate() {
         const today = new Date();
@@ -195,7 +198,7 @@ function CreateTest() {
 
 
     let overlayRef = React.useRef(null);
-
+    let loaderRef=React.useRef(null);
     let hideOverlay = () => {
         overlayRef.current.style.display = 'none';
     }
@@ -222,7 +225,8 @@ function CreateTest() {
     }
     let [formatObject, setFormat] = useState();
     let SubmitAI = async () => {
-        const input = { ...AI };  
+        loaderRef.current.style.display="flex";
+        const input = { ...AI };
         const format = {
             testTitle: "",
             description: "",
@@ -248,9 +252,8 @@ function CreateTest() {
             }, {
                 withCredentials: true
             });
-
-            console.log(response.data);
-
+            
+            loaderRef.current.style.display="none";
             hideOverlay();
             setServerity(response.data.flag);
             setMsg(response.data.message);
@@ -277,8 +280,9 @@ function CreateTest() {
 
     return (
         <div className="createTest">
-            <Options/>
+            <Options />
             <div className="main">
+
                 {/* Overlay Container */}
                 <div className="overlay-container_" ref={overlayRef} id="overlay">
                     <div className="overlay-content_">
@@ -286,20 +290,26 @@ function CreateTest() {
                         <h2> Create Test with the power of AI.</h2>
                         <br />
                         {/* inputs for the AI section. */}
-                        <p className="subject">Subject : &nbsp;&nbsp; <input style={{ width: "40%"}} name="subject_" value={AI.subject_} type="text" onChange={handleChange} /></p> 
-                        <p className="subject">Topic : &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; <input style={{ width: "40%" }} name="topic_" value={AI.topic_} type="text" onChange={handleChange} /></p> 
-                        <p className="subject">Description : &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; <input style={{ width: "40%" }} name="description_" value={AI.description_} onChange={handleChange} type="text" /></p> 
+                        <p className="subject">Subject : &nbsp;&nbsp; <input style={{ width: "40%" }} name="subject_" value={AI.subject_} type="text" onChange={handleChange} /></p>
+                        <p className="subject">Topic : &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; <input style={{ width: "40%" }} name="topic_" value={AI.topic_} type="text" onChange={handleChange} /></p>
+                        <p className="subject">Description : &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; <input style={{ width: "40%" }} name="description_" value={AI.description_} onChange={handleChange} type="text" /></p>
                         <p>Enter the medium of the test:  &nbsp;&nbsp; &nbsp;
                             <select name="medium_" value={AI.medium_} onChange={handleChange}>
                                 <option value="">--Choose an option--</option>
                                 <option value="easy">Easy</option>
                                 <option value="medium">Medium</option>
                                 <option value="hard">Difficult</option>
-                            </select></p> 
+                            </select></p>
                         <p className="subject">Number of Questions : &nbsp;&nbsp; <input style={{ width: "15%", height: "5%" }} onChange={handleChange} type="text" name="no_of_Q" value={AI.no_of_Q} /></p>
-                        <p className="subject">Duration of the test:  &nbsp;&nbsp; <input style={{ width: "30%", height: "5%" }} onChange={handleChange} type="text" name="duration_" value={AI.duration_} /></p> 
+                        <p className="subject">Duration of the test:  &nbsp;&nbsp; <input style={{ width: "30%", height: "5%" }} onChange={handleChange} type="text" name="duration_" value={AI.duration_} /></p>
                         <p className="subject">Enter the  test_id : &nbsp;&nbsp; <input style={{ width: "20%", height: "5%" }} onChange={handleChange} type="text" name="test_id_" value={AI.test_id_} /></p>
                         <button type="submit" className="overlaySubmit" onClick={SubmitAI}>Submit</button>
+                        {/* Progress Bar  */}
+                        <br />
+                       
+                        <Box ref={loaderRef} sx={{ display: 'none' }}>
+                            <CircularProgress />
+                        </Box>
                     </div>
                 </div>
 
@@ -312,21 +322,21 @@ function CreateTest() {
                         </div>
                         <br />
                         <div>
-                            <label htmlFor="test_title"><span id="test_title_label">Test Title</span></label> 
+                            <label htmlFor="test_title"><span id="test_title_label">Test Title</span></label>
                             <input type="text" id="test_title" name="testTitle" value={test.testTitle} onChange={handleInput} style={{ width: "85vh" }} />
                         </div>
                         <br /><br />
                         <div className="info">
                             <span>
-                                <label htmlFor="description" id="test_title_label">Description</label> 
+                                <label htmlFor="description" id="test_title_label">Description</label>
                                 <input type="text" name="description" value={test.description} id="description" onChange={handleInput} style={{ width: "65vh" }} />
                             </span>
                             <span>
-                                <label htmlFor="duration" id="test_title_label">Duration</label> 
+                                <label htmlFor="duration" id="test_title_label">Duration</label>
                                 <input type="text" name="duration" value={test.duration} onChange={handleInput} id="duration" />
                             </span>
                             <span>
-                                <label htmlFor="test_id" id="test_title_label">Test_ID</label> 
+                                <label htmlFor="test_id" id="test_title_label">Test_ID</label>
                                 <input type="text" placeholder="QNX123" name="test_id" value={test.test_id} onChange={handleInput} id="test_id" />
                             </span>
                         </div>
