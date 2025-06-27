@@ -198,12 +198,17 @@ function CreateTest() {
 
 
     let overlayRef = React.useRef(null);
-    let loaderRef=React.useRef(null);
+    let loaderRef = React.useRef(null);
+    let overlayContentRef = React.useRef(null);
     let hideOverlay = () => {
         overlayRef.current.style.display = 'none';
+        loaderRef.current.style.display = "none";
+        overlayContentRef.current.style.backdropFilter = "blur(0px)";
     }
     let showOverlay = () => {
         overlayRef.current.style.display = "flex";
+        loaderRef.current.style.display = "none";
+        // overlayContentRef.current.style.backdropFilter = "blur(0px)";
     }
 
     // usestate .
@@ -225,7 +230,9 @@ function CreateTest() {
     }
     let [formatObject, setFormat] = useState();
     let SubmitAI = async () => {
-        loaderRef.current.style.display="flex";
+        overlayContentRef.current.style.backdropFilter = "blur(8px)";
+        
+        loaderRef.current.style.display = "block";
         const input = { ...AI };
         const format = {
             testTitle: "",
@@ -252,8 +259,9 @@ function CreateTest() {
             }, {
                 withCredentials: true
             });
-            
-            loaderRef.current.style.display="none";
+
+            loaderRef.current.style.display = "none";
+            overlayContentRef.current.style.backdropFilter = "blur(0px)";
             hideOverlay();
             setServerity(response.data.flag);
             setMsg(response.data.message);
@@ -285,7 +293,8 @@ function CreateTest() {
 
                 {/* Overlay Container */}
                 <div className="overlay-container_" ref={overlayRef} id="overlay">
-                    <div className="overlay-content_">
+
+                    <div ref={overlayContentRef} className="overlay-content_">
                         <div id="close_" onClick={hideOverlay}><ImCancelCircle /></div><br />
                         <h2> Create Test with the power of AI.</h2>
                         <br />
@@ -306,11 +315,12 @@ function CreateTest() {
                         <button type="submit" className="overlaySubmit" onClick={SubmitAI}>Submit</button>
                         {/* Progress Bar  */}
                         <br />
-                       
-                        <Box ref={loaderRef} sx={{ display: 'none' }}>
-                            <CircularProgress />
-                        </Box>
+
+
                     </div>
+                    <Box ref={loaderRef} sx={{ display: 'none' }} className="loader">
+                        <CircularProgress />
+                    </Box>
                 </div>
 
                 {/* Create a new Test Manually */}
