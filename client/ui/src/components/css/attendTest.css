@@ -51,6 +51,7 @@
     background-color: #334155;
     color: #f8fafc;
     outline: none;
+    width:100% !important;
 }
 
 .askid-input::placeholder {
@@ -72,3 +73,5 @@
 .submit-btn:hover {
     background-color: #0ea5e9;
 }
+
+
