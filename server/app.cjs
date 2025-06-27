@@ -75,6 +75,7 @@ app.get("/data", (req, res) => {
 app.post("/saveUser", async (req, res) => {
     const { Name, Email, Password } = req.body;
     let preUserName = req.cookies.username || ""; //Storing the cookies, if already exists in the cookieSession.
+    console.log("Preusername"+preUserName);
     let userRes = await User.find({ email: Email });
     if (!userRes.length) {
         try {
@@ -364,14 +365,27 @@ app.get("/deleteUser", async (req, res) => {
 app.post("/updateReviewUser", async (req, res) => {
     try {
         let { preUserName } = req.body;
-        const modify = await ReviewTest.updateOne({ username: preUserName }, { $set: { username: req.cookies.username } });
+        console.log("Entered: "+preUserName);
+        const modify = await ReviewTest.updateOne({$or:{ username: preUserName, }}, { $set: { username: req.cookies.username } });
+
+//         const modify = await ReviewTest.updateOne(
+//   {
+//     $or: [
+//       { username: preUserName },
+//       { email: preUserName }  // Example: you want to match either username or email
+//     ]
+//   },
+//   {
+//     $set: { username: req.cookies.username }
+//   }
+// );
         console.log(modify);
         if (modify.modifiedCount === 0) {
-            res.json({ 'message': 'Task not done' });
+            res.json({ 'message': 'Task not done','flag':'error' });
         }
-        res.json({ 'message': 'Task done' });
+        res.json({ 'message': 'Task done','flag':'success' });
     } catch (err) {
-        res.json({ 'message': err.msg });
+        res.json({ 'message': err.msg ,'flag':'error'});
     }
 });
 

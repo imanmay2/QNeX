@@ -45,7 +45,7 @@ function Settings() {
             let details=response.data.data_;
             setName(details[0].name);
             setEmail(details[0].email);
-            setPassword(details[0].password);
+            setPassword("");
         }
         fetch();
     },[]);
@@ -93,16 +93,20 @@ function Settings() {
                 withCredentials:true
             });
 
+            console.log(deleteUser.data.message);
+
             const response=await axios.post("http://localhost:8080/saveUser",{'Name':name,'Email':email,'Password':password},{withCredentials:true});
 
             let preUserName=response.data.userCookie;
+            let updateUsername;
             if(preUserName!=""){
-                const updateUsername=await axios.post("http://localhost:8080/updateReviewUser",{preUserName},{withCredentials:true});
+                console.log("PreUserName"+preUserName);
+                updateUsername=await axios.post("http://localhost:8080/updateReviewUser",{preUserName},{withCredentials:true});
             }
 
 
-            setMsg(response.data.message);
-            setServerity(response.data.flag);
+            setMsg(updateUsername.data.message);
+            setServerity(updateUsername.data.flag);
             setOpen(true);
         }
     }
@@ -135,9 +139,9 @@ function Settings() {
                     </div>
                     <br />
                     <div className={styles.docs}>
-                        <label htmlFor="password">Password</label>
+                        <label htmlFor="password">Change Password</label>
                         <br />
-                        <input ref={passwordRef} type="password" name='password' onChange={handleChange} value={password} disabled />
+                        <input ref={passwordRef} placeholder='New Password' type="password" name='password' onChange={handleChange} value={password} disabled />
                     </div>
 
                     {/* buttons */}

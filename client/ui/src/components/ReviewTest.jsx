@@ -48,7 +48,7 @@ function ReviewTest() {
                 <div className="testInfo">
                   <p><strong>Test: </strong>{testTitle}</p>
                   <p><strong>Test_id: </strong>{test_id}</p>
-                  <p><strong>Attempted on:</strong>{attemptedOn}</p>
+                  <p><strong>Attempted on: </strong>{attemptedOn}</p>
                   <span className="btn" onClick={()=>handleTestReview(test_id)}>Review Test</span>
                 </div>
                 <div className="progressContainer">
