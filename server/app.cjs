@@ -316,7 +316,7 @@ Also note that , give the "ans" field like:  "ans":A (in caps lock).
         //calling the /createTest route to save the data into the database.
         const res_ = await axios.post("http://localhost:8080/createTest", jsonResponse, {
             withCredentials: true
-        })
+        });
         res.json(res_.data);
 
     } catch (error) {
@@ -368,17 +368,7 @@ app.post("/updateReviewUser", async (req, res) => {
         console.log("Entered: "+preUserName);
         const modify = await ReviewTest.updateOne({$or:{ username: preUserName, }}, { $set: { username: req.cookies.username } });
 
-//         const modify = await ReviewTest.updateOne(
-//   {
-//     $or: [
-//       { username: preUserName },
-//       { email: preUserName }  // Example: you want to match either username or email
-//     ]
-//   },
-//   {
-//     $set: { username: req.cookies.username }
-//   }
-// );
+
         console.log(modify);
         if (modify.modifiedCount === 0) {
             res.json({ 'message': 'Task not done','flag':'error' });

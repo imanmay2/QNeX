@@ -16,12 +16,12 @@ ChartJS.register(ArcElement, BarElement, CategoryScale, LinearScale, Tooltip, Le
 
 function PieChart() {
     const pieData = {
-        labels: ['Red', 'Blue', 'Yellow'],
+        labels: ['Test Not Attempted', 'Test Attempted'],
         datasets: [
             {
-                label: 'Votes',
-                data: [12, 19, 3],
-                backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+                label: 'Tests',
+                data: [12, 19],
+                backgroundColor: ['#FF6384', '#36A2EB'],
                 borderWidth: 1,
             },
         ],
