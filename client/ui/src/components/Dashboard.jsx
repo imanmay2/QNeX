@@ -6,7 +6,15 @@ import { RiArrowDownSLine } from "react-icons/ri";
 import { PieChart } from "./PieChart";
 import { BarGraph } from "./BarGraph";
 import Cookies from "js-cookie";
+import { useEffect } from "react";
 function Dashboard() {
+    let attempted;
+    let notAttempted;
+    useEffect(()=>{
+        let fetch=async()=>{
+            
+        }
+    })
     let name = Cookies.get("name");
     let username = Cookies.get("username");
     let totalTest = 24;
