@@ -18,15 +18,19 @@ function TestReview() {
                 const response2 = await axios.get(`http://localhost:8080/findTest/${id}`, {
                     withCredentials: true
                 });
-                setQ(response2.data.find);
+
                 setTest(response1.data.Tests);
+                setQ(response2.data.find);
+
+                console.log(q);
+                console.log(test);
             } catch (err) {
                 console.log(err.message);
             }
         };
         func();
     }, [username, id]);
-
+    let [tracker, setTracker] = useState(-1);
     return (
         <div className={styles.testreview}>
             <Options />
@@ -38,13 +42,43 @@ function TestReview() {
                         <div className={styles.analyze}>Start Analyzing Your Test</div>
                         {q[0].questions_.map((ques, index) => (
                             <div key={index} className={styles.Q_}>
+                                {/* {setTracker(tracker+1)} */}
                                 <div className={styles.question}>
                                     Q{ques.questionNo}. {ques.question}
                                 </div>
-                                <div className={styles.options}>
-                                    <span>A. {ques.options.option_A}</span>
-                                    <span>B.  {ques.options.option_B}</span>
-                                    <span>© {ques.options.option_C}</span>
+                                <div className={`${styles.options}`}>
+
+                                    {/* Use ternary for comparasion */}
+                                    <span className={
+                                        'A' === ques.ans
+                                            ? styles.correctanswer
+                                            : ('A' === test[0].response[index]
+                                                ? styles.wronganswer
+                                                : "")
+                                    }>
+                                        A. {ques.options.option_A}
+                                    </span>
+
+                                    <span className={
+                                        'B' === ques.ans
+                                            ? styles.correctanswer
+                                            : ('B' === test[0].response[index]
+                                                ? styles.wronganswer
+                                                : "")
+                                    }>
+                                        B. {ques.options.option_B}
+                                    </span>
+
+                                    <span className={
+                                        'C' === ques.ans
+                                            ? styles.correctanswer
+                                            : ('C' === test[0].response[index]
+                                                ? styles.wronganswer
+                                                : "")
+                                    }>
+                                        C. {ques.options.option_C}
+                                    </span>
+
                                 </div>
                             </div>
                         ))}
@@ -54,7 +88,7 @@ function TestReview() {
                         </div>
                     </div>
                 ) : (
-                    <div className={styles.loading}>Loading test ...</div>
+                    <div className={styles.loading}>Loading Test....</div>
                 )}
             </div>
         </div>

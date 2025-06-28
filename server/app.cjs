@@ -309,9 +309,7 @@ Also note that , give the "ans" field like:  "ans":A (in caps lock).
         }
         console.log(jsonResponse);
 
-        //object created...now need to save in the database.
-
-
+      
         //calling the /createTest route to save the data into the database.
         const res_ = await axios.post("http://localhost:8080/createTest", jsonResponse, {
             withCredentials: true
@@ -376,21 +374,19 @@ app.post("/updateReviewUser", async (req, res) => {
     }
 });
 
+
+
 app.get("/getData", async (req, res) => {
     try {
         const QCount = await Question.countDocuments();
         const username = req.cookies.username;
-
         console.log("Cookies:", req.cookies);
         console.log("Username:", username);
-
         const testCount = await ReviewTest.countDocuments({ username: username });
-
         console.log("Question Count is:", QCount);
         console.log("Test Count is:", testCount);
-
         res.json({ Q: QCount, T: testCount });
-    } catch (err) {
+    } catch(err) {
         console.error(err);
         res.status(500).json({ message: "Server error" });
     }
