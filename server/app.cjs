@@ -366,8 +366,6 @@ app.post("/updateReviewUser", async (req, res) => {
         let { preUserName } = req.body;
         console.log("Entered: "+preUserName);
         const modify = await ReviewTest.updateOne({$or:{ username: preUserName, }}, { $set: { username: req.cookies.username } });
-
-
         console.log(modify);
         if (modify.modifiedCount === 0) {
             res.json({ 'message': 'Task not done','flag':'error' });

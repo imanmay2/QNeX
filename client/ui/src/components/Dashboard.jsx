@@ -8,10 +8,23 @@ import { BarGraph } from "./BarGraph";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 function Dashboard() {
     let [attempted, setAttempted] = useState();
     let [notAttempted, setnotAttempted] = useState();
     let [test, setTest] = useState([]);
+    let navigate = useNavigate();
+
+    const reviewTest = async (test_id) => {
+        const username = Cookies.get("username");
+        const response = await axios.get(`http://localhost:8080/reviewTest/${username}/${test_id}`);
+        let testReview_ = response.data.Tests;
+        console.log(testReview_);
+        //navigate to the respective page for the test to be reviewed.
+        navigate(`/reviewtest/${username}/${test_id}`, { state: test_id });
+    }
+
+
     useEffect(() => {
         let fetch = async () => {
             try {
@@ -36,7 +49,7 @@ function Dashboard() {
         fetchTest();
     }, [attempted, notAttempted]);
 
-    
+
     let name = Cookies.get("name");
     let username = Cookies.get("username");
     //fetch date:
@@ -92,23 +105,28 @@ function Dashboard() {
                             </div>
                         </div>
                         <div className="ongoing">
-                           <span className="head"> Tests Attempted : </span><br /> <br />
+                            <span className="head"> Tests Attempted : </span><br /> <br />
                             <div className="testList">
-                                {test.map(({ testTitle, test_id }, i) => {
+                                {Array.isArray(test) && test.length ? test.map(({ testTitle, test_id }, i) => {
                                     return (
-                                        <div key={i}>
-                                            <span className="setFont">{testTitle}</span> &nbsp;&nbsp;&nbsp;&nbsp; <button className="RT">Review Test</button>
+                                        <div className="indiTest" key={i}>
+                                            <span className="setFont">{testTitle}</span> &nbsp;&nbsp;&nbsp;&nbsp; <button className="RT" onClick={() => reviewTest(test_id)}>Review Test</button>
                                         </div>
                                     )
-                                })}
+                                }) : <span> Test Not Attempted</span>}
                             </div>
                         </div>
                     </div>
                     <div className="S_Row">
                         <div className="testRecords">
-                            <h3>Tests Attempted: {attempted}</h3> <br />
-                            <h3>Total Tests : {attempted + notAttempted}</h3>
+                            <h2 className="brandTitle">QNeX</h2>
+                            <p className="quoteText">"Learning is not attained by chance, it must be sought for with ardor and attended to with diligence."</p>
+                            <div className="stats">
+                                <h3>Tests Attempted: {attempted}</h3>
+                                <h3>Total Tests: {attempted + notAttempted}</h3>
+                            </div>
                         </div>
+
                         <div className="bargraph">
                             <BarGraph />
                         </div>
