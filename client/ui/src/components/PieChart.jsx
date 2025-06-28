@@ -14,13 +14,14 @@ ChartJS.register(ArcElement, BarElement, CategoryScale, LinearScale, Tooltip, Le
 
 
 
-function PieChart() {
+function PieChart({attempted,notAttempted}) {
+    
     const pieData = {
         labels: ['Test Not Attempted', 'Test Attempted'],
         datasets: [
             {
                 label: 'Tests',
-                data: [12, 19],
+                data: [notAttempted,attempted],
                 backgroundColor: ['#FF6384', '#36A2EB'],
                 borderWidth: 1,
             },

@@ -229,7 +229,6 @@ app.post("/reviewTest", async (req, res) => {
         } else {
             res.json({ 'message': "No Question id found.", "flag": "error" });
         }
-
     } catch (err) {
         res.status(500).json({ "message": err.message });
     }
@@ -378,6 +377,27 @@ app.post("/updateReviewUser", async (req, res) => {
         res.json({ 'message': err.msg ,'flag':'error'});
     }
 });
+
+app.get("/getData", async (req, res) => {
+    try {
+        const QCount = await Question.countDocuments();
+        const username = req.cookies.username;
+
+        console.log("Cookies:", req.cookies);
+        console.log("Username:", username);
+
+        const testCount = await ReviewTest.countDocuments({ username: username });
+
+        console.log("Question Count is:", QCount);
+        console.log("Test Count is:", testCount);
+
+        res.json({ Q: QCount, T: testCount });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "Server error" });
+    }
+});
+
 
 
 //logging out.

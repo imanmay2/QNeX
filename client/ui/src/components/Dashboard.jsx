@@ -6,19 +6,39 @@ import { RiArrowDownSLine } from "react-icons/ri";
 import { PieChart } from "./PieChart";
 import { BarGraph } from "./BarGraph";
 import Cookies from "js-cookie";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 function Dashboard() {
-    let attempted;
-    let notAttempted;
-    useEffect(()=>{
-        let fetch=async()=>{
-            
+    let [attempted, setAttempted] = useState();
+    let [notAttempted, setnotAttempted] = useState();
+    let [test, setTest] = useState([]);
+    useEffect(() => {
+        let fetch = async () => {
+            try {
+                let res = await axios.get("http://localhost:8080/getData", {
+                    withCredentials: true
+                });
+                console.log(res.data);
+                setAttempted(res.data.T);
+                setnotAttempted(res.data.Q - attempted);
+            } catch (err) {
+                res.json({ 'message': err.message });
+            }
         }
-    })
+
+        let fetchTest = async () => {
+            let res = await axios.get(`http://localhost:8080/reviewTest/${Cookies.get('username')}`);
+            console.log(res.data.Tests);
+            setTest(res.data.Tests);
+        }
+
+        fetch();
+        fetchTest();
+    }, [attempted, notAttempted]);
+
+    
     let name = Cookies.get("name");
     let username = Cookies.get("username");
-    let totalTest = 24;
-    let attendedTest = 16;
     //fetch date:
     function getFormattedDate() {
         const date = new Date();
@@ -68,18 +88,26 @@ function Dashboard() {
                     <div className="F_Row">
                         <div className="piechart">
                             <div className="pie">
-                                <PieChart />
+                                <PieChart attempted={attempted} notAttempted={notAttempted} />
                             </div>
-
                         </div>
-                        <div className="testRecords">
-                            <h3>Total Tests : {totalTest}</h3> <br />
-                            <h3>Tests Attended : {attendedTest}</h3>
+                        <div className="ongoing">
+                           <span className="head"> Tests Attempted : </span><br /> <br />
+                            <div className="testList">
+                                {test.map(({ testTitle, test_id }, i) => {
+                                    return (
+                                        <div key={i}>
+                                            <span className="setFont">{testTitle}</span> &nbsp;&nbsp;&nbsp;&nbsp; <button className="RT">Review Test</button>
+                                        </div>
+                                    )
+                                })}
+                            </div>
                         </div>
                     </div>
                     <div className="S_Row">
-                        <div className="ongoing">
-                            Tests Attempted:
+                        <div className="testRecords">
+                            <h3>Tests Attempted: {attempted}</h3> <br />
+                            <h3>Total Tests : {attempted + notAttempted}</h3>
                         </div>
                         <div className="bargraph">
                             <BarGraph />
