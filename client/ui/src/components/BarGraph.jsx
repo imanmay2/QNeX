@@ -8,20 +8,27 @@ import {
     Legend
 } from 'chart.js';
 
-import {  Bar } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
 
 ChartJS.register(ArcElement, BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
 
 
-function BarGraph() {
-    
+function BarGraph({ barData_ }) {
+    // format: {3:1,2:2,1:0,12:1}
+    let keys=Object.keys(barData_);
+    let values=Object.values(barData_);
+    const months = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ];
+
     const barData = {
-        labels: ['March','April','May','June'],
+        labels: [months[keys[0]-1],months[keys[1]-1],months[keys[2]-1],months[keys[3]-1]],
         datasets: [
             {
                 label: 'No. of Tests Attempted',
-                data: [10,15,20,8],
+                data: values,   
                 backgroundColor: 'rgba(75,192,192,0.6)',
             },
         ],
@@ -41,4 +48,4 @@ function BarGraph() {
     )
 }
 
-export {BarGraph};
+export { BarGraph };

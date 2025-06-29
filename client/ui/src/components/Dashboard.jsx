@@ -13,7 +13,9 @@ function Dashboard() {
     let [attempted, setAttempted] = useState();
     let [notAttempted, setnotAttempted] = useState();
     let [test, setTest] = useState([]);
+    let [testData,setTestData]=useState([]);
     let navigate = useNavigate();
+    // let d = [];
 
     const reviewTest = async (test_id) => {
         const username = Cookies.get("username");
@@ -24,6 +26,35 @@ function Dashboard() {
         navigate(`/reviewtest/${username}/${test_id}`, { state: test_id });
     }
 
+    function countAttemptedTests( tests=[] ) {
+        let attemptedTestList = {};
+        //Get the current month
+        const today = new Date();
+        const currentYear = today.getFullYear();
+        const currentMonth = today.getMonth() + 1;
+        //check for last 4 months including current
+        for (let i = currentMonth; i > currentMonth - 4; i--) {
+            if (i < 1) {
+                attemptedTestList[12 + i] = 0;
+            } else
+                attemptedTestList[i] = 0;
+        }
+
+        for (let i = 0; i < tests.length; i++) {
+            let date = tests[i].attemptedOn.split("-");
+            let year = parseInt(date[0]);
+            let month = parseInt(date[1]);
+
+            if ((year == currentYear || year == currentYear - 1) &&
+                ((currentMonth - 3 < 1 && month - 12 >= currentMonth - 3 && month - 12 <= currentMonth) ||
+                    (month >= currentMonth - 3 && month <= currentMonth))) {
+                attemptedTestList[month] += 1;
+            }
+        }
+        //return a dataset of months and count of tests
+        return attemptedTestList; // format: {3:1,2:2,1:0,12:1}
+
+    }
 
     useEffect(() => {
         let fetch = async () => {
@@ -42,11 +73,20 @@ function Dashboard() {
         let fetchTest = async () => {
             let res = await axios.get(`http://localhost:8080/reviewTest/${Cookies.get('username')}`);
             console.log(res.data.Tests);
+            
             setTest(res.data.Tests);
+
+            setTestData(countAttemptedTests(res.data.Tests));
+            
+            console.log(testData);
+            
         }
+
+        
 
         fetch();
         fetchTest();
+       
     }, [attempted, notAttempted]);
 
 
@@ -128,7 +168,7 @@ function Dashboard() {
                         </div>
 
                         <div className="bargraph">
-                            <BarGraph />
+                            <BarGraph barData_={testData}/>
                         </div>
                     </div>
                 </div>

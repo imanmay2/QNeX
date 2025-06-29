@@ -146,7 +146,7 @@ function Test() {
         <div className="heading2_">
           <span className="marks_"><u>{test.description}</u></span>
           <span className="testid_">Test ID: <u>{test.test_id}</u></span>
-          <span className="testid_"><u>Created on: 4th June 2025</u></span>
+          <span className="testid_"><u>Created on: {test.createdOn}</u></span>
         </div>
 
         <div className="Q_">
