@@ -42,20 +42,20 @@ function Test() {
 
   const navigate = useNavigate();
   const location = useLocation();
-  // const test = location.state[0];
-  const test = {
-    createdOn: "2025-06-24",
-    testTitle: "Anatomy",
-    description: "Exclusive Questions",
-    duration: "1 hr",
-    test_id: "TEST123",
-    questions_: [{
-      ans: "A",
-      options: { option_A: "Femur", option_B: "Tibia", option_C: "Fibula" },
-      question: "What is the longest bone in the lower limb?",
-      questionNo: 1
-    }]
-  }
+  const test = location.state[0];
+  // const test = {
+  //   createdOn: "2025-06-24",
+  //   testTitle: "Anatomy",
+  //   description: "Exclusive Questions",
+  //   duration: "1 hr",
+  //   test_id: "TEST123",
+  //   questions_: [{
+  //     ans: "A",
+  //     options: { option_A: "Femur", option_B: "Tibia", option_C: "Fibula" },
+  //     question: "What is the longest bone in the lower limb?",
+  //     questionNo: 1
+  //   }]
+  // }
   console.log("Location State");
   console.log(test);
   const [tracker, setTracker] = useState(0);

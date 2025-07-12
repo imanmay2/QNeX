@@ -3,7 +3,7 @@
     display: flex;
     min-height: 100vh;
     min-width: 100vw;
-    padding: 1rem;
+    /* padding: 1rem; */
 }
 
 .maindiv_ {
@@ -40,8 +40,8 @@
 .heading2_ {
     display: flex;
     flex-wrap: wrap;
-    gap: 1rem;
     margin-top: 1rem;
+    justify-content: space-between;
 }
 
 .marks_ {
