@@ -12,6 +12,7 @@ import { AttendTest } from './components/AttendTest';
 import { Test } from './components/Test';
 import { TestReview } from './components/TestReview';
 import Settings from './components/Settings';
+import NotFoundPage from './components/404PageNotFound';
 function App() {
   const router = createBrowserRouter([
     {
@@ -59,6 +60,11 @@ function App() {
       path: "/settings",
       element: <div>
         <Settings />
+      </div>
+    }, {
+      path: "*",
+      element: <div>
+        <NotFoundPage />
       </div>
     }
   ])
