@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "./css/test.css";
+import styles from "./css/test.module.css";
 import { QBtn } from "./QBtn";
 import { useParams } from "react-router-dom";
 import axios from "axios";
@@ -12,30 +12,13 @@ import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Alert from '@mui/material/Alert';
+
 function Test() {
-  const navigate = useNavigate();
-    useEffect(()=>{
-        let auth=(async()=>{
-            try{
-                let response=await axios.get("http://localhost:8080/authenticate",{withCredentials:true});
-            if(response.data.flag==="false"){
-                navigate("/");
-                return;
-            }
-           
-            } catch(err){
-                console.error(err.message);
-            }
-
-        })
-
-        auth();
-    },[navigate])
   const [open, setOpen] = React.useState(false);
   const [msg, setMsg] = React.useState(false);
   const [serverity, setServerity] = React.useState(false);
   const handleClose = (event, reason) => {
-    if (reason === 'clickaway'){
+    if (reason === 'clickaway') {
       return;
     }
     setOpen(false);
@@ -57,20 +40,22 @@ function Test() {
     </React.Fragment>
   );
 
+  const navigate = useNavigate();
   const location = useLocation();
   // const test = location.state[0];
-  const test={
-    createdOn:"2025-06-24",
-    testTitle:"Anatomy",
-    description:"Exclusive Questions",
-    duration:"1 hr",
-    questions_:[{
-      ans:"A",
-      options:{option_A:"Femur",option_B:"Tibia",option_C:"Fibula"},
-      question:"What is the longest bone in the lower limb?",
+  const test = {
+    createdOn: "2025-06-24",
+    testTitle: "Anatomy",
+    description: "Exclusive Questions",
+    duration: "1 hr",
+    test_id: "TEST123",
+    questions_: [{
+      ans: "A",
+      options: { option_A: "Femur", option_B: "Tibia", option_C: "Fibula" },
+      question: "What is the longest bone in the lower limb?",
       questionNo: 1
     }]
-  }  
+  }
   console.log("Location State");
   console.log(test);
   const [tracker, setTracker] = useState(0);
@@ -114,10 +99,10 @@ function Test() {
     console.log("Ans: ");
     console.log(ans);
 
-    let test_id=test.test_id;
-    let testTitle=test.testTitle;
+    let test_id = test.test_id;
+    let testTitle = test.testTitle;
     //Sending the answer to the backend.
-    let ansObj={ans,test_id,testTitle};
+    let ansObj = { ans, test_id, testTitle };
     const response = await axios.post("http://localhost:8080/reviewTest", ansObj, { withCredentials: true });
 
     if (response.data.flag == "success") {
@@ -145,65 +130,65 @@ function Test() {
     overlayRef.current.style.display = 'flex';
   }
 
-  
+
   let hideOverlay = () => {
     overlayRef.current.style.display = 'none';
   }
 
 
   return (
-    <div className="test_">
+    <div className={styles.test_}>
 
       {/* Overlay container */}
-      <div className="overlay" ref={overlayRef} id="overlay">
-        <div className="overlay-content">
-          <div id="close" onClick={hideOverlay}><ImCancelCircle /></div>
+      <div className={styles.overlay} ref={overlayRef} id="overlay">
+        <div className={styles["overlay-content"]}>
+          <div id={styles.close} onClick={hideOverlay}><ImCancelCircle /></div>
 
           Total Questions : {total} <br />
           No. of  Questions Attempted : {attempted} <br />
           Questions not attempted : {notAttempted} <br />  <br />
-          <button type="submit" className="overlaySubmit" onClick={handleSubmit}>Submit</button>
+          <button type="submit" className={styles.overlaySubmit} onClick={handleSubmit}>Submit</button>
         </div>
       </div>
 
       <QBtn questions_={test.questions_} setQ={setQ} />
-      <div className="maindiv_">
-        <div className="heading1_">
-          <span className="testTitle_">{test.testTitle}</span>
-          <span className="timer_">{test.duration}</span>
+      <div className={styles.maindiv_}>
+        <div className={styles.heading1_}>
+          <span className={styles.testTitle_}>{test.testTitle}</span>
+          <span className={styles.timer_}>{test.duration}</span>
         </div>
 
         <br />
-        <div className="heading2_">
-          <span className="marks_"><u>{test.description}</u></span>
-          <span className="testid_">Test ID: <u>{test.test_id}</u></span>
-          <span className="testid_"><u>Created on: {test.createdOn}</u></span>
+        <div className={styles.heading2_}>
+          <span className={styles.marks_}><u>{test.description}</u></span>
+          <span className={styles.testid_}>Test ID: <u>{test.test_id}</u></span>
+          <span className={styles.testid_}><u>Created on: {test.createdOn}</u></span>
         </div>
 
-        <div className="Q_">
-          <h2 className="Question_">Question: {test.questions_[tracker].questionNo} . {test.questions_[tracker].question}</h2>
+        <div className={styles.Q_}>
+          <h2 className={styles.Question_}>Question: {test.questions_[tracker].questionNo} . {test.questions_[tracker].question}</h2>
           <hr />
 
           {/* options */}
-          <div className="options_">
-            <label className="option_">
-              <input className="input_" type="radio" name={`q${tracker}`} value="A" onChange={handleOptionChange} checked={ans[tracker] === "A"} />
+          <div className={styles.options_}>
+            <label className={styles.option_}>
+              <input className={styles.input_} type="radio" name={`q${tracker}`} value="A" onChange={handleOptionChange} checked={ans[tracker] === "A"} />
               {test.questions_[tracker].options.option_A}
             </label>
-            <label className="option_">
-              <input className="input_" type="radio" name={`q${tracker}`} value="B" onChange={handleOptionChange} checked={ans[tracker] === "B"} />
+            <label className={styles.option_}>
+              <input className={styles.input_} type="radio" name={`q${tracker}`} value="B" onChange={handleOptionChange} checked={ans[tracker] === "B"} />
               {test.questions_[tracker].options.option_B}
             </label>
-            <label className="option_">
-              <input className="input_" type="radio" name={`q${tracker}`} value="C" onChange={handleOptionChange} checked={ans[tracker] === "C"} />
+            <label className={styles.option_}>
+              <input className={styles.input_} type="radio" name={`q${tracker}`} value="C" onChange={handleOptionChange} checked={ans[tracker] === "C"} />
               {test.questions_[tracker].options.option_C}
             </label>
           </div>
         </div>
-        <div className="btns_">
-          <button className="previous_" onClick={prev}>Previous</button>
-          <button className="next_" onClick={next}>Next</button>
-          <button className="submit_" onClick={showOverlay}>Submit</button>
+        <div className={styles.btns_}>
+          <button className={styles.previous_} onClick={prev}>Previous</button>
+          <button className={styles.next_} onClick={next}>Next</button>
+          <button className={styles.submit_} onClick={showOverlay}>Submit</button>
         </div>
       </div>
 
