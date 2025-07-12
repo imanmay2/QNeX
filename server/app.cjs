@@ -75,7 +75,7 @@ app.get("/data", (req, res) => {
 app.post("/saveUser", async (req, res) => {
     const { Name, Email, Password } = req.body;
     let preUserName = req.cookies.username || ""; //Storing the cookies, if already exists in the cookieSession.
-    console.log("Preusername"+preUserName);
+    console.log("Preusername" + preUserName);
     let userRes = await User.find({ email: Email });
     if (!userRes.length) {
         try {
@@ -309,7 +309,7 @@ Also note that , give the "ans" field like:  "ans":A (in caps lock).
         }
         console.log(jsonResponse);
 
-      
+
         //calling the /createTest route to save the data into the database.
         const res_ = await axios.post("http://localhost:8080/createTest", jsonResponse, {
             withCredentials: true
@@ -362,15 +362,15 @@ app.get("/deleteUser", async (req, res) => {
 app.post("/updateReviewUser", async (req, res) => {
     try {
         let { preUserName } = req.body;
-        console.log("Entered: "+preUserName);
-        const modify = await ReviewTest.updateOne({$or:{ username: preUserName, }}, { $set: { username: req.cookies.username } });
+        console.log("Entered: " + preUserName);
+        const modify = await ReviewTest.updateOne({ $or: { username: preUserName, } }, { $set: { username: req.cookies.username } });
         console.log(modify);
         if (modify.modifiedCount === 0) {
-            res.json({ 'message': 'Task not done','flag':'error' });
+            res.json({ 'message': 'Task not done', 'flag': 'error' });
         }
-        res.json({ 'message': 'Task done','flag':'success' });
+        res.json({ 'message': 'Task done', 'flag': 'success' });
     } catch (err) {
-        res.json({ 'message': err.msg ,'flag':'error'});
+        res.json({ 'message': err.msg, 'flag': 'error' });
     }
 });
 
@@ -386,12 +386,30 @@ app.get("/getData", async (req, res) => {
         console.log("Question Count is:", QCount);
         console.log("Test Count is:", testCount);
         res.json({ Q: QCount, T: testCount });
-    } catch(err) {
+    } catch (err) {
         console.error(err);
         res.status(500).json({ message: "Server error" });
     }
 });
 
+
+// protect the route.
+app.get("/authenticate", async (req, res) => {
+    try {
+        let check = req.cookies.login;
+        if (check) {
+            console.log(check);
+        }
+        console.log("Authenticate Route hitted.");
+        if (!check) {
+            res.json({ data: "User not logged In", flag: "false" });
+            return;
+        }
+        res.json({ data: "User not logged In", flag: "true" });
+    } catch (err) {
+        res.json({ data: err.message, flag: "false" });
+    }
+});
 
 
 //logging out.

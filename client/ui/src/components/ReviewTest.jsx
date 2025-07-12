@@ -7,7 +7,24 @@ import axios from "axios";
 import Cookies from 'js-cookie';
 import { Navigate, useNavigate } from "react-router-dom";
 function ReviewTest() {
-  let  navigate=useNavigate();
+  const navigate = useNavigate();
+    useEffect(()=>{
+        let auth=(async()=>{
+            try{
+                let response=await axios.get("http://localhost:8080/authenticate",{withCredentials:true});
+            if(response.data.flag==="false"){
+                navigate("/");
+                return;
+            }
+           
+            } catch(err){
+                console.error(err.message);
+            }
+
+        })
+
+        auth();
+    },[navigate])
   let [test,setTest]=useState([]);
   useEffect(() => {
     let fetchData=async()=>{

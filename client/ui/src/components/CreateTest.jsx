@@ -1,6 +1,6 @@
 import "./css/createTest.css";
 import { Options } from "./Options";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import axios from "axios";
 import * as React from 'react';
 import Button from '@mui/material/Button';
@@ -12,8 +12,26 @@ import { ImCancelCircle } from "react-icons/im";
 import { useRef } from "react";
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
-
+import { useNavigate } from "react-router-dom";
 function CreateTest() {
+    const navigate = useNavigate();
+    useEffect(()=>{
+        let auth=(async()=>{
+            try{
+                let response=await axios.get("http://localhost:8080/authenticate",{withCredentials:true});
+            if(response.data.flag==="false"){
+                navigate("/");
+                return;
+            }
+           
+            } catch(err){
+                console.error(err.message);
+            }
+
+        })
+
+        auth();
+    },[navigate])
     function getTodayDate() {
         const today = new Date();
         const dd = String(today.getDate()).padStart(2, '0');

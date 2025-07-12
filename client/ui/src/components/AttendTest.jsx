@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import "./css/attendTest.css";
 import { Options } from "./Options";
 import { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import * as React from 'react';
 import Button from '@mui/material/Button';
@@ -10,8 +10,25 @@ import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Alert from '@mui/material/Alert';
-
 function AttendTest() {
+    const navigate = useNavigate();
+    useEffect(()=>{
+        let auth=(async()=>{
+            try{
+                let response=await axios.get("http://localhost:8080/authenticate",{withCredentials:true});
+            if(response.data.flag==="false"){
+                navigate("/");
+                return;
+            }
+           
+            } catch(err){
+                console.error(err.message);
+            }
+
+        })
+
+        auth();
+    },[navigate])
     const [open, setOpen] = React.useState(false);
     const [msg, setMsg] = React.useState(false);
     const [serverity, setServerity] = React.useState(false);
@@ -37,7 +54,7 @@ function AttendTest() {
             </IconButton>
         </React.Fragment>
     );
-    const navigate = useNavigate();
+    
     const [testId, setTestId] = useState("");
 
     const handleInputChange = (e) => {

@@ -9,8 +9,26 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Alert from '@mui/material/Alert';
 import axios from 'axios';
-
+import { useNavigate } from 'react-router-dom';
 function Settings() {
+    const navigate = useNavigate();
+    useEffect(()=>{
+        let auth=(async()=>{
+            try{
+                let response=await axios.get("http://localhost:8080/authenticate",{withCredentials:true});
+            if(response.data.flag==="false"){
+                navigate("/");
+                return;
+            }
+           
+            } catch(err){
+                console.error(err.message);
+            }
+
+        })
+
+        auth();
+    },[navigate])
     const [open, setOpen] = React.useState(false);
     const [msg, setMsg] = React.useState(false);
     const [serverity, setServerity] = React.useState(false);

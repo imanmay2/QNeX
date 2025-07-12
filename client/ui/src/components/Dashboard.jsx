@@ -14,9 +14,26 @@ function Dashboard() {
     let [notAttempted, setnotAttempted] = useState();
     let [test, setTest] = useState([]);
     let [testData,setTestData]=useState([]);
-    let navigate = useNavigate();
-    // let d = [];
+    const navigate = useNavigate();
+    useEffect(()=>{
+        let auth=(async()=>{
+            try{
+                let response=await axios.get("http://localhost:8080/authenticate",{withCredentials:true});
+            if(response.data.flag==="false"){
+                navigate("/");
+                return;
+            }
+           
+            } catch(err){
+                console.error(err.message);
+            }
 
+        })
+
+        auth();
+    },[navigate])
+
+    
     const reviewTest = async (test_id) => {
         const username = Cookies.get("username");
         const response = await axios.get(`http://localhost:8080/reviewTest/${username}/${test_id}`);

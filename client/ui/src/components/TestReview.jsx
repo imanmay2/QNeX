@@ -3,8 +3,26 @@ import styles from "./css/testreview.module.css";
 import { useParams } from "react-router-dom";
 import { Options } from "./Options";
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
 function TestReview() {
+    const navigate = useNavigate();
+    useEffect(()=>{
+        let auth=(async()=>{
+            try{
+                let response=await axios.get("http://localhost:8080/authenticate",{withCredentials:true});
+            if(response.data.flag==="false"){
+                navigate("/");
+                return;
+            }
+           
+            } catch(err){
+                console.error(err.message);
+            }
+
+        })
+
+        auth();
+    },[navigate])
     const { username, id } = useParams();
     const [q, setQ] = useState();
     const [test, setTest] = useState();
