@@ -44,8 +44,8 @@ function Test() {
   // const test = location.state[0];
   const test={
     createdOn:"2025-06-24",
-    testTitle:"Physical Anatomy",
-    description:"exclusive questions",
+    testTitle:"Anatomy",
+    description:"Exclusive Questions",
     duration:"1 hr",
     questions_:[{
       ans:"A",
