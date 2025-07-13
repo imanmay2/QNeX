@@ -61,10 +61,11 @@ main().catch(err => console.log(err));
 
 async function main() {
     try {
-        await mongoose.connect(`mongodb+srv://imanmay2:${process.env.PASS}@cluster0.w9lo8sa.mongodb.net/QNeX?retryWrites=true&w=majority&appName=Cluster0`);
+        await mongoose.connect(process.env.DB_URL);
         console.log("Database Connected !");
     } catch (err) {
-        console.log(err.message)
+        console.log(err.message);
+        return;
     }
 }
 
