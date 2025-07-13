@@ -18,7 +18,7 @@ let flag = 0;
 
 
 const corsOptions = {
-    origin: "*",
+    origin: "https://qnex.netlify.app",
     credentials: true
 };
 
@@ -315,7 +315,7 @@ Also note that , give the "ans" field like:  "ans":A (in caps lock).
 
 
         //calling the /createTest route to save the data into the database.
-        const res_ = await axios.post("http://localhost:8080/createTest", jsonResponse, {
+        const res_ = await axios.post("https://qnex.onrender.com/createTest", jsonResponse, {
             withCredentials: true
         });
         res.json(res_.data);
