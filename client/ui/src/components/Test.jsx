@@ -17,6 +17,8 @@ function Test() {
   const [open, setOpen] = React.useState(false);
   const [msg, setMsg] = React.useState(false);
   const [serverity, setServerity] = React.useState(false);
+
+  const [test,setTest]=useState({});
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -42,7 +44,18 @@ function Test() {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const test = location.state[0];
+  useEffect(()=>{
+    let func1=()=>{
+      if(!location.state){
+    console.log("Hi Soumadeep!!");
+    navigate("/404");
+    return;
+  }
+  setTest(location.state[0]);
+    }
+    func1();
+  },[location.state, navigate])
+  // const test=location.state[0];
   // const test = {
   //   createdOn: "2025-06-24",
   //   testTitle: "Anatomy",
@@ -56,7 +69,7 @@ function Test() {
   //     questionNo: 1
   //   }]
   // }
-  console.log("Location State");
+
   console.log(test);
   const [tracker, setTracker] = useState(0);
   let prev = () => {
@@ -70,7 +83,7 @@ function Test() {
 
   let next = () => {
     setTracker((tracker) => {
-      if (tracker == test.questions_.length - 1) {
+      if (tracker == test?.questions_?.length - 1) {
         return tracker;
       }
       return tracker + 1;
@@ -83,7 +96,7 @@ function Test() {
 
 
   //Create the answer section.
-  let [ans, setAns] = useState(Array(test.questions_.length).fill(null));
+  let [ans, setAns] = useState(Array(test?.questions_?.length).fill(null));
   let [total, setTotal] = useState(ans.length);
   let [attempted, setAttempt] = useState(0);
   let [notAttempted, setNotAttempt] = useState(0);
@@ -99,8 +112,8 @@ function Test() {
     console.log("Ans: ");
     console.log(ans);
 
-    let test_id = test.test_id;
-    let testTitle = test.testTitle;
+    let test_id = test?.test_id;
+    let testTitle = test?.testTitle;
     //Sending the answer to the backend.
     let ansObj = { ans, test_id, testTitle };
     const response = await axios.post("http://localhost:8080/reviewTest", ansObj, { withCredentials: true });
@@ -150,38 +163,37 @@ function Test() {
           <button type="submit" className={styles.overlaySubmit} onClick={handleSubmit}>Submit</button>
         </div>
       </div>
-
-      <QBtn questions_={test.questions_} setQ={setQ} />
+{test?.testTitle?(<div><QBtn questions_={test?.questions_} setQ={setQ} />
       <div className={styles.maindiv_}>
         <div className={styles.heading1_}>
-          <span className={styles.testTitle_}>{test.testTitle}</span>
-          <span className={styles.timer_}>{test.duration}</span>
+          <span className={styles.testTitle_}>{test?.testTitle}</span>
+          <span className={styles.timer_}>{test?.duration}</span>
         </div>
 
         <br />
         <div className={styles.heading2_}>
-          <span className={styles.marks_}><u>{test.description}</u></span>
-          <span className={styles.testid_}>Test ID: <u>{test.test_id}</u></span>
-          <span className={styles.testid_}><u>Created on: {test.createdOn}</u></span>
+          <span className={styles.marks_}><u>{test?.description}</u></span>
+          <span className={styles.testid_}>Test ID: <u>{test?.test_id}</u></span>
+          <span className={styles.testid_}><u>Created on: {test?.createdOn}</u></span>
         </div>
 
         <div className={styles.Q_}>
-          <h2 className={styles.Question_}>Question: {test.questions_[tracker].questionNo} . {test.questions_[tracker].question}</h2>
+          <h2 className={styles.Question_}>Question: {test?.questions_[tracker]?.questionNo} . {test?.questions_[tracker]?.question}</h2>
           <hr />
 
           {/* options */}
           <div className={styles.options_}>
             <label className={styles.option_}>
               <input className={styles.input_} type="radio" name={`q${tracker}`} value="A" onChange={handleOptionChange} checked={ans[tracker] === "A"} />
-              {test.questions_[tracker].options.option_A}
+              {test?.questions_[tracker].options.option_A}
             </label>
             <label className={styles.option_}>
               <input className={styles.input_} type="radio" name={`q${tracker}`} value="B" onChange={handleOptionChange} checked={ans[tracker] === "B"} />
-              {test.questions_[tracker].options.option_B}
+              {test?.questions_[tracker].options.option_B}
             </label>
             <label className={styles.option_}>
               <input className={styles.input_} type="radio" name={`q${tracker}`} value="C" onChange={handleOptionChange} checked={ans[tracker] === "C"} />
-              {test.questions_[tracker].options.option_C}
+              {test?.questions_[tracker].options.option_C}
             </label>
           </div>
         </div>
@@ -190,8 +202,9 @@ function Test() {
           <button className={styles.next_} onClick={next}>Next</button>
           <button className={styles.submit_} onClick={showOverlay}>Submit</button>
         </div>
-      </div>
-
+      </div></div>):null
+}
+      
 
       <Snackbar
         open={open}
