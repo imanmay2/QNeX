@@ -59,8 +59,12 @@ function getDateToday() {
 main().catch(err => console.log(err));
 
 async function main() {
-    await mongoose.connect(`mongodb+srv://imanmay2:${process.env.PASS}@cluster0.w9lo8sa.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`);
-    console.log("Database Connected !");
+    try {
+        await mongoose.connect(`mongodb+srv://imanmay2:${process.env.PASS}@cluster0.w9lo8sa.mongodb.net/QNeX?retryWrites=true&w=majority&appName=Cluster0`);
+        console.log("Database Connected !");
+    } catch (err) {
+        console.log(err.message)
+    }
 }
 
 app.listen(PORT, (req, res) => {
