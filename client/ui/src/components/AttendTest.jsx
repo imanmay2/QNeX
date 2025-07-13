@@ -15,7 +15,7 @@ function AttendTest() {
     useEffect(()=>{
         let auth=(async()=>{
             try{
-                let response=await axios.get("http://localhost:8080/authenticate",{withCredentials:true});
+                let response=await axios.get("https://qnex.onrender.com/authenticate",{withCredentials:true});
             if(response.data.flag==="false"){
                 navigate("/");
                 return;
@@ -65,7 +65,7 @@ function AttendTest() {
         if (testId.trim()) {
             // Navigate or perform logic with testId
             console.log("Entered Test ID:", testId);
-            const response = await axios.get(`http://localhost:8080/findtest/${testId}`);
+            const response = await axios.get(`https://qnex.onrender.com/findtest/${testId}`);
             if (response.data.find) {
                 console.log("Attend Test page : ");
                 console.log(response.data.find);

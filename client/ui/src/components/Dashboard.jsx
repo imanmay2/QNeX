@@ -18,7 +18,7 @@ function Dashboard() {
     useEffect(()=>{
         let auth=(async()=>{
             try{
-                let response=await axios.get("http://localhost:8080/authenticate",{withCredentials:true});
+                let response=await axios.get("https://qnex.onrender.com/authenticate",{withCredentials:true});
             if(response.data.flag==="false"){
                 navigate("/");
                 return;
@@ -36,7 +36,7 @@ function Dashboard() {
     
     const reviewTest = async (test_id) => {
         const username = Cookies.get("username");
-        const response = await axios.get(`http://localhost:8080/reviewTest/${username}/${test_id}`);
+        const response = await axios.get(`https://qnex.onrender.com/reviewTest/${username}/${test_id}`);
         let testReview_ = response.data.Tests;
         console.log(testReview_);
         //navigate to the respective page for the test to be reviewed.
@@ -76,7 +76,7 @@ function Dashboard() {
     useEffect(() => {
         let fetch = async () => {
             try {
-                let res = await axios.get("http://localhost:8080/getData", {
+                let res = await axios.get("https://qnex.onrender.com/getData", {
                     withCredentials: true
                 });
                 console.log(res.data);
@@ -88,7 +88,7 @@ function Dashboard() {
         }
 
         let fetchTest = async () => {
-            let res = await axios.get(`http://localhost:8080/reviewTest/${Cookies.get('username')}`);
+            let res = await axios.get(`https://qnex.onrender.com/reviewTest/${Cookies.get('username')}`);
             console.log(res.data.Tests);
             
             setTest(res.data.Tests);

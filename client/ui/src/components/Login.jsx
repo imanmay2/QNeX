@@ -50,7 +50,7 @@ function Login() {
     let handleSubmit_ = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.post("http://localhost:8080/loginUser", data, {
+            const response = await axios.post("https://qnex.onrender.com/loginUser", data, {
                 withCredentials: true
             });
             if (!response.data.flag) {

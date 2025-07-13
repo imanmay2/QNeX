@@ -9,7 +9,7 @@ function TestReview() {
     useEffect(()=>{
         let auth=(async()=>{
             try{
-                let response=await axios.get("http://localhost:8080/authenticate",{withCredentials:true});
+                let response=await axios.get("https://qnex.onrender.com/authenticate",{withCredentials:true});
             if(response.data.flag==="false"){
                 navigate("/");
                 return;
@@ -30,10 +30,10 @@ function TestReview() {
     useEffect(() => {
         const func = async () => {
             try {
-                const response1 = await axios.get(`http://localhost:8080/reviewTest/${username}/${id}`, {
+                const response1 = await axios.get(`https://qnex.onrender.com/reviewTest/${username}/${id}`, {
                     withCredentials: true
                 });
-                const response2 = await axios.get(`http://localhost:8080/findTest/${id}`, {
+                const response2 = await axios.get(`https://qnex.onrender.com/findTest/${id}`, {
                     withCredentials: true
                 });
 

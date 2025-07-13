@@ -55,20 +55,6 @@ function Test() {
     }
     func1();
   },[location.state, navigate])
-  // const test=location.state[0];
-  // const test = {
-  //   createdOn: "2025-06-24",
-  //   testTitle: "Anatomy",
-  //   description: "Exclusive Questions",
-  //   duration: "1 hr",
-  //   test_id: "TEST123",
-  //   questions_: [{
-  //     ans: "A",
-  //     options: { option_A: "Femur", option_B: "Tibia", option_C: "Fibula" },
-  //     question: "What is the longest bone in the lower limb?",
-  //     questionNo: 1
-  //   }]
-  // }
 
   console.log(test);
   const [tracker, setTracker] = useState(0);
@@ -116,7 +102,7 @@ function Test() {
     let testTitle = test?.testTitle;
     //Sending the answer to the backend.
     let ansObj = { ans, test_id, testTitle };
-    const response = await axios.post("http://localhost:8080/reviewTest", ansObj, { withCredentials: true });
+    const response = await axios.post("https://qnex.onrender.com/reviewTest", ansObj, { withCredentials: true });
 
     if (response.data.flag == "success") {
       navigate("/dashboard");

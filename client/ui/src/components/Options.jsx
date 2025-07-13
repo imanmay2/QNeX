@@ -11,7 +11,7 @@ import Cookies from "js-cookie";
 function Options() {
     const navigate=useNavigate();
     const handleLogout=async()=>{
-        let response=await axios.post("http://localhost:8080/logout",{},{
+        let response=await axios.post("https://qnex.onrender.com/logout",{},{
             withCredentials:true
         })
         if(response.data.flag=="true"){

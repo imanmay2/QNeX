@@ -18,7 +18,7 @@ function CreateTest() {
     useEffect(()=>{
         let auth=(async()=>{
             try{
-                let response=await axios.get("http://localhost:8080/authenticate",{withCredentials:true});
+                let response=await axios.get("https://qnex.onrender.com/authenticate",{withCredentials:true});
             if(response.data.flag==="false"){
                 navigate("/");
                 return;
@@ -165,7 +165,7 @@ function CreateTest() {
         }
         if (test.testTitle != "" && test.duration != "" && test.description != "" && test.test_id != "") {
             let final = { ...test, createdOn: getTodayDate() }
-            const response = await axios.post("http://localhost:8080/createTest", final, { withCredentials: true });
+            const response = await axios.post("https://qnex.onrender.com/createTest", final, { withCredentials: true });
             setMsg(response.data.message);
             setServerity(response.data.flag);
             setOpen(true);
@@ -271,7 +271,7 @@ function CreateTest() {
         };
 
         try {
-            const response = await axios.post("http://localhost:8080/api/ai", {
+            const response = await axios.post("https://qnex.onrender.com/api/ai", {
                 inputObject: input,
                 formatObject: format
             }, {

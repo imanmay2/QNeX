@@ -42,7 +42,7 @@ function Signup() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.post("http://localhost:8080/saveUser", data,{
+            const response = await axios.post("https://qnex.onrender.com/saveUser", data,{
                 withCredentials:true
             });
             if (!response.data.flag) {

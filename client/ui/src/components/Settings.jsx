@@ -15,7 +15,7 @@ function Settings() {
     useEffect(()=>{
         let auth=(async()=>{
             try{
-                let response=await axios.get("http://localhost:8080/authenticate",{withCredentials:true});
+                let response=await axios.get("https://qnex.onrender.com/authenticate",{withCredentials:true});
             if(response.data.flag==="false"){
                 navigate("/");
                 return;
@@ -59,7 +59,7 @@ function Settings() {
 
     useEffect(()=>{
         let fetch=async()=>{
-            const response=await axios.get("http://localhost:8080/userData",{withCredentials:true});
+            const response=await axios.get("https://qnex.onrender.com/userData",{withCredentials:true});
             let details=response.data.data_;
             setName(details[0].name);
             setEmail(details[0].email);
@@ -107,19 +107,19 @@ function Settings() {
             editRef.current.style.backgroundColor="#0c81b3";
 
             //  update the saved data in the database.
-            const deleteUser=await axios.get("http://localhost:8080/deleteUser",{
+            const deleteUser=await axios.get("https://qnex.onrender.com/deleteUser",{
                 withCredentials:true
             });
 
             console.log(deleteUser.data.message);
 
-            const response=await axios.post("http://localhost:8080/saveUser",{'Name':name,'Email':email,'Password':password},{withCredentials:true});
+            const response=await axios.post("https://qnex.onrender.com/saveUser",{'Name':name,'Email':email,'Password':password},{withCredentials:true});
 
             let preUserName=response.data.userCookie;
             let updateUsername;
             if(preUserName!=""){
                 console.log("PreUserName"+preUserName);
-                updateUsername=await axios.post("http://localhost:8080/updateReviewUser",{preUserName},{withCredentials:true});
+                updateUsername=await axios.post("https://qnex.onrender.com/updateReviewUser",{preUserName},{withCredentials:true});
             }
 
 

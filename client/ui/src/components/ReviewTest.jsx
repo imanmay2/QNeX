@@ -11,7 +11,7 @@ function ReviewTest() {
     useEffect(()=>{
         let auth=(async()=>{
             try{
-                let response=await axios.get("http://localhost:8080/authenticate",{withCredentials:true});
+                let response=await axios.get("https://qnex.onrender.com/authenticate",{withCredentials:true});
             if(response.data.flag==="false"){
                 navigate("/");
                 return;
@@ -29,7 +29,7 @@ function ReviewTest() {
   useEffect(() => {
     let fetchData=async()=>{
       try{
-        const response=await axios.get(`http://localhost:8080/reviewTest/${Cookies.get("username")}`,{
+        const response=await axios.get(`https://qnex.onrender.com/reviewTest/${Cookies.get("username")}`,{
           withCredentials:true
         });
         setTest(Array.isArray(response.data.Tests)?response.data.Tests:[]);
@@ -44,7 +44,7 @@ function ReviewTest() {
 
   const handleTestReview=async(test_id)=>{
     const username=Cookies.get("username");
-    const response=await axios.get(`http://localhost:8080/reviewTest/${username}/${test_id}`);
+    const response=await axios.get(`https://qnex.onrender.com/reviewTest/${username}/${test_id}`);
     let testReview_=response.data.Tests;
     console.log(testReview_);
     //navigate to the respective page for the test to be reviewed.
