@@ -23,7 +23,6 @@ function Signup() {
     const [showPassword, setShowPassword] = React.useState(false);
     const [flashOpen, setFlashOpen] = React.useState(false);
     const [flashMsg, setFlashMsg] = React.useState('');
-
     const handleClickShowPassword = () => setShowPassword((show) => !show);
     const handleMouseDownPassword = (event) => event.preventDefault();
     const handleMouseUpPassword = (event) => event.preventDefault();
@@ -52,7 +51,7 @@ function Signup() {
             } else if(Cookies.get('login')=="true"){
                 navigate("/dashboard");
             } else {
-                setMsg("Signup  before you proceed");
+                setFlashMsg("Signup  before you proceed");
                 setOpen(true);
             }
             setData({ Name: '', Email: '', Password: '' });
