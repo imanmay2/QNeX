@@ -52,7 +52,7 @@ function Signup() {
                 navigate("/dashboard");
             } else {
                 setFlashMsg("Signup  before you proceed");
-                setOpen(true);
+                setFlashOpen(true);
             }
             setData({ Name: '', Email: '', Password: '' });
         } catch (err) {
