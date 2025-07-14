@@ -104,9 +104,21 @@ app.post("/saveUser", async (req, res) => {
                 await user1.save();
 
                 //cookies
-                res.cookie("login", "true", { secure: false });
-                res.cookie("username", userName, { secure: false });
-                res.cookie("name", Name, { secure: false });  // secure false as using http. not https.
+                res.cookie("login", "true", {
+                    httpOnly: true,
+                    secure: true,         // ✅ Required for cross-site cookies in HTTPS
+                    sameSite: "None"      // ✅ Must be "None" when using cross-origin
+                });
+                res.cookie("username", userName, {
+                    httpOnly: true,
+                    secure: true,         // ✅ Required for cross-site cookies in HTTPS
+                    sameSite: "None"      // ✅ Must be "None" when using cross-origin
+                });
+                res.cookie("name", Name, {
+                    httpOnly: true,
+                    secure: true,         // ✅ Required for cross-site cookies in HTTPS
+                    sameSite: "None"      // ✅ Must be "None" when using cross-origin
+                });  // secure false as using http. not https.
                 console.log("User Signed Up!!");
                 flag = 1;
                 res.status(200).json({ 'message': "User saved successfully", "flag": "success", "userCookie": preUserName });
@@ -135,9 +147,21 @@ app.post("/loginUser", async (req, res) => {
                 flag = 1;
                 console.log("User logged in successfully");
                 ///setting up cookies.
-                res.cookie("login", "true", { secure: false });
-                res.cookie("name", userRes[0].name, { secure: false });
-                res.cookie("username", userRes[0].username, { secure: false });
+                res.cookie("login", "true", {
+                    httpOnly: true,
+                    secure: true,         // ✅ Required for cross-site cookies in HTTPS
+                    sameSite: "None"      // ✅ Must be "None" when using cross-origin
+                });
+                res.cookie("name", userRes[0].name, {
+                    httpOnly: true,
+                    secure: true,         // ✅ Required for cross-site cookies in HTTPS
+                    sameSite: "None"      // ✅ Must be "None" when using cross-origin
+                });
+                res.cookie("username", userRes[0].username, {
+                    httpOnly: true,
+                    secure: true,         // ✅ Required for cross-site cookies in HTTPS
+                    sameSite: "None"      // ✅ Must be "None" when using cross-origin
+                });
                 res.json({ "message": "User Logged in Successfully", "flag": flag });
             } else {
                 res.json({ "message": "Password is incorrect ! ", "flag": 0 });
@@ -421,7 +445,11 @@ app.get("/authenticate", async (req, res) => {
 
 //logging out.
 app.post("/logout", async (req, res) => {
-    res.cookie("login", "false", { secure: false });
+    res.cookie("login", "false", {
+        httpOnly: true,
+        secure: true,         // ✅ Required for cross-site cookies in HTTPS
+        sameSite: "None"      // ✅ Must be "None" when using cross-origin
+    });
     res.json({ "flag": "true" });
 });
 
