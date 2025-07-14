@@ -79,6 +79,7 @@ app.get("/data", (req, res) => {
 
 //signup
 app.post("/saveUser", async (req, res) => {
+    await main();
     const { Name, Email, Password } = req.body;
     let preUserName = req.cookies.username || ""; //Storing the cookies, if already exists in the cookieSession.
     console.log("Preusername" + preUserName);
