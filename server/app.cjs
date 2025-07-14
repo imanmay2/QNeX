@@ -140,11 +140,11 @@ app.post("/loginUser", async (req, res) => {
                 res.cookie("username", userRes[0].username, { secure: false });
                 res.json({ "message": "User Logged in Successfully", "flag": flag });
             } else {
-                res.json({ "message": "Password is incorrect ! " });
+                res.json({ "message": "Password is incorrect ! ", "flag": 0 });
             }
         });
     } else {
-        res.json({ "message": "Username is incorrect ! " });
+        res.json({ "message": "Username is incorrect ! ", "flag": 0 });
     }
 });
 
