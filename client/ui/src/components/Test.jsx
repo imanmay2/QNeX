@@ -102,7 +102,7 @@ function Test() {
     let testTitle = test?.testTitle;
     //Sending the answer to the backend.
     let username=Cookies.get("username");
-    let ansObj = { ans, test_id, testTitle,c };
+    let ansObj = { ans, test_id, testTitle,username };
     const response = await axios.post("https://qnex.onrender.com/reviewTest", ansObj, { withCredentials: true });
 
     if (response.data.flag == "success") {
