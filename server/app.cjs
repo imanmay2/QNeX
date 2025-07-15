@@ -147,17 +147,17 @@ app.post("/loginUser", async (req, res) => {
                 console.log("User logged in successfully");
                 ///setting up cookies.
                 res.cookie("login", "true", {
-                   
+                   httpOnly:false,
                     secure: true,         // ✅ Required for cross-site cookies in HTTPS
                     sameSite: "None"      // ✅ Must be "None" when using cross-origin
                 });
                 res.cookie("name", userRes[0].name, {
-                    
+                   httpOnly:false,
                     secure: true,         // ✅ Required for cross-site cookies in HTTPS
                     sameSite: "None"      // ✅ Must be "None" when using cross-origin
                 });
                 res.cookie("username", userRes[0].username, {
-                   
+                   httpOnly:false,
                     secure: true,         // ✅ Required for cross-site cookies in HTTPS
                     sameSite: "None"      // ✅ Must be "None" when using cross-origin
                 });

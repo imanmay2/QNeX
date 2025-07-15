@@ -53,16 +53,21 @@ function Login() {
             const response = await axios.post("https://qnex.onrender.com/loginUser", data, {
                 withCredentials: true
             });
-            if (!response.data.flag) {
+            console.log(response.data.flag);
+            console.log(Cookies.get("login"));
+            setTimeout(() => {
+                if (!response.data.flag) {
                 setMsg(response.data.message);
                 setOpen(true);
                 return;
-            } else if (Cookies.get("login") == "true") {
+            } else if (Cookies.get("login") === "true") {
                 navigate("/dashboard");
             } else {
                 setMsg("Login  before you proceed");
                 setOpen(true);
             }
+            }, 3000);
+            
         } catch (err) {
             console.error(err);
         }

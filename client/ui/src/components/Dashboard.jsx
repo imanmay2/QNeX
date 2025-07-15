@@ -107,8 +107,8 @@ function Dashboard() {
     }, [attempted, notAttempted]);
 
 
-    let name = Cookies.get("name");
-    let username = Cookies.get("username");
+    const [name,setName] = useState(Cookies.get("name"));
+    let [username,setUserName] = useState(Cookies.get("username"));
     //fetch date:
     function getFormattedDate() {
         const date = new Date();
@@ -134,8 +134,8 @@ function Dashboard() {
                     <div id="details">
                         <User size={38} strokeWidth={2} /> &nbsp; &nbsp;
                         <div className="name">
-                            <b>{name}</b> <br />
-                            <font id="username">{username}</font>
+                            <b>{Cookies.get("name")}</b> <br />
+                            <font id="username">{Cookies.get("username")}</font>
                         </div> <RiArrowDownSLine />
                     </div>
                 </div>
@@ -146,7 +146,7 @@ function Dashboard() {
                 <br />
                 <div className="greet">
                     <div className="content">
-                        <h2> Welcome Back , Mr. {name} !  <HiOutlineFaceSmile /> </h2>
+                        <h2> Welcome Back , Mr. {Cookies.get("name")} !  <HiOutlineFaceSmile /> </h2>
                         <div className="space">
                             <font className="quote">Always take care of your health to carry out Smart.</font></div>
                     </div>
