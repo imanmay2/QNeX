@@ -18,7 +18,7 @@ function Test() {
   const [msg, setMsg] = React.useState(false);
   const [serverity, setServerity] = React.useState(false);
 
-  const [test,setTest]=useState({});
+  const [test, setTest] = useState({});
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -44,17 +44,17 @@ function Test() {
 
   const navigate = useNavigate();
   const location = useLocation();
-  useEffect(()=>{
-    let func1=()=>{
-      if(!location.state){
-    console.log("Hi Soumadeep!!");
-    navigate("/404");
-    return;
-  }
-  setTest(location.state[0]);
+  useEffect(() => {
+    let func1 = () => {
+      if (!location.state) {
+        console.log("Hi Soumadeep!!");
+        navigate("/404");
+        return;
+      }
+      setTest(location.state[0]);
     }
     func1();
-  },[location.state, navigate])
+  }, [location.state, navigate]);
 
   console.log(test);
   const [tracker, setTracker] = useState(0);
@@ -83,7 +83,8 @@ function Test() {
 
   //Create the answer section.
   let [ans, setAns] = useState(Array(test?.questions_?.length).fill(null));
-  let [total, setTotal] = useState(ans.length);
+
+  let [total, setTotal] = useState(test?.questions_?.length);
   let [attempted, setAttempt] = useState(0);
   let [notAttempted, setNotAttempt] = useState(0);
   //handleRadioButton Change.
@@ -101,11 +102,11 @@ function Test() {
     let test_id = test?.test_id;
     let testTitle = test?.testTitle;
     //Sending the answer to the backend.
-    let username=Cookies.get("username");
-    let ansObj = { ans, test_id, testTitle,username };
+    let username = Cookies.get("username");
+    let ansObj = { ans, test_id, testTitle, username };
     const response = await axios.post("https://qnex.onrender.com/reviewTest", ansObj, { withCredentials: true });
 
-    if (response.data.flag == "success") {
+    if (response.data.flag === "success") {
       navigate("/dashboard");
 
       //send test submiited sucessfully.
@@ -117,18 +118,27 @@ function Test() {
       setOpen(true);
     }
   }
-  let calculate = () => {
-    let notAttemptCount = ans.filter(val => val === null).length;
-    setNotAttempt(notAttemptCount);
-    setAttempt(ans.length - notAttemptCount);
-  };
+
 
 
   let overlayRef = React.useRef(null);
   let showOverlay = () => {
-    calculate();
-    overlayRef.current.style.display = 'flex';
-  }
+  let totalQuestions = test?.questions_?.length || 0;
+  let notAttemptCount = ans.filter(val => val === null).length;
+  let attemptedCount = totalQuestions - notAttemptCount;
+
+  // Now update all state at once
+  setTotal(totalQuestions);
+  setNotAttempt(notAttemptCount);
+  setAttempt(attemptedCount);
+
+  // console.log("Total:", totalQuestions);
+  // console.log("Not Attempted:", notAttemptCount);
+  // console.log("Attempted:", attemptedCount);
+
+  overlayRef.current.style.display = 'flex';
+};
+
 
 
   let hideOverlay = () => {
@@ -150,49 +160,51 @@ function Test() {
           <button type="submit" className={styles.overlaySubmit} onClick={handleSubmit}>Submit</button>
         </div>
       </div>
-{test?.testTitle?(<div  style={{display: "flex",
-    flexDirection: "row", width:"100vw",gap:"2rem"}}><QBtn questions_={test?.questions_} setQ={setQ} />
-      <div className={styles.maindiv_}>
-        <div className={styles.heading1_}>
-          <span className={styles.testTitle_}>{test?.testTitle}</span>
-          <span className={styles.timer_}>{test?.duration}</span>
-        </div>
-
-        <br />
-        <div className={styles.heading2_}>
-          <span className={styles.marks_}><u>{test?.description}</u></span>
-          <span className={styles.testid_}>Test ID: <u>{test?.test_id}</u></span>
-          <span className={styles.testid_}><u>Created on: {test?.createdOn}</u></span>
-        </div>
-
-        <div className={styles.Q_}>
-          <h2 className={styles.Question_}>Question: {test?.questions_[tracker]?.questionNo} . {test?.questions_[tracker]?.question}</h2>
-          <hr />
-
-          {/* options */}
-          <div className={styles.options_}>
-            <label className={styles.option_}>
-              <input className={styles.input_} type="radio" name={`q${tracker}`} value="A" onChange={handleOptionChange} checked={ans[tracker] === "A"} />
-              {test?.questions_[tracker].options.option_A}
-            </label>
-            <label className={styles.option_}>
-              <input className={styles.input_} type="radio" name={`q${tracker}`} value="B" onChange={handleOptionChange} checked={ans[tracker] === "B"} />
-              {test?.questions_[tracker].options.option_B}
-            </label>
-            <label className={styles.option_}>
-              <input className={styles.input_} type="radio" name={`q${tracker}`} value="C" onChange={handleOptionChange} checked={ans[tracker] === "C"} />
-              {test?.questions_[tracker].options.option_C}
-            </label>
+      {test?.testTitle ? (<div style={{
+        display: "flex",
+        flexDirection: "row", width: "100vw", gap: "2rem"
+      }}><QBtn questions_={test?.questions_} setQ={setQ} />
+        <div className={styles.maindiv_}>
+          <div className={styles.heading1_}>
+            <span className={styles.testTitle_}>{test?.testTitle}</span>
+            <span className={styles.timer_}>{test?.duration}</span>
           </div>
-        </div>
-        <div className={styles.btns_}>
-          <button className={styles.previous_} onClick={prev}>Previous</button>
-          <button className={styles.next_} onClick={next}>Next</button>
-          <button className={styles.submit_} onClick={showOverlay}>Submit</button>
-        </div>
-      </div></div>):null
-}
-      
+
+          <br />
+          <div className={styles.heading2_}>
+            <span className={styles.marks_}><u>{test?.description}</u></span>
+            <span className={styles.testid_}>Test ID: <u>{test?.test_id}</u></span>
+            <span className={styles.testid_}><u>Created on: {test?.createdOn}</u></span>
+          </div>
+
+          <div className={styles.Q_}>
+            <h2 className={styles.Question_}>Question: {test?.questions_[tracker]?.questionNo} . {test?.questions_[tracker]?.question}</h2>
+            <hr />
+
+            {/* options */}
+            <div className={styles.options_}>
+              <label className={styles.option_}>
+                <input className={styles.input_} type="radio" name={`q${tracker}`} value="A" onChange={handleOptionChange} checked={ans[tracker] === "A"} />
+                {test?.questions_[tracker].options.option_A}
+              </label>
+              <label className={styles.option_}>
+                <input className={styles.input_} type="radio" name={`q${tracker}`} value="B" onChange={handleOptionChange} checked={ans[tracker] === "B"} />
+                {test?.questions_[tracker].options.option_B}
+              </label>
+              <label className={styles.option_}>
+                <input className={styles.input_} type="radio" name={`q${tracker}`} value="C" onChange={handleOptionChange} checked={ans[tracker] === "C"} />
+                {test?.questions_[tracker].options.option_C}
+              </label>
+            </div>
+          </div>
+          <div className={styles.btns_}>
+            <button className={styles.previous_} onClick={prev}>Previous</button>
+            <button className={styles.next_} onClick={next}>Next</button>
+            <button className={styles.submit_} onClick={showOverlay}>Submit</button>
+          </div>
+        </div></div>) : null
+      }
+
 
       <Snackbar
         open={open}

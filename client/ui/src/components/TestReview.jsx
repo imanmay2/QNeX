@@ -51,6 +51,9 @@ function TestReview() {
         func();
     }, [username, id]);
     let [tracker, setTracker] = useState(-1);
+    let handleReview=()=>{
+        navigate("/reviewTest");
+    }
     return (
         <div className={styles.testreview}>
             <Options />
@@ -104,7 +107,7 @@ function TestReview() {
                         ))}
 
                         <div className={styles.btnContainer}>
-                            <button className={styles.btn}>⬅ Back to Review Page</button>
+                            <button className={styles.btn} onClick={handleReview}>⬅ Back to Review Page</button>
                         </div>
                     </div>
                 ) : (

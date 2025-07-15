@@ -13,7 +13,7 @@ import { useRef } from "react";
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import { useNavigate } from "react-router-dom";
-import Cookie from "js-cookie";
+import Cookies from "js-cookie";
 function CreateTest() {
     const navigate = useNavigate();
     useEffect(()=>{
