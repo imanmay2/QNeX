@@ -105,17 +105,16 @@ app.post("/saveUser", async (req, res) => {
 
                 //cookies
                 res.cookie("login", "true", {
-                    httpOnly: true,
                     secure: true,         // ✅ Required for cross-site cookies in HTTPS
                     sameSite: "None"      // ✅ Must be "None" when using cross-origin
                 });
                 res.cookie("username", userName, {
-                    httpOnly: true,
+                    
                     secure: true,         // ✅ Required for cross-site cookies in HTTPS
                     sameSite: "None"      // ✅ Must be "None" when using cross-origin
                 });
                 res.cookie("name", Name, {
-                    httpOnly: true,
+                   //need to remove this line I guess
                     secure: true,         // ✅ Required for cross-site cookies in HTTPS
                     sameSite: "None"      // ✅ Must be "None" when using cross-origin
                 });  // secure false as using http. not https.
@@ -148,17 +147,17 @@ app.post("/loginUser", async (req, res) => {
                 console.log("User logged in successfully");
                 ///setting up cookies.
                 res.cookie("login", "true", {
-                    httpOnly: true,
+                   
                     secure: true,         // ✅ Required for cross-site cookies in HTTPS
                     sameSite: "None"      // ✅ Must be "None" when using cross-origin
                 });
                 res.cookie("name", userRes[0].name, {
-                    httpOnly: true,
+                    
                     secure: true,         // ✅ Required for cross-site cookies in HTTPS
                     sameSite: "None"      // ✅ Must be "None" when using cross-origin
                 });
                 res.cookie("username", userRes[0].username, {
-                    httpOnly: true,
+                   
                     secure: true,         // ✅ Required for cross-site cookies in HTTPS
                     sameSite: "None"      // ✅ Must be "None" when using cross-origin
                 });
@@ -432,11 +431,11 @@ app.get("/authenticate", async (req, res) => {
             console.log(check);
         }
         console.log("Authenticate Route hitted.");
-        if (!check) {
+        if (check !== "true") {
             res.json({ data: "User not logged In", flag: "false" });
             return;
         }
-        res.json({ data: "User not logged In", flag: "true" });
+        res.json({ data: "User logged In", flag: "true" });
     } catch (err) {
         res.json({ data: err.message, flag: "false" });
     }
@@ -446,7 +445,7 @@ app.get("/authenticate", async (req, res) => {
 //logging out.
 app.post("/logout", async (req, res) => {
     res.cookie("login", "false", {
-        httpOnly: true,
+       
         secure: true,         // ✅ Required for cross-site cookies in HTTPS
         sameSite: "None"      // ✅ Must be "None" when using cross-origin
     });
