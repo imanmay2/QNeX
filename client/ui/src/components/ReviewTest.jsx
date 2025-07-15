@@ -11,8 +11,8 @@ function ReviewTest() {
     useEffect(()=>{
         let auth=(async()=>{
             try{
-                let username=Cookie.get("username");
-                let response=await axios.post("https://qnex.onrender.com/authenticate",{username},{withCredentials:true});
+                let login=Cookies.get("login");
+                let response=await axios.post("https://qnex.onrender.com/authenticate",{login},{withCredentials:true});
             if(response.data.flag==="false"){
                 navigate("/");
                 return;
