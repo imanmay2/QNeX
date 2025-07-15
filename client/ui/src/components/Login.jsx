@@ -53,22 +53,24 @@ function Login() {
             const response = await axios.post("https://qnex.onrender.com/loginUser", data, {
                 withCredentials: true
             });
-            console.log(response.data.flag);
-            console.log(document.cookie);
-            console.log(Cookies.get("login"));
-            setTimeout(() => {
-                if (!response.data.flag) {
+
+            // console.log(response.data.flag);
+            // console.log(document.cookie);
+            // console.log(Cookies.get("login"));
+
+            if (!response.data.flag) {
                 setMsg(response.data.message);
                 setOpen(true);
                 return;
-            } else if (Cookies.get("login") === "true") {
+            } else if (response.data.login === "true"){
+                Cookies.set("login", response.data.login);
+                Cookies.set("username", response.data.username);
+                Cookies.set("name", response.data.name);
                 navigate("/dashboard");
             } else {
                 setMsg("Login  before you proceed");
                 setOpen(true);
             }
-            }, 3000);
-            
         } catch (err) {
             console.error(err);
         }

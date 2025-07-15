@@ -48,7 +48,10 @@ function Signup() {
                 setFlashMsg(response.data.message);
                 setFlashOpen(true);
                 return;
-            } else if(Cookies.get('login')=="true"){
+            } else if(response.data.login==="true"){
+                Cookies.set("login",response.data.login);
+                Cookies.set("username",response.data.username);
+                Cookies.set("name",response.data.name);
                 navigate("/dashboard");
             } else {
                 setFlashMsg("Signup  before you proceed");

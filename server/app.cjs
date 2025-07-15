@@ -103,24 +103,24 @@ app.post("/saveUser", async (req, res) => {
                 });
                 await user1.save();
 
-                //cookies
-                res.cookie("login", "true", {
-                    secure: true,         // ✅ Required for cross-site cookies in HTTPS
-                    sameSite: "None"      // ✅ Must be "None" when using cross-origin
-                });
-                res.cookie("username", userName, {
+                // //cookies
+                // res.cookie(, {
+                //     secure: true,         // ✅ Required for cross-site cookies in HTTPS
+                //     sameSite: "None"      // ✅ Must be "None" when using cross-origin
+                // });
+                // res.cookie(, {
                     
-                    secure: true,         // ✅ Required for cross-site cookies in HTTPS
-                    sameSite: "None"      // ✅ Must be "None" when using cross-origin
-                });
-                res.cookie("name", Name, {
-                   //need to remove this line I guess
-                    secure: true,         // ✅ Required for cross-site cookies in HTTPS
-                    sameSite: "None"      // ✅ Must be "None" when using cross-origin
-                });  // secure false as using http. not https.
+                //     secure: true,         // ✅ Required for cross-site cookies in HTTPS
+                //     sameSite: "None"      // ✅ Must be "None" when using cross-origin
+                // });
+                // res.cookie(, {
+                //    //need to remove this line I guess
+                //     secure: true,         // ✅ Required for cross-site cookies in HTTPS
+                //     sameSite: "None"      // ✅ Must be "None" when using cross-origin
+                // });  // secure false as using http. not https.
                 console.log("User Signed Up!!");
                 flag = 1;
-                res.status(200).json({ 'message': "User saved successfully", "flag": "success", "userCookie": preUserName });
+                res.status(200).json({ 'message': "User saved successfully", "flag": "success", "userCookie": preUserName, "login":"true","username": userName,"name":Name});
             } else {
                 res.json({ 'message': 'Email is Invalid ! ', "flag": "error" });
             }
@@ -146,26 +146,26 @@ app.post("/loginUser", async (req, res) => {
                 flag = 1;
                 console.log("User logged in successfully");
                 ///setting up cookies.
-                res.cookie("login", "true", {
-                   httpOnly:false,
-                    secure: true,         // ✅ Required for cross-site cookies in HTTPS
-                    sameSite: "None",      // ✅ Must be "None" when using cross-origin
-                    domain: 'qnex.netlify.app'
-                });
-                res.cookie("name", userRes[0].name, {
-                   httpOnly:false,
-                    secure: true,         // ✅ Required for cross-site cookies in HTTPS
-                    sameSite: "None"  ,    // ✅ Must be "None" when using cross-origin
-                    domain: 'qnex.netlify.app'
+                // res.cookie("login", "true", {
+                //    httpOnly:false,
+                //     secure: true,         // ✅ Required for cross-site cookies in HTTPS
+                //     sameSite: "None",      // ✅ Must be "None" when using cross-origin
+                //     domain: 'qnex.netlify.app'
+                // });
+                // res.cookie("name", userRes[0].name, {
+                //    httpOnly:false,
+                //     secure: true,         // ✅ Required for cross-site cookies in HTTPS
+                //     sameSite: "None"  ,    // ✅ Must be "None" when using cross-origin
+                //     domain: 'qnex.netlify.app'
 
-                });
-                res.cookie("username", userRes[0].username, {
-                   httpOnly:false,
-                    secure: true,         // ✅ Required for cross-site cookies in HTTPS
-                    sameSite: "None",     // ✅ Must be "None" when using cross-origin
-                    domain: 'qnex.netlify.app'
-                });
-                res.json({ "message": "User Logged in Successfully", "flag": flag });
+                // });
+                // res.cookie("username", userRes[0].username, {
+                //    httpOnly:false,
+                //     secure: true,         // ✅ Required for cross-site cookies in HTTPS
+                //     sameSite: "None",     // ✅ Must be "None" when using cross-origin
+                //     domain: 'qnex.netlify.app'
+                // });
+                res.json({ "message": "User Logged in Successfully", "flag": flag,"login": "true","name": userRes[0].name,"username":userRes[0].username });
             } else {
                 res.json({ "message": "Password is incorrect ! ", "flag": 0 });
             }
@@ -445,14 +445,4 @@ app.get("/authenticate", async (req, res) => {
     }
 });
 
-
-//logging out.
-app.post("/logout", async (req, res) => {
-    res.cookie("login", "false", {
-       
-        secure: true,         // ✅ Required for cross-site cookies in HTTPS
-        sameSite: "None"      // ✅ Must be "None" when using cross-origin
-    });
-    res.json({ "flag": "true" });
-});
 
