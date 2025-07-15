@@ -149,17 +149,21 @@ app.post("/loginUser", async (req, res) => {
                 res.cookie("login", "true", {
                    httpOnly:false,
                     secure: true,         // ✅ Required for cross-site cookies in HTTPS
-                    sameSite: "None"      // ✅ Must be "None" when using cross-origin
+                    sameSite: "None",      // ✅ Must be "None" when using cross-origin
+                    domain: '.netlify.app'
                 });
                 res.cookie("name", userRes[0].name, {
                    httpOnly:false,
                     secure: true,         // ✅ Required for cross-site cookies in HTTPS
-                    sameSite: "None"      // ✅ Must be "None" when using cross-origin
+                    sameSite: "None"  ,    // ✅ Must be "None" when using cross-origin
+                    domain: '.netlify.app'
+
                 });
                 res.cookie("username", userRes[0].username, {
                    httpOnly:false,
                     secure: true,         // ✅ Required for cross-site cookies in HTTPS
-                    sameSite: "None"      // ✅ Must be "None" when using cross-origin
+                    sameSite: "None",     // ✅ Must be "None" when using cross-origin
+                    domain: '.netlify.app'
                 });
                 res.json({ "message": "User Logged in Successfully", "flag": flag });
             } else {

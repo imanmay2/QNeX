@@ -54,6 +54,7 @@ function Login() {
                 withCredentials: true
             });
             console.log(response.data.flag);
+            console.log(document.cookie);
             console.log(Cookies.get("login"));
             setTimeout(() => {
                 if (!response.data.flag) {
