@@ -150,20 +150,20 @@ app.post("/loginUser", async (req, res) => {
                    httpOnly:false,
                     secure: true,         // ✅ Required for cross-site cookies in HTTPS
                     sameSite: "None",      // ✅ Must be "None" when using cross-origin
-                    domain: '.netlify.app'
+                    domain: 'qnex.netlify.app'
                 });
                 res.cookie("name", userRes[0].name, {
                    httpOnly:false,
                     secure: true,         // ✅ Required for cross-site cookies in HTTPS
                     sameSite: "None"  ,    // ✅ Must be "None" when using cross-origin
-                    domain: '.netlify.app'
+                    domain: 'qnex.netlify.app'
 
                 });
                 res.cookie("username", userRes[0].username, {
                    httpOnly:false,
                     secure: true,         // ✅ Required for cross-site cookies in HTTPS
                     sameSite: "None",     // ✅ Must be "None" when using cross-origin
-                    domain: '.netlify.app'
+                    domain: 'qnex.netlify.app'
                 });
                 res.json({ "message": "User Logged in Successfully", "flag": flag });
             } else {
