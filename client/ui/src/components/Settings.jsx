@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { IoSettingsOutline } from 'react-icons/io5';
 import styles from './css/settings.module.css';
 import { Options } from './Options';
-
+import Cookies from "js-cookie";
 import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
@@ -15,7 +15,8 @@ function Settings() {
     useEffect(()=>{
         let auth=(async()=>{
             try{
-                let response=await axios.get("https://qnex.onrender.com/authenticate",{withCredentials:true});
+                let username=Cookie.get("username");
+                let response=await axios.post("https://qnex.onrender.com/authenticate",{username},{withCredentials:true});
             if(response.data.flag==="false"){
                 navigate("/");
                 return;
@@ -59,7 +60,8 @@ function Settings() {
 
     useEffect(()=>{
         let fetch=async()=>{
-            const response=await axios.get("https://qnex.onrender.com/userData",{withCredentials:true});
+            let username=Cookies.get('username');
+            const response=await axios.post("https://qnex.onrender.com/userData",{username},{withCredentials:true});
             let details=response.data.data_;
             setName(details[0].name);
             setEmail(details[0].email);
@@ -105,9 +107,9 @@ function Settings() {
 
             editRef.current.innerText="Edit";
             editRef.current.style.backgroundColor="#0c81b3";
-
+            let username=Cookies.get('username');
             //  update the saved data in the database.
-            const deleteUser=await axios.get("https://qnex.onrender.com/deleteUser",{
+            const deleteUser=await axios.post("https://qnex.onrender.com/deleteUser",{username},{
                 withCredentials:true
             });
 
@@ -119,7 +121,8 @@ function Settings() {
             let updateUsername;
             if(preUserName!=""){
                 console.log("PreUserName"+preUserName);
-                updateUsername=await axios.post("https://qnex.onrender.com/updateReviewUser",{preUserName},{withCredentials:true});
+                let username=Cookies.get("username");
+                updateUsername=await axios.post("https://qnex.onrender.com/updateReviewUser",{preUserName,username},{withCredentials:true});
             }
 
 

@@ -12,7 +12,7 @@ import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Alert from '@mui/material/Alert';
-
+import Cookies from "js-cookie";
 function Test() {
   const [open, setOpen] = React.useState(false);
   const [msg, setMsg] = React.useState(false);
@@ -101,7 +101,8 @@ function Test() {
     let test_id = test?.test_id;
     let testTitle = test?.testTitle;
     //Sending the answer to the backend.
-    let ansObj = { ans, test_id, testTitle };
+    let username=Cookies.get("username");
+    let ansObj = { ans, test_id, testTitle,c };
     const response = await axios.post("https://qnex.onrender.com/reviewTest", ansObj, { withCredentials: true });
 
     if (response.data.flag == "success") {

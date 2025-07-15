@@ -18,7 +18,8 @@ function Dashboard() {
     useEffect(()=>{
         let auth=(async()=>{
             try{
-                let response=await axios.get("https://qnex.onrender.com/authenticate",{withCredentials:true});
+                let username=Cookie.get("username");
+                let response=await axios.post("https://qnex.onrender.com/authenticate",{username},{withCredentials:true});
             if(response.data.flag==="false"){
                 navigate("/");
                 return;
@@ -76,7 +77,8 @@ function Dashboard() {
     useEffect(() => {
         let fetch = async () => {
             try {
-                let res = await axios.get("https://qnex.onrender.com/getData", {
+                let username=Cookies.get("username");
+                let res = await axios.post("https://qnex.onrender.com/getData",{username}, {
                     withCredentials: true
                 });
                 console.log(res.data);

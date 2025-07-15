@@ -81,7 +81,7 @@ app.get("/data", (req, res) => {
 app.post("/saveUser", async (req, res) => {
     await main();
     const { Name, Email, Password } = req.body;
-    let preUserName = req.cookies.username || ""; //Storing the cookies, if already exists in the cookieSession.
+    let preUserName =""; //Storing the cookies, if already exists in the cookieSession.
     console.log("Preusername" + preUserName);
     let userRes = await User.find({ email: Email });
     if (!userRes.length) {
@@ -234,11 +234,11 @@ app.get("/findtest/:test_id", async (req, res) => {
 });
 
 
+
 // review the test.
 app.post("/reviewTest", async (req, res) => {
     try {
-        let { ans, test_id, testTitle } = req.body;
-        let { username } = req.cookies;
+        let { ans, test_id, testTitle,username } = req.body;
         let score = 0;
         let findAns = await Question.find({ test_id: test_id });
         // console.log(findAns);
@@ -359,9 +359,9 @@ Also note that , give the "ans" field like:  "ans":A (in caps lock).
 
 
 //fetch user data and send to the profile section.
-app.get("/userData", async (req, res) => {
+app.post("/userData", async (req, res) => {
     try {
-        const userDetails = await User.find({ username: req.cookies.username });
+        const userDetails = await User.find({ username: req.body.username });
         if (userDetails.length) {
             res.json({ 'data_': userDetails });
         }
@@ -373,10 +373,10 @@ app.get("/userData", async (req, res) => {
 
 
 //update the data in the database.
-app.get("/deleteUser", async (req, res) => {
+app.post("/deleteUser", async (req, res) => {
     try {
         const result = await User.deleteOne(
-            { username: req.cookies.username }
+            { username: req.body.username }
         );
 
         console.log(result);
@@ -395,9 +395,9 @@ app.get("/deleteUser", async (req, res) => {
 //updating the ReviewTest user 
 app.post("/updateReviewUser", async (req, res) => {
     try {
-        let { preUserName } = req.body;
+        let { preUserName,username } = req.body;
         console.log("Entered: " + preUserName);
-        const modify = await ReviewTest.updateOne({ $or: { username: preUserName, } }, { $set: { username: req.cookies.username } });
+        const modify = await ReviewTest.updateOne({ $or: { username: preUserName, } }, { $set: { username: username } });
         console.log(modify);
         if (modify.modifiedCount === 0) {
             res.json({ 'message': 'Task not done', 'flag': 'error' });
@@ -410,12 +410,11 @@ app.post("/updateReviewUser", async (req, res) => {
 
 
 
-app.get("/getData", async (req, res) => {
+app.post("/getData", async (req, res) => {
     try {
         const QCount = await Question.countDocuments();
-        const username = req.cookies.username;
-        console.log("Cookies:", req.cookies);
-        console.log("Username:", username);
+        const username = req.body.username;
+       
         const testCount = await ReviewTest.countDocuments({ username: username });
         console.log("Question Count is:", QCount);
         console.log("Test Count is:", testCount);
@@ -428,9 +427,9 @@ app.get("/getData", async (req, res) => {
 
 
 // protect the route.
-app.get("/authenticate", async (req, res) => {
+app.post("/authenticate", async (req, res) => {
     try {
-        let check = req.cookies.login;
+        let check = req.body.login;
         if (check) {
             console.log(check);
         }

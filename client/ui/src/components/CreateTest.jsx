@@ -13,12 +13,14 @@ import { useRef } from "react";
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import { useNavigate } from "react-router-dom";
+import Cookie from "js-cookie";
 function CreateTest() {
     const navigate = useNavigate();
     useEffect(()=>{
         let auth=(async()=>{
             try{
-                let response=await axios.get("https://qnex.onrender.com/authenticate",{withCredentials:true});
+                let username=Cookie.get("username");
+                let response=await axios.post("https://qnex.onrender.com/authenticate",{username},{withCredentials:true});
             if(response.data.flag==="false"){
                 navigate("/");
                 return;

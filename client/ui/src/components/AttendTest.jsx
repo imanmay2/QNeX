@@ -10,12 +10,14 @@ import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Alert from '@mui/material/Alert';
+import Cookies from "js-cookie"
 function AttendTest() {
     const navigate = useNavigate();
     useEffect(()=>{
         let auth=(async()=>{
             try{
-                let response=await axios.get("https://qnex.onrender.com/authenticate",{withCredentials:true});
+                let username=Cookies.get("username");
+                let response=await axios.post("https://qnex.onrender.com/authenticate",{username},{withCredentials:true});
             if(response.data.flag==="false"){
                 navigate("/");
                 return;
