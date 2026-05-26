@@ -1,3 +1,4 @@
+import React from "react";
 import "./css/dashboard.css";
 import { Options } from "./Options";
 import { User } from 'lucide-react';

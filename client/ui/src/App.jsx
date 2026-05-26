@@ -1,7 +1,5 @@
-import { useState } from 'react';
+import React from 'react';
 import './App.css';
-import { useEffect } from 'react';
-import { Right_Container } from './components/Right_Container';
 import { Login } from './components/Login';
 import { Signup } from './components/Signup';
 import { Dashboard } from './components/Dashboard';
@@ -13,64 +11,46 @@ import { Test } from './components/Test';
 import { TestReview } from './components/TestReview';
 import Settings from './components/Settings';
 import NotFoundPage from './components/404PageNotFound';
+import { ThemeToggle } from './components/ThemeToggle';
 function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <div className='login_'>
-        <Login />
-      </div>
+      element: <Login />
     },
     {
       path: "/signup",
-      element: <div className='root1'>
-        <Signup />
-      </div>
+      element: <Signup />
     }, {
       path: "/dashboard",
-      element: <div className='dashboard'>
-        <Dashboard />
-      </div>
+      element: <Dashboard />
     }, {
       path: "/createTest",
-      element: <div className='createTest'>
-        <CreateTest />
-      </div>
+      element: <CreateTest />
     }, {
       path: "/reviewTest",
-      element: <div className="reviewTest">
-        <ReviewTest />
-      </div>
+      element: <ReviewTest />
     }, {
       path: "/attendTest",
-      element: <div className="attendTest">
-        <AttendTest />
-      </div>
+      element: <AttendTest />
     }, {
       path: "/Test/:id",
-      element: <div>
-        <Test />
-      </div>
+      element: <Test />
     }, {
       path: "/reviewtest/:username/:id",
-      element: <div>
-        <TestReview />
-      </div>
+      element: <TestReview />
     }, {
       path: "/settings",
-      element: <div>
-        <Settings />
-      </div>
+      element: <Settings />
     }, {
       path: "*",
-      element: <div>
-        <NotFoundPage />
-      </div>
+      element: <NotFoundPage />
     }
   ])
 
   return (
     <>
+      <ThemeToggle />
       <RouterProvider router={router} />
     </>
   )

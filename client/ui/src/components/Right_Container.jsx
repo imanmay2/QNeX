@@ -1,3 +1,4 @@
+import React from "react";
 import  "./css/Right_Container.css";
 
 function Right_Container(){

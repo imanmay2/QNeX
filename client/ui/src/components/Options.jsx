@@ -1,3 +1,4 @@
+import React from "react";
 import "./css/options.css";
 import { FiHome } from "react-icons/fi";
 import { AiOutlinePlusSquare } from "react-icons/ai";
@@ -18,10 +19,10 @@ function Options() {
     }
 
     const navItems = [
-        { className: "dash", icon: <FiHome />, label: "DashBoard", to: "https://qnex.netlify.app/dashboard", path: "/dashboard" },
-        { className: "ct", icon: <AiOutlinePlusSquare />, label: "Create Test", to: "https://qnex.netlify.app/createTest", path: "/createTest" },
-        { className: "at", icon: <MdAssignmentTurnedIn />, label: "Attend Test", to: "https://qnex.netlify.app/attendTest", path: "/attendTest" },
-        { className: "rt", icon: <AiOutlineFileSearch />, label: "Review Test", to: "https://qnex.netlify.app/reviewTest", path: "/reviewTest" },
+        { className: "dash", icon: <FiHome />, label: "DashBoard", to: "https://qnexv1.netlify.app/dashboard", path: "/dashboard" },
+        { className: "ct", icon: <AiOutlinePlusSquare />, label: "Create Test", to: "https://qnexv1.netlify.app/createTest", path: "/createTest" },
+        { className: "at", icon: <MdAssignmentTurnedIn />, label: "Attend Test", to: "https://qnexv1.netlify.app/attendTest", path: "/attendTest" },
+        { className: "rt", icon: <AiOutlineFileSearch />, label: "Review Test", to: "https://qnexv1.netlify.app/reviewTest", path: "/reviewTest" },
     ];
 
     return (
@@ -46,7 +47,7 @@ function Options() {
             <div className="setGap">
                 <div className={`settings nav-item ${location.pathname === "/settings" ? "active" : ""}`}>
                     <span className="nav-icon"><FiUser /></span>
-                    <Link to="https://qnex.netlify.app/settings" className="nav-link">Profile</Link>
+                    <Link to="https://qnexv1.netlify.app/settings" className="nav-link">Profile</Link>
                 </div>
                 <div className="logout nav-item">
                     <span className="nav-icon"><FiLogOut /></span>

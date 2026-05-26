@@ -8,20 +8,75 @@
 *,
 *::before,
 *::after {
-  margin:0;
-  padding:0;
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
+:root {
+  color-scheme: light;
+  --page-bg: #f8fbff;
+  --page-bg-soft: #eef4f8;
+  --text-strong: #111827;
+  --text-muted: #64748b;
+  --text-soft: #94a3b8;
+  --panel-bg: rgba(255, 255, 255, 0.86);
+  --panel-bg-strong: rgba(255, 255, 255, 0.94);
+  --panel-bg-muted: rgba(248, 250, 252, 0.9);
+  --panel-border: rgba(15, 23, 42, 0.08);
+  --panel-border-strong: rgba(15, 23, 42, 0.12);
+  --shadow-soft: 0 18px 46px rgba(15, 23, 42, 0.08);
+  --shadow-strong: 0 24px 60px rgba(15, 23, 42, 0.14);
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --accent-soft: rgba(37, 99, 235, 0.14);
+  --success: #17c98b;
+  --danger: #dc2626;
+  --danger-soft: rgba(254, 242, 242, 0.94);
+  --theme-toggle-bg: rgba(255, 255, 255, 0.86);
+  --theme-toggle-track: #e2e8f0;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page-bg: #15191b;
+  --page-bg-soft: #1d2429;
+  --text-strong: #f1f5f9;
+  --text-muted: #9aa8bd;
+  --text-soft: #74839a;
+  --panel-bg: rgba(17, 18, 20, 0.88);
+  --panel-bg-strong: rgba(18, 20, 23, 0.96);
+  --panel-bg-muted: rgba(29, 32, 36, 0.9);
+  --panel-border: rgba(148, 163, 184, 0.12);
+  --panel-border-strong: rgba(148, 163, 184, 0.2);
+  --shadow-soft: 0 18px 46px rgba(0, 0, 0, 0.24);
+  --shadow-strong: 0 24px 60px rgba(0, 0, 0, 0.32);
+  --accent: #5f83ff;
+  --accent-hover: #7ea0ff;
+  --accent-soft: rgba(95, 131, 255, 0.18);
+  --success: #1fd1a0;
+  --danger: #fb7185;
+  --danger-soft: rgba(127, 29, 29, 0.26);
+  --theme-toggle-bg: rgba(18, 20, 23, 0.88);
+  --theme-toggle-track: #26303a;
+}
+
 html {
-  background: #f8fbff;
+  min-height: 100%;
+  background: var(--page-bg);
 }
 
 body {
   min-height: 100vh;
-  background: #f8fbff;
-  color: #111827;
+  overflow-x: hidden;
+  background: var(--page-bg);
+  color: var(--text-strong);
   font-family: Inter, "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+#root {
+  min-height: 100vh;
+  background: var(--page-bg);
 }
 
 button,
@@ -29,5 +84,251 @@ input,
 select,
 textarea {
   font: inherit;
+}
+
+.theme-toggle {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 2000;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-height: 2.55rem;
+  padding: 0.4rem 0.75rem 0.4rem 0.45rem;
+  border: 1px solid var(--panel-border);
+  border-radius: 999px;
+  background: var(--theme-toggle-bg);
+  color: var(--text-strong);
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 800;
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(16px);
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
+}
+
+.theme-toggle:hover {
+  transform: translateY(-1px);
+  border-color: var(--accent-soft);
+  box-shadow: var(--shadow-strong);
+}
+
+.theme-toggle__track {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 3.15rem;
+  height: 1.72rem;
+  padding: 0.18rem;
+  border-radius: 999px;
+  background: var(--theme-toggle-track);
+}
+
+.theme-toggle__thumb {
+  display: inline-grid;
+  width: 1.35rem;
+  height: 1.35rem;
+  place-items: center;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--success), var(--accent));
+  color: #ffffff;
+  transform: translateX(1.4rem);
+  transition: transform 180ms ease;
+}
+
+:root[data-theme="light"] .theme-toggle__thumb {
+  transform: translateX(0);
+}
+
+.theme-toggle__text {
+  min-width: 2.3rem;
+  text-align: left;
+}
+
+:root[data-theme="dark"] body,
+:root[data-theme="dark"] .login_main,
+:root[data-theme="dark"] .dashboard,
+:root[data-theme="dark"] .createTest,
+:root[data-theme="dark"] .reviewTest,
+:root[data-theme="dark"] .attendTest,
+:root[data-theme="dark"] .test_,
+:root[data-theme="dark"] [class*="profile"],
+:root[data-theme="dark"] [class*="signup_wrapper"] {
+  background:
+    radial-gradient(circle at 18% 10%, rgba(31, 209, 160, 0.13), transparent 24%),
+    radial-gradient(circle at 88% 16%, rgba(95, 131, 255, 0.12), transparent 28%),
+    linear-gradient(135deg, var(--page-bg) 0%, var(--page-bg-soft) 100%);
+  color: var(--text-strong);
+}
+
+:root[data-theme="dark"] .option_div {
+  border-color: var(--panel-border);
+  background:
+    linear-gradient(180deg, rgba(15, 17, 20, 0.96), rgba(17, 20, 23, 0.94)),
+    radial-gradient(circle at top left, rgba(31, 209, 160, 0.16), transparent 32%);
+  color: var(--text-strong);
+  box-shadow: 18px 0 45px rgba(0, 0, 0, 0.24);
+}
+
+:root[data-theme="dark"] .tag h1,
+:root[data-theme="dark"] .dashboard .designDash,
+:root[data-theme="dark"] .dashboard .content h2,
+:root[data-theme="dark"] .dashboard .summary-card strong,
+:root[data-theme="dark"] .dashboard .head,
+:root[data-theme="dark"] .dashboard .name b,
+:root[data-theme="dark"] .login_brand_panel h1,
+:root[data-theme="dark"] .heading,
+:root[data-theme="dark"] .createTest h2,
+:root[data-theme="dark"] .heading_ h1,
+:root[data-theme="dark"] .reviewHeader h1,
+:root[data-theme="dark"] .testInfo strong,
+:root[data-theme="dark"] .main_ > .heading,
+:root[data-theme="dark"] .testTitle_,
+:root[data-theme="dark"] .Question_,
+:root[data-theme="dark"] [class*="signup_brand_panel"] h1,
+:root[data-theme="dark"] [class*="heading"] h1,
+:root[data-theme="dark"] [class*="heading"] h2 {
+  color: var(--text-strong);
+}
+
+:root[data-theme="dark"] .dashboard .page-kicker,
+:root[data-theme="dark"] .dashboard .quote,
+:root[data-theme="dark"] .dashboard #username,
+:root[data-theme="dark"] .dashboard .summary-label,
+:root[data-theme="dark"] .dashboard .quoteText,
+:root[data-theme="dark"] .login_support,
+:root[data-theme="dark"] .prompt-text,
+:root[data-theme="dark"] .para,
+:root[data-theme="dark"] .createTest label,
+:root[data-theme="dark"] #test_title_label,
+:root[data-theme="dark"] .reviewHeader p,
+:root[data-theme="dark"] .testInfo p,
+:root[data-theme="dark"] .askid-label,
+:root[data-theme="dark"] .marks_,
+:root[data-theme="dark"] .testid_,
+:root[data-theme="dark"] [class*="signup_support"],
+:root[data-theme="dark"] [class*="signup_text"],
+:root[data-theme="dark"] [class*="para__"],
+:root[data-theme="dark"] [class*="docs"] label,
+:root[data-theme="dark"] [class*="heading"] p {
+  color: var(--text-muted);
+}
+
+:root[data-theme="dark"] .dashboard #details,
+:root[data-theme="dark"] .dashboard .greet,
+:root[data-theme="dark"] .dashboard .summary-card,
+:root[data-theme="dark"] .dashboard .piechart,
+:root[data-theme="dark"] .dashboard .ongoing,
+:root[data-theme="dark"] .dashboard .testRecords,
+:root[data-theme="dark"] .dashboard .bargraph,
+:root[data-theme="dark"] .login_div,
+:root[data-theme="dark"] .test_details,
+:root[data-theme="dark"] .addQ,
+:root[data-theme="dark"] .overlay-content_,
+:root[data-theme="dark"] .testCard,
+:root[data-theme="dark"] .tests > p,
+:root[data-theme="dark"] .askid-container,
+:root[data-theme="dark"] .maindiv_,
+:root[data-theme="dark"] .Q_,
+:root[data-theme="dark"] .option_,
+:root[data-theme="dark"] .overlay-content,
+:root[data-theme="dark"] .analyze,
+:root[data-theme="dark"] .loading,
+:root[data-theme="dark"] [class*="signup_card"],
+:root[data-theme="dark"] [class*="content"] {
+  border-color: var(--panel-border);
+  background: var(--panel-bg);
+  color: var(--text-strong);
+  box-shadow: var(--shadow-soft);
+}
+
+:root[data-theme="dark"] .nav-item:hover,
+:root[data-theme="dark"] .nav-item:focus-within,
+:root[data-theme="dark"] .nav-item.active,
+:root[data-theme="dark"] .dashboard #date,
+:root[data-theme="dark"] .dashboard .indiTest,
+:root[data-theme="dark"] .dashboard .stats h3,
+:root[data-theme="dark"] .login_metric_grid span,
+:root[data-theme="dark"] .inputBox .MuiInputBase-root,
+:root[data-theme="dark"] .inputBox .MuiOutlinedInput-root,
+:root[data-theme="dark"] [class*="signup_metric_grid"] span,
+:root[data-theme="dark"] [class*="input_box"] .MuiInputBase-root,
+:root[data-theme="dark"] [class*="input_box"] .MuiOutlinedInput-root,
+:root[data-theme="dark"] .createTest input,
+:root[data-theme="dark"] .createTest select,
+:root[data-theme="dark"] .askid-input,
+:root[data-theme="dark"] .timer_,
+:root[data-theme="dark"] .previous_,
+:root[data-theme="dark"] .next_,
+:root[data-theme="dark"] [class*="docs"] input {
+  border-color: var(--panel-border-strong);
+  background: var(--panel-bg-muted);
+  color: var(--text-strong);
+}
+
+:root[data-theme="dark"] .inputBox .MuiInputLabel-root,
+:root[data-theme="dark"] .inputBox .MuiInputBase-input,
+:root[data-theme="dark"] [class*="input_box"] .MuiInputLabel-root,
+:root[data-theme="dark"] [class*="input_box"] .MuiInputBase-input,
+:root[data-theme="dark"] [class*="docs"] input:disabled {
+  color: var(--text-muted);
+}
+
+:root[data-theme="dark"] .dashboard .line,
+:root[data-theme="dark"] .setGap,
+:root[data-theme="dark"] .Q_ hr,
+:root[data-theme="dark"] [class*="heading"] {
+  border-color: var(--panel-border);
+}
+
+:root[data-theme="dark"] .dashboard .setFont,
+:root[data-theme="dark"] .option_,
+:root[data-theme="dark"] .options span,
+:root[data-theme="dark"] .overlay-content {
+  color: var(--text-muted);
+}
+
+:root[data-theme="dark"] .logout:hover,
+:root[data-theme="dark"] .logout:focus-within,
+:root[data-theme="dark"] .delete {
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+
+.dashboard .main,
+.createTest .main,
+.reviewTest .main,
+.main_,
+[class*="profile"] [class*="main"],
+.testLayout_ .maindiv_,
+.testreview [class*="main"] {
+  width: 100%;
+  max-width: none;
+}
+
+.dashboard .footer,
+.dashboard .greet,
+.dashboard .summary-grid,
+.dashboard .F_Row,
+.dashboard .S_Row,
+.createTest .content,
+.tests,
+.testreview [class*="margin"] {
+  width: 100%;
+  max-width: none;
+}
+
+@media (max-width: 680px) {
+  .theme-toggle {
+    top: 0.75rem;
+    right: 0.75rem;
+    min-height: 2.35rem;
+    padding-right: 0.55rem;
+  }
+
+  .theme-toggle__text {
+    display: none;
+  }
 }
 

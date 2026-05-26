@@ -19,6 +19,7 @@
     align-items: center;
     justify-content: space-between;
     gap: 1.5rem;
+    padding-right: 8.5rem;
 }
 
 .dashboard .page-kicker {
@@ -395,6 +396,7 @@
     .dashboard .greet {
         align-items: flex-start;
         flex-direction: column;
+        padding-right: 0;
     }
 
     .dashboard #details {
