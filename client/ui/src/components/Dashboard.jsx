@@ -83,7 +83,7 @@ function Dashboard() {
                 });
                 console.log(res.data);
                 setAttempted(res.data.T);
-                setnotAttempted(res.data.Q - attempted);
+                setnotAttempted(res.data.Q - res.data.T);
             } catch (err) {
                 res.json({ 'message': err.message });
             }
@@ -126,53 +126,81 @@ function Dashboard() {
         return `${dayName}, ${day} ${monthName} ${year}`;
     }
 
+    const attemptedCount = Number(attempted) || 0;
+    const notAttemptedCount = Number(notAttempted) || 0;
+    const totalTests = attemptedCount + notAttemptedCount;
+
     return (
         <div className="dashboard">
             <Options />
             <div className="main">
                 <div className="nav">
-                    <font className="designDash">Dashboard</font>
+                    <div>
+                        <p className="page-kicker">Workspace overview</p>
+                        <h1 className="designDash">Dashboard</h1>
+                    </div>
 
                     <div id="details">
-                        <User size={38} strokeWidth={2} /> &nbsp; &nbsp;
+                        <span className="user-avatar"><User size={22} strokeWidth={2.2} /></span>
                         <div className="name">
-                            <b>{Cookies.get("name")}</b> <br />
-                            <font id="username">{Cookies.get("username")}</font>
-                        </div> <RiArrowDownSLine />
+                            <b>{Cookies.get("name")}</b>
+                            <span id="username">{Cookies.get("username")}</span>
+                        </div>
+                        <RiArrowDownSLine />
                     </div>
                 </div>
 
-                <br />
-                <center> <hr className="line" width="95%" /></center>
+                <hr className="line" />
 
-                <br />
                 <div className="greet">
                     <div className="content">
                         <h2> Welcome Back , Mr. {Cookies.get("name")} !  <HiOutlineFaceSmile /> </h2>
                         <div className="space">
-                            <font className="quote">Always take care of your health to carry out Smart.</font></div>
+                            <span className="quote">Always take care of your health to carry out Smart.</span></div>
                     </div>
                     <div id="date">
                         {getFormattedDate()}
                     </div>
                 </div>
+
+                <div className="summary-grid">
+                    <div className="summary-card">
+                        <span className="summary-label">Tests Attempted</span>
+                        <strong>{attemptedCount}</strong>
+                    </div>
+                    <div className="summary-card">
+                        <span className="summary-label">Tests Remaining</span>
+                        <strong>{notAttemptedCount}</strong>
+                    </div>
+                    <div className="summary-card accent">
+                        <span className="summary-label">Total Tests</span>
+                        <strong>{totalTests}</strong>
+                    </div>
+                </div>
+
                 <div className="footer">
                     <div className="F_Row">
                         <div className="piechart">
+                            <div className="panel-heading">
+                                <span className="head">Attempt overview</span>
+                            </div>
                             <div className="pie">
-                                <PieChart attempted={attempted} notAttempted={notAttempted} />
+                                <PieChart attempted={attemptedCount} notAttempted={notAttemptedCount} />
                             </div>
                         </div>
                         <div className="ongoing">
-                            <span className="head"> Tests Attempted : </span><br /> <br />
+                            <div className="panel-heading">
+                                <span className="head"> Tests Attempted : </span>
+                            </div>
                             <div className="testList">
                                 {Array.isArray(test) && test.length ? test.map(({ testTitle, test_id }, i) => {
                                     return (
                                         <div className="indiTest" key={i}>
-                                            <span className="setFont">{testTitle}</span> &nbsp;&nbsp;&nbsp;&nbsp; <button className="RT" onClick={() => reviewTest(test_id)}>Review Test</button>
+                                            <span className="setFont">{testTitle}</span>
+                                            <button className="RT" onClick={() => reviewTest(test_id)}>Review Test</button>
                                         </div>
                                     )
-                                }) : <span> Test Not Attempted</span>}
+                                }) : <span className="empty-state"> Test Not Attempted</span>}
                             </div>
                         </div>
                     </div>
@@ -181,12 +209,15 @@ function Dashboard() {
                             <h2 className="brandTitle">QNeX</h2>
                             <p className="quoteText">"Learning is not attained by chance, it must be sought for with ardor and attended to with diligence."</p>
                             <div className="stats">
-                                <h3>Tests Attempted: {attempted}</h3>
-                                <h3>Total Tests: {attempted + notAttempted}</h3>
+                                <h3>Tests Attempted: {attemptedCount}</h3>
+                                <h3>Total Tests: {totalTests}</h3>
                             </div>
                         </div>
 
                         <div className="bargraph">
+                            <div className="panel-heading">
+                                <span className="head">Monthly progress</span>
+                            </div>
                             <BarGraph barData_={testData}/>
                         </div>
                     </div>

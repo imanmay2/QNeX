@@ -1,53 +1,268 @@
 .signup_wrapper {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(320px, 0.85fr) minmax(360px, 480px);
+    gap: clamp(1.5rem, 6vw, 6rem);
     align-items: center;
-    background: linear-gradient(120deg, #b2fefa, #0ed2f7);
+    min-height: 100vh;
+    padding: clamp(1.25rem, 4vw, 4rem);
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 86% 18%, rgba(23, 201, 139, 0.2), transparent 30%),
+        radial-gradient(circle at 10% 12%, rgba(37, 99, 235, 0.15), transparent 28%),
+        linear-gradient(135deg, #f8fbff 0%, #eef5f9 52%, #f7fafc 100%);
+    font-family: Inter, "Segoe UI", sans-serif;
+}
+
+.signup_wrapper::before {
+    position: absolute;
+    inset: 1.25rem;
+    pointer-events: none;
+    border: 1px solid rgba(15, 23, 42, 0.06);
+    border-radius: 1.5rem;
+    content: "";
 }
 
 .signup_card {
-    width: 400px;
-    background-color: white;
-    padding: 2.5rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    text-align: left;
+    position: relative;
+    z-index: 1;
+    align-self: center;
+    justify-self: center;
+    width: 100%;
+    max-width: 460px;
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    border-radius: 1.35rem;
+    background: rgba(255, 255, 255, 0.86);
+    box-shadow: 0 24px 60px rgba(15, 23, 42, 0.14);
+    backdrop-filter: blur(18px);
+    animation: signupCardIn 420ms ease both;
+}
+
+.signup_brand_panel {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.4rem;
+    max-width: 700px;
+    color: #111827;
+}
+
+.signup_logo {
+    display: inline-grid;
+    width: 3.75rem;
+    height: 3.75rem;
+    place-items: center;
+    border-radius: 1.1rem;
+    background: linear-gradient(135deg, #17c98b, #2563eb);
+    color: #ffffff;
+    font-size: 2rem;
+    font-weight: 850;
+    box-shadow: 0 18px 40px rgba(37, 99, 235, 0.24);
+}
+
+.signup_eyebrow,
+.auth_caption {
+    margin: 0;
+    color: #2563eb;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.signup_brand_panel h1 {
+    max-width: 11ch;
+    margin: 0.25rem 0 0;
+    color: #111827;
+    font-size: clamp(2.65rem, 5.2vw, 5rem);
+    font-weight: 850;
+    line-height: 0.95;
+    letter-spacing: 0;
+}
+
+.signup_support {
+    max-width: 42rem;
+    margin: 0;
+    color: #64748b;
+    font-size: clamp(1rem, 1.6vw, 1.2rem);
+    line-height: 1.75;
+}
+
+.signup_metric_grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 0.4rem;
+}
+
+.signup_metric_grid span {
+    padding: 0.72rem 1rem;
+    border: 1px solid rgba(37, 99, 235, 0.12);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.64);
+    color: #475569;
+    font-size: 0.88rem;
+    font-weight: 750;
+    box-shadow: 0 14px 34px rgba(15, 23, 42, 0.08);
+    backdrop-filter: blur(14px);
 }
 
 .signup_text {
+    margin: 0 0 1.2rem;
+    color: #64748b;
+    font-size: 0.92rem;
     text-align: right;
-    font-size: 0.85rem;
-    margin-bottom: 1rem;
-    color: #444;
-}
-
-.heading {
-    font-size: 1.8rem;
-    font-weight: 700;
-    margin-bottom: 2rem;
-    color: #2196f3;
-    font-family: 'Montserrat', sans-serif;
-}
-
-.para__ {
-    opacity: 0.5;
-    font-size: 0.8rem;
-    text-align: center;
-    margin-top: 1.5rem;
-    line-height: 1.4;
 }
 
 .link__ {
-    color: #1a73e8;
+    color: #2563eb;
+    font-weight: 800;
     text-decoration: none;
-    font-weight: 500;
+}
+
+.link__:hover {
+    color: #17a876;
+}
+
+.auth_title_group {
+    margin-bottom: 1.65rem;
+}
+
+.heading {
+    margin: 0.2rem 0 0;
+    color: #111827;
+    font-family: Inter, "Segoe UI", sans-serif;
+    font-size: clamp(2rem, 4vw, 2.7rem);
+    font-weight: 850;
+    line-height: 1;
+}
+
+.input_box {
+    width: 100%;
+    margin-bottom: 1.25rem;
+}
+
+.input_box :global(.MuiInputBase-root),
+.input_box :global(.MuiOutlinedInput-root) {
+    border-radius: 0.95rem;
+    color: #111827;
+    background: rgba(248, 250, 252, 0.82);
+    transition: background 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.input_box :global(.MuiInputBase-root:hover),
+.input_box :global(.MuiOutlinedInput-root:hover),
+.input_box :global(.MuiInputBase-root.Mui-focused),
+.input_box :global(.MuiOutlinedInput-root.Mui-focused) {
+    background: #ffffff;
+    box-shadow: 0 12px 26px rgba(37, 99, 235, 0.1);
+    transform: translateY(-1px);
+}
+
+.input_box :global(.MuiInputLabel-root.Mui-focused),
+.input_box :global(.MuiSvgIcon-root) {
+    color: #2563eb;
+}
+
+.signup_btn:global(.MuiButton-root) {
+    min-height: 3rem;
+    margin-top: 0.35rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.95rem;
+    background: linear-gradient(135deg, #17c98b, #2563eb);
+    font-size: 0.95rem;
+    font-weight: 850;
+    letter-spacing: 0;
+    text-transform: none;
+    box-shadow: 0 16px 34px rgba(37, 99, 235, 0.24);
+    transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+}
+
+.signup_btn:global(.MuiButton-root:hover) {
+    box-shadow: 0 20px 42px rgba(37, 99, 235, 0.3);
+    filter: saturate(1.08);
+    transform: translateY(-2px);
+}
+
+.para__ {
+    margin-top: 1.3rem;
+    color: #94a3b8;
+    font-size: 0.86rem;
+    line-height: 1.55;
+    text-align: center;
 }
 
 .montserrat_font {
-    font-family: 'Montserrat', sans-serif;
+    font-family: Inter, "Segoe UI", sans-serif;
 }
 
 .small__ {
     font-size: 0.9rem;
+}
+
+@keyframes signupCardIn {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 860px) {
+    .signup_wrapper {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        align-items: center;
+    }
+
+    .signup_brand_panel {
+        order: -1;
+        justify-content: flex-end;
+        min-height: 26vh;
+    }
+
+    .signup_brand_panel h1 {
+        max-width: 14ch;
+    }
+}
+
+@media (max-width: 560px) {
+    .signup_wrapper {
+        padding: 1rem;
+    }
+
+    .signup_wrapper::before {
+        inset: 0.55rem;
+        border-radius: 1.1rem;
+    }
+
+    .signup_brand_panel {
+        min-height: auto;
+        padding-top: 1.5rem;
+    }
+
+    .signup_brand_panel h1 {
+        font-size: 2.45rem;
+    }
+
+    .signup_support {
+        font-size: 0.98rem;
+        line-height: 1.55;
+    }
+
+    .signup_card {
+        padding: 1.25rem;
+        border-radius: 1.1rem;
+    }
+
+    .signup_text {
+        text-align: left;
+    }
 }

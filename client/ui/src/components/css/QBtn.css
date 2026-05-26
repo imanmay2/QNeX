@@ -1,41 +1,72 @@
 .QBtn {
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex: 0 0 230px;
+    flex-direction: column;
     min-height: 100vh;
-    width: 18vw;
-    background-color: #5BA4E7; /* Keep the original theme blue */
+    padding: 1.1rem;
+    border-right: 1px solid rgba(15, 23, 42, 0.08);
+    background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(246, 248, 252, 0.94)),
+        radial-gradient(circle at top left, rgba(23, 201, 139, 0.16), transparent 34%);
+    box-shadow: 18px 0 45px rgba(31, 41, 55, 0.08);
 }
 
 .tag_head {
-    font-size: 3em;
-    font-weight: bold;
-    color: #FFFFFF; /* White for strong contrast */
-    margin: 2em;
-    padding-top: 2em;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 1.5rem;
+    color: #111827;
+    font-size: 1.45rem;
+    font-weight: 850;
+}
+
+.tag_head::before {
+    display: inline-grid;
+    width: 2.35rem;
+    height: 2.35rem;
+    place-items: center;
+    border-radius: 0.85rem;
+    background: linear-gradient(135deg, #17c98b, #2563eb);
+    color: #ffffff;
+    content: "Q";
+    box-shadow: 0 12px 24px rgba(37, 99, 235, 0.22);
 }
 
 .QuestionBtn {
-    padding: 2rem;
-    margin-top: 6em;
-    display: flex;
-    gap: 3rem;
-    margin-left: 1.5em;
-    flex-wrap: wrap;
-    text-align: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(3rem, 1fr));
+    gap: 0.65rem;
     overflow-y: auto;
 }
 
 .trackQ {
-    height: fit-content;
-    width: fit-content;
-    border: 1px solid #ffffff88; /* Soft white border with transparency */
-    border-radius: 12px;
-    padding: 1em;
-    background-color: #ffffffcc; /* Light translucent white for clarity */
-    color: #005792; /* Deep blue text for contrast */
+    display: grid;
+    min-height: 3rem;
+    place-items: center;
+    border: 1px solid rgba(37, 99, 235, 0.12);
+    border-radius: 0.85rem;
+    background: rgba(255, 255, 255, 0.82);
+    color: #2563eb;
     cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    font-weight: 850;
+    transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
 }
 
 .trackQ:hover {
-    background-color: #003f70; /* Darker blue on hover */
-    color: #ffffff; /* Invert text color for contrast */
+    transform: translateY(-2px);
+    background: #ffffff;
+    box-shadow: 0 14px 28px rgba(37, 99, 235, 0.14);
+}
+
+@media (max-width: 760px) {
+    .QBtn {
+        position: relative;
+        flex: none;
+        min-height: auto;
+        border-right: 0;
+        border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+    }
 }

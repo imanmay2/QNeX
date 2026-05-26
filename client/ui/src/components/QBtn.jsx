@@ -10,7 +10,7 @@ function QBtn({questions_,setQ}) {
             <div className="QuestionBtn">
                 {questions_.map((question)=>{
                     return(
-                        <div className="trackQ" id={question.questionNo} onClick={()=>setQ(question.questionNo-1)}>
+                        <div className="trackQ" id={question.questionNo} key={question.questionNo} onClick={()=>setQ(question.questionNo-1)}>
                             {question.questionNo}
                         </div>
                     )

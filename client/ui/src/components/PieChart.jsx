@@ -22,8 +22,10 @@ function PieChart({attempted,notAttempted}) {
             {
                 label: 'Tests',
                 data: [notAttempted,attempted],
-                backgroundColor: ['#FF6384', '#36A2EB'],
-                borderWidth: 1,
+                backgroundColor: ['#fb7185', '#2563eb'],
+                borderColor: ['#fff1f2', '#eff6ff'],
+                borderWidth: 2,
+                hoverOffset: 8,
             },
         ],
     };
@@ -33,6 +35,14 @@ function PieChart({attempted,notAttempted}) {
         plugins: {
             legend: {
                 position: 'bottom',
+                labels: {
+                    boxWidth: 12,
+                    boxHeight: 12,
+                    color: '#475569',
+                    font: {
+                        weight: 700,
+                    },
+                },
             },
         },
     };

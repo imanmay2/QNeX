@@ -347,19 +347,17 @@ function CreateTest() {
                 <div className="content">
                     <div className="test_details">
                         <div className="heading_">
-                            <font>Create New Test</font>
-                            <button className="ai-create-btn" onClick={showOverlay}>🚀 Create Test with AI</button>
+                            <h1>Create New Test</h1>
+                            <button className="ai-create-btn" onClick={showOverlay}>Create Test with AI</button>
                         </div>
-                        <br />
                         <div>
                             <label htmlFor="test_title"><span id="test_title_label">Test Title</span></label>
-                            <input type="text" id="test_title" name="testTitle" value={test.testTitle} onChange={handleInput} style={{ width: "85vh" }} />
+                            <input type="text" id="test_title" name="testTitle" value={test.testTitle} onChange={handleInput} />
                         </div>
-                        <br /><br />
                         <div className="info">
                             <span>
                                 <label htmlFor="description" id="test_title_label">Description</label>
-                                <input type="text" name="description" value={test.description} id="description" onChange={handleInput} style={{ width: "65vh" }} />
+                                <input type="text" name="description" value={test.description} id="description" onChange={handleInput} />
                             </span>
                             <span>
                                 <label htmlFor="duration" id="test_title_label">Duration</label>
@@ -370,34 +368,33 @@ function CreateTest() {
                                 <input type="text" placeholder="QNX123" name="test_id" value={test.test_id} onChange={handleInput} id="test_id" />
                             </span>
                         </div>
-                        <br /><br /><br />
                         <h2>Add Questions</h2>
 
 
                         <div className="addQ">
-                            <label htmlFor="Question" id="test_title_label">Question {i}</label><br />
-                            <input type="text" id="Question" name="question" value={Q.question} onChange={handleQ} style={{ width: "90vh" }} /> <br /><br /><br />
+                            <label htmlFor="Question" id="test_title_label">Question {i}</label>
+                            <input type="text" id="Question" name="question" value={Q.question} onChange={handleQ} />
                             <div className="options">
                                 <span>
                                     <label htmlFor="option_A" id="test_title_label">Option A</label>
-                                    <input type="text" id="option_A" name="option_A" value={Q.options.option_A} onChange={handleQ} style={{ width: "30vh" }} />
+                                    <input type="text" id="option_A" name="option_A" value={Q.options.option_A} onChange={handleQ} />
                                 </span>
                                 <span>
                                     <label htmlFor="option_B" id="test_title_label">Option B</label>
-                                    <input type="text" id="option_B" name="option_B" value={Q.options.option_B} onChange={handleQ} style={{ width: "30vh" }} />
+                                    <input type="text" id="option_B" name="option_B" value={Q.options.option_B} onChange={handleQ} />
                                 </span>
                                 <span>
                                     <label htmlFor="option_C" id="test_title_label">Option C</label>
-                                    <input type="text" id="option_C" name="option_C" value={Q.options.option_C} onChange={handleQ} style={{ width: "30vh" }} />
+                                    <input type="text" id="option_C" name="option_C" value={Q.options.option_C} onChange={handleQ} />
                                 </span>
                             </div>
-                            <br /><br />
-                            <label htmlFor="correctAns">Correct Answer</label><br />
-                            <input type="text" id="correctAns" name="ans" value={Q.ans} onChange={handleQ} style={{ width: "30vh" }} />
-                            <span className="add_anotherQ" onClick={addQ}>+ Add Another Question</span>
-                            <span className="delete" onClick={deleteQuestion}>Reset Question</span>
+                            <label htmlFor="correctAns">Correct Answer</label>
+                            <input type="text" id="correctAns" name="ans" value={Q.ans} onChange={handleQ} />
+                            <div className="question-actions">
+                                <span className="add_anotherQ" onClick={addQ}>+ Add Another Question</span>
+                                <span className="delete" onClick={deleteQuestion}>Reset Question</span>
+                            </div>
                         </div>
-                        <br /><br />
                         <center>
                             <span className="create_test_btn" onClick={createTest}>Create Test</span>
                         </center>

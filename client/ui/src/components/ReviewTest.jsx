@@ -56,7 +56,10 @@ function ReviewTest() {
     <div className="reviewTest">
       <Options />
       <div className="main">
-        <span>Review Tests</span>
+        <div className="reviewHeader">
+          <p>Performance archive</p>
+          <h1>Review Tests</h1>
+        </div>
         
         <div className="tests">
           { (test.length===0) ? <p>No Tests Found !</p> :

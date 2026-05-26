@@ -67,68 +67,86 @@ function Signup() {
 
     return (
         <div className={styles.signup_wrapper}>
+            <section className={styles.signup_brand_panel} aria-label="QNeX onboarding">
+                <div className={styles.signup_logo}>Q</div>
+                <div>
+                    <p className={styles.signup_eyebrow}>QNeX Workspace</p>
+                    <h1>Create your learning command center.</h1>
+                    <p className={styles.signup_support}>Build assessments, attend tests, and review progress from a focused dashboard built for students and educators.</p>
+                </div>
+                <div className={styles.signup_metric_grid} aria-hidden="true">
+                    <span>Create</span>
+                    <span>Attend</span>
+                    <span>Review</span>
+                </div>
+            </section>
             <div className={styles.signup_card}>
                 <p className={styles.signup_text}>
                     Already Registered? <Link className={styles.link__} to="/">Login</Link>
                 </p>
-                <h2 className={styles.heading}>SignUp</h2>
+                <div className={styles.auth_title_group}>
+                    <p className={styles.auth_caption}>Get started</p>
+                    <h2 className={styles.heading}>SignUp</h2>
+                </div>
 
-                <TextField
-                    name="Name"
-                    value={data.Name}
-                    label="Name"
-                    fullWidth
-                    onChange={handleInputChange}
-                    variant="standard"
-                    InputProps={{
-                        startAdornment: (
-                            <InputAdornment position="start">
-                                <AccountCircle />
-                            </InputAdornment>
-                        )
-                    }}
-                />
-                <br /><br />
-
-                <TextField
-                    name="Email"
-                    value={data.Email}
-                    label="Email"
-                    fullWidth
-                    onChange={handleInputChange}
-                    variant="standard"
-                />
-                <br /><br />
-
-                <FormControl variant="standard" fullWidth>
-                    <InputLabel>Password</InputLabel>
-                    <OutlinedInput
-                        name="Password"
-                        value={data.Password}
+                <div className={styles.input_box}>
+                    <TextField
+                        name="Name"
+                        value={data.Name}
+                        label="Name"
+                        fullWidth
                         onChange={handleInputChange}
-                        type={showPassword ? 'text' : 'password'}
-                        endAdornment={
-                            <InputAdornment position="end">
-                                <IconButton
-                                    onClick={handleClickShowPassword}
-                                    onMouseDown={handleMouseDownPassword}
-                                    onMouseUp={handleMouseUpPassword}
-                                    edge="end"
-                                >
-                                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                                </IconButton>
-                            </InputAdornment>
-                        }
-                        label="Password"
+                        variant="standard"
+                        InputProps={{
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <AccountCircle />
+                                </InputAdornment>
+                            )
+                        }}
                     />
-                </FormControl>
-                <br /><br />
+                </div>
 
-                <Button fullWidth variant="contained" onClick={handleSubmit}>
+                <div className={styles.input_box}>
+                    <TextField
+                        name="Email"
+                        value={data.Email}
+                        label="Email"
+                        fullWidth
+                        onChange={handleInputChange}
+                        variant="standard"
+                    />
+                </div>
+
+                <div className={styles.input_box}>
+                    <FormControl variant="standard" fullWidth>
+                        <InputLabel>Password</InputLabel>
+                        <OutlinedInput
+                            name="Password"
+                            value={data.Password}
+                            onChange={handleInputChange}
+                            type={showPassword ? 'text' : 'password'}
+                            endAdornment={
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        onClick={handleClickShowPassword}
+                                        onMouseDown={handleMouseDownPassword}
+                                        onMouseUp={handleMouseUpPassword}
+                                        edge="end"
+                                    >
+                                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                                    </IconButton>
+                                </InputAdornment>
+                            }
+                            label="Password"
+                        />
+                    </FormControl>
+                </div>
+
+                <Button className={styles.signup_btn} fullWidth variant="contained" onClick={handleSubmit}>
                     SIGN UP &nbsp; <FaArrowRight />
                 </Button>
 
-                <br />
                 <p className={styles.para__}>
                     Secure your Communication with QNeX<br />
                     Welcome to QNeX!

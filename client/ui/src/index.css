@@ -1,9 +1,3 @@
-body{
-    /* background-image: linear-gradient(to right,rgb(99, 165, 246),rgb(107, 250, 186)); */
-    
-}
-
-
 .montserrat_font {
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;
@@ -11,8 +5,29 @@ body{
   font-style: normal;
 }
 
-*{
+*,
+*::before,
+*::after {
   margin:0;
   padding:0;
+  box-sizing: border-box;
+}
+
+html {
+  background: #f8fbff;
+}
+
+body {
+  min-height: 100vh;
+  background: #f8fbff;
+  color: #111827;
+  font-family: Inter, "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
 }
 

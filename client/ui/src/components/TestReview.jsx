@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { Options } from "./Options";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Cookie from "js-cookie";
+import Cookies from "js-cookie";
 function TestReview() {
     const navigate = useNavigate();
     useEffect(()=>{
@@ -58,7 +58,7 @@ function TestReview() {
         <div className={styles.testreview}>
             <Options />
             <div className={styles.main}>
-                <h1 className={styles.heading}>📝 Review Test</h1>
+                <h1 className={styles.heading}>Review Test</h1>
 
                 {q && q.length > 0 ? (
                     <div className={styles.margin}>
@@ -107,7 +107,7 @@ function TestReview() {
                         ))}
 
                         <div className={styles.btnContainer}>
-                            <button className={styles.btn} onClick={handleReview}>⬅ Back to Review Page</button>
+                            <button className={styles.btn} onClick={handleReview}>Back to Review Page</button>
                         </div>
                     </div>
                 ) : (

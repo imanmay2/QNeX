@@ -29,7 +29,9 @@ function BarGraph({ barData_ }) {
             {
                 label: 'No. of Tests Attempted',
                 data: values,   
-                backgroundColor: 'rgba(75,192,192,0.6)',
+                backgroundColor: 'rgba(37, 99, 235, 0.72)',
+                borderRadius: 10,
+                maxBarThickness: 42,
             },
         ],
     };
@@ -39,6 +41,33 @@ function BarGraph({ barData_ }) {
         plugins: {
             legend: {
                 position: 'top',
+                labels: {
+                    color: '#475569',
+                    font: {
+                        weight: 700,
+                    },
+                },
+            },
+        },
+        scales: {
+            x: {
+                grid: {
+                    display: false,
+                },
+                ticks: {
+                    color: '#64748b',
+                    font: {
+                        weight: 700,
+                    },
+                },
+            },
+            y: {
+                grid: {
+                    color: 'rgba(100, 116, 139, 0.16)',
+                },
+                ticks: {
+                    color: '#64748b',
+                },
             },
         },
     };

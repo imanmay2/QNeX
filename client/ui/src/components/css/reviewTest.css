@@ -1,69 +1,133 @@
 .reviewTest {
     display: flex;
     min-height: 100vh;
-    min-width: 100vw;
-    background-color: #f8f9fd;
+    background:
+        radial-gradient(circle at 22% 12%, rgba(23, 201, 139, 0.12), transparent 24%),
+        linear-gradient(135deg, #f8fbff 0%, #eef4f8 100%);
+    color: #111827;
+    font-family: Inter, "Segoe UI", sans-serif;
 }
 
-.main {
-    display: flex;
-    flex-direction: column;
-    margin-left: 2rem;
-    margin-top: 1rem;
+.reviewTest .main {
+    flex: 1;
+    min-width: 0;
+    padding: clamp(1.2rem, 3vw, 2.4rem);
 }
 
-span {
-    font-size: 1.8em;
-    color: #5BA4E7;
-    margin-bottom: 1rem;
+.reviewHeader {
+    margin-bottom: 1.4rem;
+}
+
+.reviewHeader p {
+    margin: 0 0 0.35rem;
+    color: #64748b;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.reviewHeader h1 {
+    margin: 0;
+    color: #111827;
+    font-size: clamp(2.1rem, 4vw, 3.2rem);
+    font-weight: 850;
+    line-height: 1;
 }
 
 .tests {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1rem;
+}
+
+.tests > p {
+    display: grid;
+    min-height: 18rem;
+    place-items: center;
+    border: 1px dashed rgba(100, 116, 139, 0.32);
+    border-radius: 1.1rem;
+    background: rgba(255, 255, 255, 0.72);
+    color: #64748b;
+    font-size: clamp(1.2rem, 3vw, 2rem);
+    font-weight: 700;
 }
 
 .testCard {
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 1fr 92px;
     align-items: center;
-    justify-content: space-between;
-    padding: 1.5rem;
-    width: 500px;
-    border-radius: 12px;
-    border: 2px solid #5BA4E7;
-    background-color: white;
-    box-shadow: 0 4px 8px rgba(91, 164, 231, 0.2);
+    gap: 1.25rem;
+    padding: 1.25rem;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    border-radius: 1.1rem;
+    background: rgba(255, 255, 255, 0.84);
+    box-shadow: 0 18px 46px rgba(15, 23, 42, 0.08);
+    backdrop-filter: blur(16px);
+    transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.testCard:hover {
+    transform: translateY(-3px);
+    border-color: rgba(37, 99, 235, 0.14);
+    box-shadow: 0 24px 58px rgba(15, 23, 42, 0.12);
 }
 
 .testInfo {
-    flex: 1;
+    display: grid;
+    gap: 0.45rem;
+    min-width: 0;
 }
 
 .testInfo p {
-    margin: 0.3rem 0;
+    margin: 0;
+    color: #475569;
+    font-size: 0.92rem;
+    line-height: 1.45;
+}
+
+.testInfo strong {
+    color: #111827;
+    font-weight: 850;
 }
 
 .btn {
-    display: inline-block;
-    margin-top: 1rem;
-    padding: 0.5rem 1rem;
-    background-color: #a9cbeb;
-    color: white;
-    font-weight: bold;
-    border: none;
-    border-radius: 8px;
+    display: inline-flex;
+    justify-content: center;
+    width: max-content;
+    margin-top: 0.5rem;
+    padding: 0.68rem 0.95rem;
+    border-radius: 999px;
+    background: #2563eb;
+    color: #ffffff;
     cursor: pointer;
-    transition: background-color 0.3s;
+    font-size: 0.82rem;
+    font-weight: 850;
+    transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
 }
 
 .btn:hover {
-    background-color: #5BA4E7;
+    transform: translateY(-1px);
+    background: #1d4ed8;
+    box-shadow: 0 12px 24px rgba(37, 99, 235, 0.24);
 }
 
 .progressContainer {
-    width: 80px;
-    height: 80px;
-    margin-left: 2rem;
+    width: 86px;
+    height: 86px;
+}
+
+@media (max-width: 680px) {
+    .reviewTest {
+        display: block;
+        padding-bottom: 5rem;
+    }
+
+    .reviewTest .main {
+        padding: 1rem;
+    }
+
+    .testCard {
+        grid-template-columns: 1fr;
+    }
 }

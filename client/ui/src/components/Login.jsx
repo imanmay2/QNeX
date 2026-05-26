@@ -87,9 +87,25 @@ function Login() {
 
     return (
         <div className="login_main">
+            <section className="login_brand_panel" aria-label="QNeX welcome">
+                <div className="login_logo">Q</div>
+                <div>
+                    <p className="login_eyebrow">QNeX Workspace</p>
+                    <h1>Smart test management for focused learning.</h1>
+                    <p className="login_support">Track practice, review progress, and keep every assessment organized in one polished workspace.</p>
+                </div>
+                <div className="login_metric_grid" aria-hidden="true">
+                    <span>Tests</span>
+                    <span>Review</span>
+                    <span>Analytics</span>
+                </div>
+            </section>
             <div className="login_div">
                 <span><p className="prompt-text">New To QNeX? <Link className='signup_' to="/signup">SignUp</Link></p></span>
-                <h2 className='montserrat_font heading'>Login</h2>
+                <div className="auth_title_group">
+                    <p className="auth_caption">Welcome back</p>
+                    <h2 className='montserrat_font heading'>Login</h2>
+                </div>
 
                 <div className="inputBox">
                     <TextField
@@ -106,6 +122,7 @@ function Login() {
                             ),
                         }}
                         variant="standard"
+                        className="auth_input"
                     />
                 </div>
 
@@ -132,6 +149,7 @@ function Login() {
                                 </InputAdornment>
                             }
                             label="Password"
+                            className="auth_input"
                         />
                     </FormControl>
                 </div>

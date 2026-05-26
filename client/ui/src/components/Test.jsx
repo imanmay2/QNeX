@@ -160,10 +160,7 @@ function Test() {
           <button type="submit" className={styles.overlaySubmit} onClick={handleSubmit}>Submit</button>
         </div>
       </div>
-      {test?.testTitle ? (<div style={{
-        display: "flex",
-        flexDirection: "row", width: "100vw", gap: "2rem"
-      }}><QBtn questions_={test?.questions_} setQ={setQ} />
+      {test?.testTitle ? (<div className={styles.testLayout_}><QBtn questions_={test?.questions_} setQ={setQ} />
         <div className={styles.maindiv_}>
           <div className={styles.heading1_}>
             <span className={styles.testTitle_}>{test?.testTitle}</span>

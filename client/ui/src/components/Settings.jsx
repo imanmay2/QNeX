@@ -141,32 +141,26 @@ function Settings() {
             <div className={styles.main}>
                 <div className={styles.content}>
                     <div className={styles.heading}>
-                        <br />
-                        <center>
-                            <IoSettingsOutline /> <br />
-                            Profile Settings</center>
+                        <IoSettingsOutline />
+                        <div>
+                            <p>Account preferences</p>
+                            <h1>Profile Settings</h1>
+                        </div>
                     </div>
-                    <br /> <br />
                     <div className={styles.docs}>
                         <label htmlFor="username">Name</label>
-                        <br />
                         <input ref={usernameRef} type="text" name='username' value={name} onChange={handleChange} disabled />
                     </div>
-                    <br />
                     <div className={styles.docs}>
                         <label htmlFor="email">Email</label>
-                        <br />
                         <input ref={emailRef} type="text" name='email' value={email} onChange={handleChange} disabled />
                     </div>
-                    <br />
                     <div className={styles.docs}>
                         <label htmlFor="password">Change Password</label>
-                        <br />
                         <input ref={passwordRef} placeholder='New Password' type="password" name='password' onChange={handleChange} value={password} disabled />
                     </div>
 
                     {/* buttons */}
-                    <br />
                     <button ref={editRef} className={styles.edit} onClick={handleClick}>Edit</button>
 
                     {/* <button ref={saveRef} className={styles.save} onClick={save}>Save</button> */}
