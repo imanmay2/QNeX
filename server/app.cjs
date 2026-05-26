@@ -19,7 +19,7 @@ let flag = 0;
 
 
 const corsOptions = {
-    origin: "https://qnex.netlify.app",
+    origin: "https://qnexv1.netlify.app",
     credentials: true
 };
 
